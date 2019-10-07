@@ -1,30 +1,30 @@
 // import Class from "./class_code";
 var Class = require("class.extend");
+var _globalLineWidth = 0.2;
+class BrushBase {
+  sizeMin = 0;
+  sizeMax = 0;
+  sizeDraw = 0;
 
-var BrushBase = Class.extend("BrushBase", {
-  sizeMin: 0,
-  sizeMax: 0,
-  sizeDraw: 0,
+  mouseX = null;
+  mouseY = null;
 
-  mouseX: null,
-  mouseY: null,
+  context = null;
 
-  context: null,
+  lineWidth = null;
+  opacity = null;
 
-  lineWidth: null,
-  opacity: null,
+  points = null;
 
-  points: null,
+  symmetry = null;
 
-  symmetry: null,
-
-  init: function(context) {
+  constructor(context) {
     this.context = context;
 
     this.points = new Array();
-  },
+  }
 
-  beginStroke: function(color, size, symmetry, mouseX, mouseY, shadow) {
+  beginStroke(color, size, symmetry, mouseX, mouseY, shadow) {
     this.mouseX = mouseX;
     this.mouseY = mouseY;
 
@@ -44,13 +44,13 @@ var BrushBase = Class.extend("BrushBase", {
     this.context.lineWidth = _globalLineWidth;
     this.context.strokeStyle = color;
     this.context.globalCompositeOperation = "source-over";
-  },
+  }
 
-  doStroke: function(mouseX, mouseY) {},
+  doStroke(mouseX, mouseY) {}
 
-  endStroke: function(mouseX, mouseY) {},
+  endStroke(mouseX, mouseY) {}
 
-  draw: function(points) {
+  draw(points) {
     var pointsToDraw = this.applySymmetry(points);
 
     var length = pointsToDraw.length;
@@ -60,7 +60,7 @@ var BrushBase = Class.extend("BrushBase", {
 
     this.context.beginPath();
 
-    for (i = 0; i < length; i += 2) {
+    for (let i = 0; i < length; i += 2) {
       from = pointsToDraw[i];
       to = pointsToDraw[i + 1];
 
@@ -69,13 +69,11 @@ var BrushBase = Class.extend("BrushBase", {
     }
 
     this.context.stroke();
-  },
+  }
 
-  applySymmetry: function(points) {
+  applySymmetry(points) {
     if (this.symmetry != null && this.symmetry.length != 0) {
       var pointsToDraw = points;
-
-      var i;
 
       var length = this.symmetry.length;
 
@@ -86,7 +84,7 @@ var BrushBase = Class.extend("BrushBase", {
 
       var angleBegin;
 
-      for (i = 0; i < length; ++i) {
+      for (let i = 0; i < length; ++i) {
         if (this.symmetry[i].isRotate()) {
           angleBegin = this.symmetry[i].angleBegin;
 
@@ -107,20 +105,19 @@ var BrushBase = Class.extend("BrushBase", {
       return points;
     }
   }
-});
+}
 
-var BrushThin = BrushBase.extend({
-  name: "BrushThin",
-  maxPoints: 10,
+class BrushThin extends BrushBase {
+  maxPoints = 10;
 
-  init: function(context) {
+  init(context) {
     this.sizeMin = 1000;
     this.sizeMax = 20000;
 
     this._super(context);
-  },
+  }
 
-  doStroke: function(mouseX, mouseY) {
+  doStroke(mouseX, mouseY) {
     if (this.points.length > this.maxPoints) {
       this.points = this.points.slice(this.points.length - this.maxPoints);
     }
@@ -144,11 +141,9 @@ var BrushThin = BrushBase.extend({
     var pointX;
     var pointY;
 
-    var i;
-
     var length = this.points.length;
 
-    for (i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
       pointX = this.points[i][0];
       pointY = this.points[i][1];
 
@@ -177,7 +172,7 @@ var BrushThin = BrushBase.extend({
     this.mouseX = mouseX;
     this.mouseY = mouseY;
   }
-});
+}
 
 let _brush;
 export function initBrush(context) {
@@ -185,4 +180,6 @@ export function initBrush(context) {
   _brush = new BrushThin(context);
 }
 
-export default _brush;
+export default function getBrush() {
+  return _brush;
+}

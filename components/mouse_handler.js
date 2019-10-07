@@ -1,4 +1,4 @@
-import _brush from "./brush_class";
+import getBrush from "./brush_class";
 
 let _mouseLBDown = false;
 let _brushColor = "green";
@@ -19,14 +19,14 @@ function getClientCords(event) {
 function onCanvasMouseMove(event) {
   var coords = getClientCords(event);
 
-  _brush.doStroke(coords.x, coords.y);
+  getBrush().doStroke(coords.x, coords.y);
 }
 
 function onCanvasMouseUp() {
   if (_mouseLBDown == true) {
     // $('div.move').show();
 
-    _brush.endStroke();
+    getBrush().endStroke();
   }
 
   _mouseLBDown = false;
@@ -52,7 +52,7 @@ export function onCanvasMouseDown(event) {
   // var shadow = $("input#shadow").is(':checked');
   var shadow = false; //todo
 
-  _brush.beginStroke(
+  getBrush().beginStroke(
     _brushColor,
     _brushSize,
     _transformModes,
