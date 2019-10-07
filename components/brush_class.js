@@ -1,5 +1,3 @@
-// import Class from "./class_code";
-var Class = require("class.extend");
 var _globalLineWidth = 0.2;
 class BrushBase {
   sizeMin = 0;
