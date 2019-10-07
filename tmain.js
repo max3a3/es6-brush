@@ -11,7 +11,6 @@ function initCanvas() {
   //_svg 			= new fabric.Canvas('svg');
   //_svg.setDimensions({width: _canvasWidth, height: _canvasHeight});
 
-  debugger;
   _canvas = document.getElementById("canvas");
   _context = _canvas.getContext("2d");
 

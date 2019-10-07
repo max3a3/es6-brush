@@ -2,3 +2,19 @@ basic_class
 Point
 Line
 TransformMode  Transform is used internally just as a librery
+
+
+---
+
+transform  is a array of thing to be mirrored
+
+
+
+thinbrush
+
+
+---
+globals
+
+in mouse_handler.js
+_brushColor
