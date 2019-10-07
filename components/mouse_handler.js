@@ -1,7 +1,7 @@
-import getBrush from "./brush_class"; 
+import getBrush from "./brush_class";
 let _mouseLBDown = false;
-let _brushColor = "green";
-let _brushSize = 3;
+let _brushColor = "red";
+let _brushSize = 2;
 let _transformModes = [];
 
 function getClientCords(event) {

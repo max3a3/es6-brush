@@ -1,23 +1,23 @@
 import { _globalLineWidth, BrushBase } from "./BrushBase";
-export class BrushThin extends BrushBase {
-  maxPoints = 10;
 
+export class BrushStar extends BrushBase {
   constructor(context) {
     super(context);
-    this.sizeMin = 1000;
-    this.sizeMax = 20000;
+    this.sizeMin = 100;
+    this.sizeMax = 8000;
+
+  }
+
+  beginStroke(color, size, symmetry, mouseX, mouseY) {
+    super.beginStroke(color, size, symmetry, mouseX, mouseY);
+
+    this.points = new Array();
   }
 
   doStroke(mouseX, mouseY) {
-    if (this.points.length > this.maxPoints) {
-      this.points = this.points.slice(this.points.length - this.maxPoints);
-    }
-
     this.points.push([mouseX, mouseY]);
 
     var points = new Array();
-    points.push([mouseX, mouseY]);
-    points.push([this.mouseX, this.mouseY]);
 
     var a;
     var b;
@@ -26,30 +26,23 @@ export class BrushThin extends BrushBase {
     var mul = 0.3;
     var intensity = this.sizeDraw;
 
-    this.context.lineWidth =
-      _globalLineWidth + 2 * (this.sizeDraw / this.sizeMax);
-
     var pointX;
     var pointY;
 
+    var i;
     var length = this.points.length;
+    console.log(mouseX, mouseY, length);
 
-    for (let i = 0; i < length; i++) {
+    for (i = 0; i < length; i++) {
       pointX = this.points[i][0];
       pointY = this.points[i][1];
 
-      b = pointX - mouseX;
-      a = pointY - mouseY;
+      b = pointX - this.points[0][0];
+      a = pointY - this.points[0][1];
 
       g = b * b + a * a;
 
-      //console.log(g);
-
-      if (g > 1000) {
-        continue;
-      }
-
-      if (Math.random() > g / intensity) {
+      if (g < intensity && Math.random() > g / intensity) {
         b *= mul;
         a *= mul;
 

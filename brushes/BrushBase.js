@@ -57,7 +57,7 @@ export class BrushBase {
     var to;
 
     this.context.beginPath();
-
+    console.log("draw", length);
     for (let i = 0; i < length; i += 2) {
       from = pointsToDraw[i];
       to = pointsToDraw[i + 1];

@@ -9,8 +9,23 @@ TransformMode  Transform is used internally just as a librery
 transform  is a array of thing to be mirrored
 
 
+simple,1 not ported
+thinbrush, 2
+brushsketchy, 3
 
-thinbrush
+brushstar, last
+
+
+size ?   1 10 20  uses the id from html
+<ul class="dropdown fixed">
+						<li class='small hoverable size loc' id='1'>Small</li>
+						<li class='medium hoverable size selected loc' id='10'>Medium</li>
+						<li class='big hoverable size loc' id='20'>Large</li>
+					</ul>
+---
+onSymmetry()
+cumulative add
+		_transformModes.push(newMode);
 
 
 ---
