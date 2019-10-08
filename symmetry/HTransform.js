@@ -2,7 +2,7 @@ import {TransformMode,Point} from '../components/basic_class'
 import {_canvasHeight, _canvasWidth,_appBarHeight} from "../tconfig";
 
 let moveId // todo not used?
-let moveX, moveY // the center?
+let moveX, moveY // location of the move widget
 export function getHorizontalTransform() {
 
     // see onSymmetry
