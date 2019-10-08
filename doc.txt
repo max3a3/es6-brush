@@ -33,3 +33,5 @@ globals
 
 in mouse_handler.js
 _brushColor
+
+_transformModes

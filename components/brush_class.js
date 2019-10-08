@@ -4,9 +4,9 @@ import { BrushSketchy } from "../brushes/BrushSketchy";
 
 let _brush;
 export function initBrush(context) {
-  // _brush = new BrushThin(context);
+  _brush = new BrushThin(context);
   // _brush = new BrushStar(context);
-  _brush = new BrushSketchy(context);
+  // _brush = new BrushSketchy(context);
 }
 
 export default function getBrush() {

@@ -2,8 +2,7 @@ import getBrush from "./brush_class";
 let _mouseLBDown = false;
 let _brushColor = "red";
 let _brushSize = 2;
-let _transformModes = [];
-
+import {_transformModes} from '../symmetry/index'
 function getClientCords(event) {
   // var offsetY = _appBarHeight;
   var offsetY = 0;

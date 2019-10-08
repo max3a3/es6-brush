@@ -1,8 +1,14 @@
-import {TransformMode} from '../components/basic_class'
+import {TransformMode,Point} from '../components/basic_class'
+import {_canvasHeight, _canvasWidth,_appBarHeight} from "../tconfig";
 
-let moveId
+let moveId // todo not used?
 let moveX, moveY // the center?
-function getHorizontalTransform() {
+export function getHorizontalTransform() {
+
+    // see onSymmetry
+    var vCenter = _canvasHeight / 2;
+    var hCenter = _canvasWidth / 2;
+
     var newMode = new TransformMode();
 
     moveId = "move_" + mode;
