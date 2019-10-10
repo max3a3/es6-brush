@@ -41,12 +41,12 @@ export default class BrushCanvas extends Component {
   }
 
   mouseDown = event => {
-    console.log('mousedown')
+    console.log("mousedown");
     let [x, y] = this.getLocalXY(event);
     getBrush().beginStroke(
       this.brushColor,
       this.brushSize,
-      this.transformModes, 
+      this.transformModes,
       x,
       y,
       this.shadow
@@ -81,12 +81,13 @@ export default class BrushCanvas extends Component {
     if (this.isDrawing) {
       this.brush.endStroke();
     }
-    this.isDrawing = false; 
+    this.isDrawing = false;
   };
 
   render() {
     return (
-      <div className='canvas_container
+      <div
+        className="canvas_container"
         onMouseDown={this.mouseDown}
         onMouseUp={this.mouseUp}
         onMouseMove={this.mouseMove}
@@ -101,7 +102,7 @@ export default class BrushCanvas extends Component {
         <canvas
           className="canvas_overlay"
           ref={this.canvasOverlayRef}
-          height={100}
+          height={_canvasHeight}
           width={_canvasWidth}
         />
       </div>
