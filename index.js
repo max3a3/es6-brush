@@ -6,4 +6,5 @@ import "./style.css";
 // import "./tmain"; // telloware demo, NOITYET
 
 // import "./rmain"; // react simple Canvas demo
-import "./tr_main"; //rello react demo
+//import "./tr_main"; //rello react demo
+import "./rp_main"; //react paper test demo
