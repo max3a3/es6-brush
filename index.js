@@ -3,6 +3,7 @@ import "./style.css";
 
 // import './fmain'; // font demo
 
-import "./tmain"; // telloware demo, NOITYET
+// import "./tmain"; // telloware demo, NOITYET
 
-// import "./rmain"; // react demo
+// import "./rmain"; // react simple Canvas demo
+import "./tr_main"; //rello react demo
