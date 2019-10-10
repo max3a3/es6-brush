@@ -1,5 +1,5 @@
 import React from "react";
 import { render } from "react-dom";
-import Canvas from "./components/Canvas";
+import App from "./components/App";
 
-render(<Canvas />, document.getElementById("root"));
+render(<App />, document.getElementById("root"));
