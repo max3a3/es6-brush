@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "key-mirror": "^1.0.1",
+    "reselect":"3.0.1",
     "invariant": "^2.2.4",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",

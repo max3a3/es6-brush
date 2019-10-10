@@ -7,14 +7,14 @@ export class BrushBase {
   mouseX = null;
   mouseY = null;
 
-  context = null;
+  context = null; //  CanvasRenderingContext2D todo:how to add typehint without crapping on stackblitz?
 
   lineWidth = null;
   opacity = null;
 
   points = null;
 
-  symmetry = null;
+  symmetry = [];
 
   constructor(context) {
     this.context = context;
@@ -57,7 +57,7 @@ export class BrushBase {
     var to;
 
     this.context.beginPath();
-    console.log("draw", length);
+    // console.log("brush length", length);
     for (let i = 0; i < length; i += 2) {
       from = pointsToDraw[i];
       to = pointsToDraw[i + 1];

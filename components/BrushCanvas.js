@@ -1,46 +1,56 @@
-import { Component } from "react";
+import {Component} from "react";
 import React from "react";
 import invariant from "invariant";
 
-import getBrush, { initBrush } from "./brush_class";
-import { _canvasWidth, _canvasHeight } from "../tconfig";
+import getBrush, {initBrush} from "./brush_class";
+import {_canvasWidth, _canvasHeight} from "../tconfig";
 
 export default class BrushCanvas extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
+    this.brushColor = 'blue'
+      this.brushSize = 2
+        this.transformModes = []
+      this.shadow = false
   }
+
   componentDidMount() {
     invariant(this.canvasRef.current, "ref not inited");
-    initBrush(this.canvasRef.current.context);
+    let context = this.canvasRef.current.getContext("2d");
+    invariant(context, "no context");
+    initBrush(context);
     this.brush = getBrush();
   }
-  mouseDOwn = event => {
+
+  mouseDown = event => {
+    let [x, y] = this.getLocalXY(event);
     getBrush().beginStroke(
-      _brushColor,
-      _brushSize,
-      _transformModes,
-      coords.x,
-      coords.y,
-      shadow
+      this.brushColor,
+      this.brushSize,
+      this.transformModes,
+      x, y,
+      this.shadow
     );
     this.isDrawing = true;
   };
+
   getLocalXY(event) {
     let x, y;
     if (event.pageY === undefined) {
-      y = event.targetTouches[0].pageY - this.refs.canvas.offsetTop;
+      y = event.targetTouches[0].pageY - this.canvasRef.current.offsetTop;
     } else {
-      y = event.pageY - this.refs.canvas.offsetTop;
+      y = event.pageY - this.canvasRef.current.offsetTop;
     }
     if (event.pageX === undefined) {
-      x = event.targetTouches[0].pageX - this.refs.canvas.offsetLeft;
+      x = event.targetTouches[0].pageX - this.canvasRef.current.offsetLeft;
     } else {
-      x = event.pageX - this.refs.canvas.offsetLeft;
+      x = event.pageX - this.canvasRef.current.offsetLeft;
     }
 
     return [x, y];
   }
+
   mouseMove = event => {
     if (this.isDrawing) {
       let [x, y] = this.getLocalXY(event);
@@ -52,6 +62,7 @@ export default class BrushCanvas extends Component {
     if (this.isDrawing) {
       this.brush.endStroke();
     }
+    this.isDrawing = false;
   };
 
   render() {
