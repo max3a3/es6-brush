@@ -1,9 +1,11 @@
-import BrushCanvas from './BrushCanvas'
+import React from "react";
+import BrushCanvas from "./BrushCanvas";
+import Canvas from "./Canvas";
 
-function App() {
+export default function App() {
   return (
     <div>
-    <BrushCanvas/>
+      <BrushCanvas />
     </div>
-  )
+  );
 }
