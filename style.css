@@ -32,3 +32,13 @@ canvas {
   /* height:500px; */
   border:3px solid #870000;
 }
+
+.canvas_container {
+  position:relative
+}
+
+.canvas_overlay {
+  position:absolute;
+  top:0;
+  left:0
+}
