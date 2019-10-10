@@ -1,3 +1,5 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 h1, h2 {
   font-family: Caveat;
 }
@@ -30,4 +32,3 @@ canvas {
   /* height:500px; */
   border:3px solid #870000;
 }
-@import '~bootstrap/dist/css/bootstrap.min.css';

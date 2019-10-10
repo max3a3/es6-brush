@@ -2,10 +2,11 @@ export default class Canvas extends Component {
   constructor(props) {
     super(props)
     this.canvasRef = React.createRef();
-
   }
   componentDidMount() {
-    this.brush = getBrush()
+    invariant(this.canvasRef.current) 
+    initBrush(this.canvasRef.current.context)
+    this.brush = getBrush();
   }
   mouseDOwn = event => {
     getBrush().beginStroke(
@@ -15,28 +16,45 @@ export default class Canvas extends Component {
       coords.x,
       coords.y,
       shadow
-    );
-    this.isDrawing = true
+    )
+    this.isDrawing = true;
   };
   getLocalXY(event) {
-    return [event.targetTouches[0].pageY - this.canvasRef.current.offsetTop]
+    let x, y;
+    if (event.pageY === undefined) {
+      y = event.targetTouches[0].pageY - this.refs.canvas.offsetTop;
+    } else {
+      y = event.pageY - this.refs.canvas.offsetTop;
+    }
+    if (event.pageX === undefined) {
+      x = event.targetTouches[0].pageX - this.refs.canvas.offsetLeft;
+    } else {
+      x = event.pageX - this.refs.canvas.offsetLeft;
+    }
+
+    return [x, y];
   }
   mouseMove = event => {
-              return event.targetTouches[0].pageY - this.refs.canvas.offsetTop;
-      let [x,y] = this.getLocalXY(event)
-      this.brush.doStroke(x,y);
+    if (this.isDrawing) {
+      let [x, y] = this.getLocalXY(event);
+      this.brush.doStroke(x, y);
+    }
+  }
 
-  };
-  mouseUp = event => {};
+  mouseUp = event => {
+    if (this.isDrawing) {
+      this.brush.endStroke()
+    }
+  }
+
   render() {
     <canvas
       className="canvas"
       ref={this.canvasRef}
       id="canvas"
       onMouseDown={this.mouseDown}
-      onMouseUp={this.end}
+      onMouseUp={this.mouseUp}
       onMouseMove={this.mouseMove}
-      onClick={this.stamp}
     />;
   }
 }
