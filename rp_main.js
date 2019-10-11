@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import invariant from "invariant";
 
-//  @psychobolt/react-paperjs
-import { Rectangle, PaperContainer,renderWithPaperScope } from "@psychobolt/react-paperjs";
+import {
+  Rectangle,
+  PaperContainer,
+  renderWithPaperScope
+} from "@psychobolt/react-paperjs";
+
+import DotBounded from "./components/DotBounded";
+
 function Appx() {
   return (
     <PaperContainer
       className="flex_item"
-      canvasProps={{ width: 400, height: 300, class: "tool_canvas" }}
+      canvasProps={{ width: 400, height: 300, className: "tool_canvas" }}
     >
       <Rectangle
         position={[90, 60]}
@@ -23,31 +30,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.paperRef = React.createRef();
   }
   componentDidMount() {
-    invariant(this.state.paper, "paper not defind");
+    let paper = this.paperRef.current.props.paper;
+    invariant(paper, "paper not defind");
+    this.dot = new DotBounded(paper, 30, 20);
   }
   render() {
-    let paperSetter = null;
-
-    // only called once, we install a component as that is the only way scope get passed
-    if (!this.state.paper) {
-      // register paper global to use for debugging
-      const RegisterPaperComp = () => {
-        return ,(paper => {
-          this.setState({ paper });
-          return null;
-        });
-      };
-      paperSetter = <RegisterPaperComp />;
-    }
-
     return (
       <PaperContainer
+        ref={this.paperRef}
         className="flex_item"
-        canvasProps={{ width: 400, height: 300, class: "tool_canvas" }}
+        canvasProps={{ width: 400, height: 300, className: "tool_canvas" }}
       >
-        {paperSetter}
         <Rectangle
           position={[90, 60]}
           width={90}
