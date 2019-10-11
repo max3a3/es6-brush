@@ -1,7 +1,16 @@
-basic_class
+intelloware basic_class
 Point
 Line
 TransformMode  Transform is used internally just as a librery
+---
+
+log
+
+tmain straight port of intelloware
+r_main simple react canvas with brush mouse
+
+tr_main  telloware react canvas and mouse handler
+rp_main react paper main
 
 
 ---
@@ -28,6 +37,19 @@ cumulative add
 		_transformModes.push(newMode);
 
 
+---
+mirror widget is it important
+
+context access should it be 
+  a separate canvas 
+    uniform just one layer, more easy to understand like photoshop
+    can implement smudge
+  or part of paper (custom object like shape)
+     uniform operation, hiding showing, can have each stroke an object, can transform per stroke
+     can look into transforming the stroke
+     can have independet resolution
+
+     i think for now this is more interesting research 
 ---
 globals
 
