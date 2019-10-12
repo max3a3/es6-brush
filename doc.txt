@@ -9,10 +9,28 @@ log
 tmain straight port of intelloware
 r_main simple react canvas with brush mouse
 
+BrushCanvas has 2 canvas with an overlay
+
 tr_main  telloware react canvas and mouse handler
 rp_main react paper main
 
+--- telloware code
 
+brushbase, it has array of strokes called by derived class to 
+    draw(points) #draw from odd index to even index
+       applyTransform()    each return array concat to points
+
+brushsketchy
+
+
+----  capture the drawing
+   array of point, transform code
+
+   input: array of [array points, array of mirror: e.g:hmirror param(coord)]
+  
+
+   so after a stroke, draw on temp context, pass to the store which redraw it
+                 
 ---
 
 transform  is a array of thing to be mirrored
