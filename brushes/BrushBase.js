@@ -47,7 +47,9 @@ export class BrushBase {
   doStroke(mouseX, mouseY) {}
 
   endStroke(mouseX, mouseY) {}
-
+  debug() {
+    console.log('points',this.points)
+  }
   draw(points) {
     var pointsToDraw = this.applySymmetry(points);
 

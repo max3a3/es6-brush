@@ -80,6 +80,7 @@ export default class BrushCanvas extends Component {
   mouseUp = event => {
     if (this.isDrawing) {
       this.brush.endStroke();
+      this.brush.debug();
     }
     this.isDrawing = false;
   };

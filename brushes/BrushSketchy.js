@@ -10,7 +10,7 @@ export class BrushSketchy extends BrushBase {
   doStroke(mouseX, mouseY) {
     this.points.push([mouseX, mouseY]);
 
-    var points = new Array();
+    var points = new Array();  // push two as it defines a mini stroke
     points.push([mouseX, mouseY]);
     points.push([this.mouseX, this.mouseY]);
 
@@ -32,10 +32,11 @@ export class BrushSketchy extends BrushBase {
       pointX = this.points[i][0];
       pointY = this.points[i][1];
 
-      b = pointX - mouseX;
-      a = pointY - mouseY;
+      b = pointX - mouseX;   // b is dx
+      a = pointY - mouseY; // a is dy
 
-      g = b * b + a * a;
+      g = b * b + a * a; // distance
+
 
       if (Math.random() > g / intensity) {
         b *= mul;
