@@ -48,7 +48,9 @@ export class BrushBase {
 
   endStroke(mouseX, mouseY) {}
   debug() {
-    console.log('points',this.points)
+    console.log("points");
+    let json_value = JSON.stringify(this.points, undefined, 2);
+    console.log(json_value);
   }
   draw(points) {
     var pointsToDraw = this.applySymmetry(points);
