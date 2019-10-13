@@ -22,7 +22,7 @@ export class BrushBase {
     this.points = new Array();
   }
 
-  beginStroke(color, size, symmetry, mouseX, mouseY, shadow) {
+  beginStroke(color, size, symmetry, mouseX, mouseY, shadow = false) {
     this.mouseX = mouseX;
     this.mouseY = mouseY;
 
@@ -47,11 +47,7 @@ export class BrushBase {
   doStroke(mouseX, mouseY) {}
 
   endStroke(mouseX, mouseY) {}
-  debug() {
-    console.log("points");
-    let json_value = JSON.stringify(this.points, undefined, 2);
-    console.log(json_value);
-  }
+  debug() {}
   draw(points) {
     var pointsToDraw = this.applySymmetry(points);
 
@@ -62,7 +58,7 @@ export class BrushBase {
 
     this.context.beginPath();
     // console.log("brush length", length);
-    for (let i = 0; i < length; i += 2) {
+    for (let i = 0; i < Math.trunc(length / 2) * 2; i += 2) {
       from = pointsToDraw[i];
       to = pointsToDraw[i + 1];
 

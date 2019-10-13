@@ -7,30 +7,41 @@ import { _canvasWidth, _canvasHeight } from "../tconfig";
 
 let STROKE = [];
 STROKE[0] = [
-  [170.9908447265625, 234.88650512695312],
-  [188.4505615234375, 238.82196044921875],
-  [200.278076171875, 237.69754028320312],
-  [213.7952880859375, 234.32431030273438],
-  [222.806640625, 230.9510498046875],
-  [229.0020751953125, 228.70223999023438],
-  [232.38134765625, 225.3289794921875],
-  [234.0709228515625, 221.39352416992188],
-  [235.1973876953125, 216.8958740234375],
-  [235.1973876953125, 214.64703369140625],
-  [235.1973876953125, 214.0848388671875]
+  [60.25227355957031, 188.42529296875],
+  [73.7694320678711, 179.9921875],
+  [77.14872741699219, 177.18115234375],
+  [82.21765899658203, 173.24569702148438],
+  [86.72338104248047, 169.8724365234375],
+  [91.22909545898438, 166.49920654296875],
+  [96.29803466796875, 162.56375122070312],
+  [103.05661010742188, 158.6282958984375],
+  [110.94161987304688, 154.13064575195312],
+  [118.82662963867188, 150.75741577148438],
+  [127.27485656738281, 146.82196044921875],
+  [136.84951782226562, 142.32431030273438],
+  [144.73452758789062, 138.9510498046875],
+  [150.9298858642578, 135.01559448242188],
+  [157.6884765625, 131.08013916015625],
+  [163.8838348388672, 127.14471435546875],
+  [168.95277404785156, 123.20925903320312],
+  [174.02171325683594, 119.83599853515625],
+  [178.5274200439453, 117.02496337890625],
+  [183.03314208984375, 113.6517333984375]
 ];
 STROKE[1] = [
-  [81.439697265625, 226.45339965820312],
-  [79.1868896484375, 228.1400146484375],
-  [77.4971923828125, 229.82662963867188],
-  [75.244384765625, 232.07546997070312],
-  [71.8651123046875, 235.44869995117188],
-  [68.4857177734375, 239.3841552734375],
-  [64.543212890625, 242.1951904296875],
-  [62.2904052734375, 245.56845092773438],
-  [61.1639404296875, 249.50387573242188],
-  [63.4168701171875, 255.1259765625],
-  [65.1064453125, 256.8125915527344]
+  [186.97564697265625, 111.40289306640625],
+  [190.91815185546875, 109.15408325195312],
+  [194.86065673828125, 106.90524291992188],
+  [197.67674255371094, 104.65640258789062],
+  [200.49281311035156, 102.96978759765625],
+  [203.3088836669922, 101.84536743164062],
+  [206.12496948242188, 100.72097778320312],
+  [208.37782287597656, 100.72097778320312],
+  [210.63067626953125, 100.72097778320312],
+  [212.883544921875, 101.84536743164062],
+  [214.57318115234375, 103.53201293945312],
+  [215.69961547851562, 106.90524291992188],
+  [216.8260498046875, 109.15408325195312]
 ];
 
 export default class BrushCanvas extends Component {
@@ -42,8 +53,11 @@ export default class BrushCanvas extends Component {
     this.brushSize = 2;
     this.transformModes = [];
     this.shadow = false;
+
+    this.brushCache = []; //todo see particle demo sketchjs how to preload array
   }
   drawOverlay(canvas, context) {
+    // just a test
     context.globalCompositeOperation = "source-over";
 
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -71,7 +85,17 @@ export default class BrushCanvas extends Component {
   replayStroke(i) {
     let s = STROKE[i];
     invariant(s.length, "index invalid");
-    this.brush.replay(s);
+    this.brush.beginStroke(
+      this.brushColor,
+      this.brushSize,
+      this.transformModes,
+      s[0][0],
+      s[0][1]
+    );
+    for (let i = 1; i < s.length; i++) {
+      this.brush.doStroke(s[i][0], s[i][1]);
+    }
+    this.brush.endStroke();
   }
   clear() {
     let canvas = this.canvasOverlayRef.current;
@@ -92,19 +116,25 @@ export default class BrushCanvas extends Component {
       this.shadow
     );
     this.isDrawing = true;
+
+    this.brushCache.length = 0;
+    this.brushCache.push([x, y]);
   };
 
   getLocalXY(event) {
     let x, y;
+
+    let currentTargetRect = event.currentTarget.getBoundingClientRect();
+
     if (event.pageY === undefined) {
-      y = event.targetTouches[0].pageY - this.canvasRef.current.offsetTop;
+      y = event.targetTouches[0].pageY - currentTargetRect.top; //- this.canvasRef.current.offsetTop;
     } else {
-      y = event.pageY - this.canvasRef.current.offsetTop;
+      y = event.pageY - currentTargetRect.top;
     }
     if (event.pageX === undefined) {
-      x = event.targetTouches[0].pageX - this.canvasRef.current.offsetLeft;
+      x = event.targetTouches[0].pageX - currentTargetRect.left; //- this.canvasRef.current.offsetLeft;
     } else {
-      x = event.pageX - this.canvasRef.current.offsetLeft;
+      x = event.pageX - currentTargetRect.left;
     }
 
     return [x, y];
@@ -114,13 +144,19 @@ export default class BrushCanvas extends Component {
     if (this.isDrawing) {
       let [x, y] = this.getLocalXY(event);
       this.brush.doStroke(x, y);
+      this.brushCache.push([x, y]);
     }
   };
 
+  debug() {
+    console.log("brush points");
+    let json_value = JSON.stringify(this.brushCache, undefined, 2);
+    console.log(json_value);
+  }
   mouseUp = event => {
     if (this.isDrawing) {
       this.brush.endStroke();
-      this.brush.debug();
+      this.debug();
     }
     this.isDrawing = false;
   };
