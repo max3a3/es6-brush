@@ -5,6 +5,7 @@
   "dependencies": {
     "@psychobolt/react-paperjs": "^0.0.56",
     "bootstrap": "4.3.1",
+    "hashids": "^2.0.1",
     "invariant": "2.2.4",
     "jquery": "3.4.1",
     "paper": "^0.12.0",

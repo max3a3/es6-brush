@@ -1,0 +1,10 @@
+this is a learning/prototoype for using useReducer in hook
+
+want to have a button to change the first object color
+  don't go overboard with colorpicker
+
+create brush demo
+
+create rect with shape custom shape, investigate how to pass pprop
+
+use button to create rect then transfre to to
