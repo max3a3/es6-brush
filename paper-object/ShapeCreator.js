@@ -8,13 +8,12 @@ export function ShapeCreator(
   paper,
   type = "circle",
   {
-    radius = 32,
+    radius = [10, 20],
     position = [130, 140],
     fillColor = "red",
     strokeColor = "blue",
     width = "100",
     height = "80",
-    corner = [10, 20]
   }
 ) {
   let shape;
@@ -25,20 +24,12 @@ export function ShapeCreator(
       fillColor: fillColor,
       strokeColor: strokeColor
     });
-  if (type === "rectanglek") {
-    //position, width, height, radius
-    let rectangle = new paper.Rectangle(0, 0, width, height);
-    shape = new paper.Shape.Rectangle(rectangle, corner);
-    shape.fillColor = fillColor;
-    shape.strokeColor = strokeColor;
-    shape.position = position;
-  }
   if (type === "rectangle") {
     //position, width, height, radius
     let rectangle = new paper.Rectangle(0, 0, width, height);
     shape = new paper.Shape.Rectangle({
       rectangle,
-      radius: corner,
+      radius,
       fillColor,
       strokeColor
     });

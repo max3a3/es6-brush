@@ -12,15 +12,26 @@ import {
 import DotBounded from "./DotBounded";
 import BrushButtons from "./BrushButtons";
 
-const canvasReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_RECT": //modify the
-      return { ids, objects };
+import { INITIAL_STATE, canvasReducer } from "./reducer";
 
-    default:
-      return state;
-  }
-};
+function getPaths({ ids, shapes }) {
+  // todo remove function bracket. see paper_demo
+  let objects = ids.map(pathId => {
+    // properties is protostage specific extraction to display , it is pathData that is from paper and passed back
+
+    const { id /*type: Path,*/, type, ...rest } = shapes[pathId];
+    if (type === "rectangle")
+      return (
+        <ShapeComponent
+          type={type}
+          key={`path_${id}`}
+          data={{ shapeId: id }}
+          {...rest}
+        />
+      );
+  });
+  return objects;
+}
 
 export default function BrushPaperApp() {
   let paperRef = useRef(null);
@@ -33,13 +44,9 @@ export default function BrushPaperApp() {
     */
   }, []);
 
-  let initialState = {
-    ids: [],
-    objects: {}
-  };
-  const [state, dispatch] = useReducer(canvasReducer, initialState);
+  const [state, dispatch] = useReducer(canvasReducer, INITIAL_STATE);
 
-  console.log("brush function");
+  let objects = getPaths(state);
   return (
     <div>
       <BrushButtons state={state} dispatch={dispatch} paperRef={paperRef} />
@@ -49,12 +56,13 @@ export default function BrushPaperApp() {
         canvasProps={{ width: 400, height: 300, className: "tool_canvas" }}
         renderer={CustomRenderer}
       >
-        <ShapeComponent type="rectangle" />
+        {objects}
       </PaperContainer>
     </div>
   );
 }
 /*temp
+        <ShapeComponent type="rectangle" />
 
  <Rectangle
           position={[90, 60]}

@@ -14,6 +14,10 @@ BrushCanvas has 2 canvas with an overlay
 tr_main  telloware react canvas and mouse handler
 rp_main react paper main
 
+
+paper object creation uses object param will be able to do it in one call
+otherwise not optimal, see ShapeCreator.js
+
 --- telloware code
 
 brushbase, it has array of strokes called by derived class to 
