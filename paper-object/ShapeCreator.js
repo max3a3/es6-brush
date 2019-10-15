@@ -10,10 +10,10 @@ export function ShapeCreator(
   {
     radius = [10, 20],
     position = [130, 140],
-    fillColor = "red",
+    fillColor = "red", //todo, need to use ...rest for unspecified default prop
     strokeColor = "blue",
     width = "100",
-    height = "80",
+    height = "80"
   }
 ) {
   let shape;
@@ -24,6 +24,14 @@ export function ShapeCreator(
       fillColor: fillColor,
       strokeColor: strokeColor
     });
+  if (type === "ellipse")
+    shape = new paper.Shape.Ellipse({
+      center: position, // center and position is interchangabel? see react-paper prop mapping
+      radius: radius,
+      fillColor: fillColor,
+      strokeColor: strokeColor
+    });
+
   if (type === "rectangle") {
     //position, width, height, radius
     let rectangle = new paper.Rectangle(0, 0, width, height);

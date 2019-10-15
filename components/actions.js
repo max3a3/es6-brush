@@ -13,3 +13,14 @@ export function AddRect(props) {
     }
   };
 }
+export function AddEllipse(props) {
+  return {
+    type: Actions.ADD_SHAPE,
+    payload: {
+      id: new Hashids("path").encode(new Date().getTime()),
+      type: "ellipse",
+      size:[60,30], // will be overriden by props
+      ...props
+    }
+  };
+}
