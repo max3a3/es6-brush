@@ -1,6 +1,7 @@
-import React, { Component, useRef, useEffect } from "react";
+import React, { Component, useRef, useEffect, useReducer } from "react";
 import { render } from "react-dom";
 import invariant from "invariant";
+import CustomRenderer from "../paper-object/CustomRenderer";
 
 import {
   Rectangle,
@@ -9,59 +10,52 @@ import {
 } from "@psychobolt/react-paperjs";
 
 import DotBounded from "./DotBounded";
-
+import BrushButtons from "./BrushButtons";
 
 const canvasReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_RECT': //modify the 
-    
-      return {ids,objects}
-      return state.map(todo => {
-        if (todo.id === action.id) {
-          return { ...todo, complete: true };
-        } else {
-          return todo;
-        }
-      });
-    case 'UNDO_TODO':
-      return state.map(todo => {
-        if (todo.id === action.id) {
-          return { ...todo, complete: false };
-        } else {
-          return todo;
-        }
-      });
+    case "ADD_RECT": //modify the
+      return { ids, objects };
+
     default:
       return state;
   }
 };
 
-
 export default function BrushPaperApp() {
   let paperRef = useRef(null);
-  useEffect(() => { //componentdidmount to get the paper ref
+  useEffect(() => {
+    //componentdidmount to get the paper ref
     let paper = paperRef.current.props.paper;
     invariant(paper, "paper not defind");
     let dot = new DotBounded(paper, 30, 20);
   }, []);
 
-const [todos, dispatch] = useReducer(todoReducer, initialTodos);
-
+  let initialState = {
+    ids: [],
+    objects: {}
+  };
+  const [state, dispatch] = useReducer(canvasReducer, initialState);
 
   console.log("brush function");
   return (
-    <PaperContainer
-      ref={paperRef}
-      className="flex_item"
-      canvasProps={{ width: 400, height: 300, className: "tool_canvas" }}
-    >
-      <Rectangle
-        position={[90, 60]}
-        width={90}
-        height={60}
-        strokeColor="red"
-        fillColor="yellow"
-      />
-    </PaperContainer>
+    <div>
+      <BrushButtons state={state} dispatch={dispatch} />
+      <PaperContainer
+        ref={paperRef}
+        className="flex_item"
+        canvasProps={{ width: 400, height: 300, className: "tool_canvas" }}
+        render={CustomRenderer}
+      >
+        <Rectangle
+          position={[90, 60]}
+          width={90}
+          height={60}
+          strokeColor="red"
+          fillColor="yellow"
+        />
+        <Shape/>
+      </PaperContainer>
+    </div>
   );
 }

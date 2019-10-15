@@ -8,3 +8,5 @@ create brush demo
 create rect with shape custom shape, investigate how to pass pprop
 
 use button to create rect then transfre to to
+
+try effect, like blur, create rounded rect, 
