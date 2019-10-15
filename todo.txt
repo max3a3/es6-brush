@@ -7,6 +7,16 @@ create brush demo
 
 create rect with shape custom shape, investigate how to pass pprop
 
+custom shape prop, update prop ->
+   we have prop mapping in customcreate  radius: corner
+      how about live? see the property
+      can't do this it is radius, and size
+      we can map via UI but can't do it in the code (creator and props has to be kept simple)
+
 use button to create rect then transfre to to
+
+try updating property by changing property of first objet in the state
+
+objet has type, and we map the type to custom react paper object
 
 try effect, like blur, create rounded rect, 

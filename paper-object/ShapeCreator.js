@@ -1,16 +1,20 @@
 import React from "react";
+import invariant from "invariant";
 
 // todo how to default props on fiber component
 
 // second param is props spreading
 export function ShapeCreator(
   paper,
+  type = "circle",
   {
-    type = "circle",
     radius = 32,
-    position = [80, 120],
+    position = [130, 140],
     fillColor = "red",
-    strokeColor = "blue"
+    strokeColor = "blue",
+    width = "100",
+    height = "80",
+    corner = [10, 20]
   }
 ) {
   let shape;
@@ -21,6 +25,26 @@ export function ShapeCreator(
       fillColor: fillColor,
       strokeColor: strokeColor
     });
+  if (type === "rectanglek") {
+    //position, width, height, radius
+    let rectangle = new paper.Rectangle(0, 0, width, height);
+    shape = new paper.Shape.Rectangle(rectangle, corner);
+    shape.fillColor = fillColor;
+    shape.strokeColor = strokeColor;
+    shape.position = position;
+  }
+  if (type === "rectangle") {
+    //position, width, height, radius
+    let rectangle = new paper.Rectangle(0, 0, width, height);
+    shape = new paper.Shape.Rectangle({
+      rectangle,
+      radius: corner,
+      fillColor,
+      strokeColor
+    });
+    shape.position = position;
+  }
+  invariant(shape, "wrong type");
   return shape;
 }
 

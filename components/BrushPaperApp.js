@@ -2,7 +2,7 @@ import React, { Component, useRef, useEffect, useReducer } from "react";
 import { render } from "react-dom";
 import invariant from "invariant";
 import CustomRenderer from "../paper-object/CustomRenderer";
-
+import { ShapeComponent } from "../paper-object/ShapeCreator";
 import {
   Rectangle,
   PaperContainer,
@@ -25,10 +25,12 @@ const canvasReducer = (state, action) => {
 export default function BrushPaperApp() {
   let paperRef = useRef(null);
   useEffect(() => {
+    /*
     //componentdidmount to get the paper ref
     let paper = paperRef.current.props.paper;
     invariant(paper, "paper not defind");
     let dot = new DotBounded(paper, 30, 20);
+    */
   }, []);
 
   let initialState = {
@@ -40,22 +42,26 @@ export default function BrushPaperApp() {
   console.log("brush function");
   return (
     <div>
-      <BrushButtons state={state} dispatch={dispatch} />
+      <BrushButtons state={state} dispatch={dispatch} paperRef={paperRef} />
       <PaperContainer
         ref={paperRef}
         className="flex_item"
         canvasProps={{ width: 400, height: 300, className: "tool_canvas" }}
-        render={CustomRenderer}
+        renderer={CustomRenderer}
       >
-        <Rectangle
+        <ShapeComponent type="rectangle" />
+      </PaperContainer>
+    </div>
+  );
+}
+/*temp
+
+ <Rectangle
           position={[90, 60]}
           width={90}
           height={60}
           strokeColor="red"
           fillColor="yellow"
         />
-        <Shape/>
-      </PaperContainer>
-    </div>
-  );
-}
+
+        */
