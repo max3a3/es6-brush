@@ -22,3 +22,6 @@ try updating property by changing property of first objet in the state
 objet has type, and we map the type to custom react paper object
 
 try effect, like blur, create rounded rect, 
+  can't do this in canvas, but it is in svg 
+
+
