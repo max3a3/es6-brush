@@ -20,7 +20,7 @@ function getPaths({ ids, shapes }) {
     // properties is protostage specific extraction to display , it is pathData that is from paper and passed back
 
     const { id /*type: Path,*/, type, ...rest } = shapes[pathId];
-    if (type === "rectangle")
+    if (type === "rectangle" || type === "ellipse")
       return (
         <ShapeComponent
           type={type}

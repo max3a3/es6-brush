@@ -4,8 +4,8 @@ import { AddRect, AddEllipse } from "./actions";
 function Btn({ name, cb }) {
   return <button onClick={cb}>{name}</button>;
 }
-let pX = 180;
-let pY = 0;
+let pX = 40;
+let pY = 30;
 function getPosition() {
   pX += 10;
   pY += 40;
@@ -14,7 +14,7 @@ function getPosition() {
 let COLORS = ["red", "blue", "green", "yellow", "aqua", "gold", "cyan"];
 let colorIndex = 0;
 function getColor() {
-  let colorIndex = (colorIndex + 1) % COLORS.length;
+  colorIndex = (colorIndex + 1) % COLORS.length;
   return COLORS[colorIndex];
 }
 export default function TestPaperButtons({ state, dispatch, paperRef }) {
@@ -35,7 +35,13 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
       />
       <Btn
         cb={_ =>
-          dispatch(AddEllipse({ position: getPosition(), radius: [35, 15] }))
+          dispatch(
+            AddEllipse({
+              position: getPosition(),
+              radius: [35, 65],
+              fillColor: getColor()
+            })
+          )
         }
         name="ellipse"
       />

@@ -20,14 +20,14 @@ export function ShapeCreator(
   if (type === "circle")
     shape = new paper.Shape.Circle({
       center: position,
-      radius: radius,
+      radius: radius, // a number
       fillColor: fillColor,
       strokeColor: strokeColor
     });
   if (type === "ellipse")
     shape = new paper.Shape.Ellipse({
       center: position, // center and position is interchangabel? see react-paper prop mapping
-      radius: radius,
+      radius: radius, // 2 array of size
       fillColor: fillColor,
       strokeColor: strokeColor
     });
