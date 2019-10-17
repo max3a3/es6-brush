@@ -40,8 +40,8 @@ function onClear() {
 }
 let starObject;
 const STAR_POSITION = [140, 120];
-let STAR = 0;
-let CIRCLE = 1;
+let STAR = 1;
+let CIRCLE = 0; // to test where _draw is called
 export function DirectPaper() {
   let canvas_ref = useRef(null);
   let textAreaRef = useRef(null);

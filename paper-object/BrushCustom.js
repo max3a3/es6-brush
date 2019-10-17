@@ -1,6 +1,7 @@
 import paper from "paper";
 import _ from "lodash";
 import { BrushThin } from "../brushes/BrushThin";
+import Change from "./ChangeFlag"; // from paperjs
 
 // props are array of array for now
 //  points
@@ -16,7 +17,7 @@ let BrushCustomPaper = paper.Item.extend(
     initialize: function Shape(props = {}, points = []) {
       this._initialize(props, points);
       this.brush = new BrushThin();
-      this._points = points;
+      this.setPoints(points);
     },
 
     setPoints: function(opt) {
@@ -24,9 +25,7 @@ let BrushCustomPaper = paper.Item.extend(
       // pass down option object
       this._points = opt; // cache for getOptions call
 
-      this.cachedStyle();
-
-      this._callCreate(this._paper, opt); // recreate the custom
+      this._changed(/*#=*/ Change.GEOMETRY);
     },
     getPoints: function() {
       //<---   prop getter
