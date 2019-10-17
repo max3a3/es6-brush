@@ -21,7 +21,9 @@ export class BrushBase {
 
     this.points = new Array();
   }
-
+  setContext(context) {
+    this.context = context
+  }
   beginStroke(color, size, symmetry, mouseX, mouseY, shadow = false) {
     this.mouseX = mouseX;
     this.mouseY = mouseY;

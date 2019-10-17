@@ -1,6 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import { render } from "react-dom";
 import paper from "paper";
+import BrushCustomPaper from "./paper-object/BrushCustom";
+
+function dump(textAreaRef) {
+  let value = paper.project.exportJSON({ asString: false });
+  textAreaRef.current.value = JSON.stringify(value, undefined, 2);
+}
 
 function lines() {
   paper.project.clear();
@@ -32,12 +38,29 @@ function lines() {
 function onClear() {
   paper.project.clear();
 }
+let starObject;
+const STAR_POSITION = [140, 120];
+
 export function DirectPaper() {
   let canvas_ref = useRef(null);
   let textAreaRef = useRef(null);
 
   useEffect(() => {
     paper.setup(canvas_ref.current);
+
+    // custom object
+    let style = {
+      // fillColor: new paper.Color(1, 0, 0),
+      // strokeColor: 'black',
+      strokeColor: new paper.Color(0, 0.9, 0.5),
+      strokeWidth: 1
+    };
+
+    starObject = new BrushCustomPaper(); //global
+    starObject.style = style;
+    starObject.selected = true;
+    starObject.position = STAR_POSITION;
+
     // lines()
     // rectangle()
   }, []);
@@ -50,6 +73,7 @@ export function DirectPaper() {
 
         <button onClick={lines}>lines</button>
         <br />
+        <button onClick={() => dump(textAreaRef)}>dump</button>
         <br />
         <textarea ref={textAreaRef} />
       </div>

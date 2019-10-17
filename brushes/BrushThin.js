@@ -2,7 +2,7 @@ import { _globalLineWidth, BrushBase } from "./BrushBase";
 export class BrushThin extends BrushBase {
   maxPoints = 10;
 
-  constructor(context) {
+  constructor(context=null) {
     super(context);
     this.sizeMin = 1000;
     this.sizeMax = 20000;
