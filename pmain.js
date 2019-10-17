@@ -3,6 +3,12 @@ import { render } from "react-dom";
 import paper from "paper";
 import BrushCustomPaper from "./paper-object/BrushCustom";
 import { STROKE } from "./components/BrushCanvas";
+
+let brushObject;
+const BRUSH_POSITION = [140, 120];
+let BRUSH = 1;
+let CIRCLE = 0//1; // to test where _draw is called
+
 function dump(textAreaRef) {
   let value = paper.project.exportJSON({ asString: false });
   textAreaRef.current.value = JSON.stringify(value, undefined, 2);
@@ -38,10 +44,9 @@ function lines() {
 function onClear() {
   paper.project.clear();
 }
-let starObject;
-const STAR_POSITION = [140, 120];
-let STAR = 1;
-let CIRCLE = 0; // to test where _draw is called
+function brush2() {
+  brushObject.points = STROKE[1]
+}
 export function DirectPaper() {
   let canvas_ref = useRef(null);
   let textAreaRef = useRef(null);
@@ -57,12 +62,12 @@ export function DirectPaper() {
       strokeWidth: 1
     };
 
-    if (STAR) {
+    if (BRUSH) {
       // STROKE is in BrushCanvas to test replaying the points
-      starObject = new BrushCustomPaper({}, STROKE[0]); //global
-      starObject.style = style;
-      starObject.selected = true;
-      starObject.position = STAR_POSITION;
+      brushObject = new BrushCustomPaper({position:BRUSH_POSITION}, STROKE[0]); //global
+      brushObject.style = style;
+      // brushObject.selected = true;
+      // starObject.position = STAR_POSITION;
     }
     if (CIRCLE) {
       var shape = new paper.Shape.Ellipse({
@@ -82,6 +87,8 @@ export function DirectPaper() {
         <br />
 
         <button onClick={lines}>lines</button>
+        <br />
+        <button onClick={brush2}>brush 2</button>
         <br />
         <button onClick={() => dump(textAreaRef)}>dump</button>
         <br />

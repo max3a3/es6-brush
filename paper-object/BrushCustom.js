@@ -14,8 +14,10 @@ let BrushCustomPaper = paper.Item.extend(
     _canScaleStroke: true,
 
     // copy of Shape
-    initialize: function Shape(props = {}, points = []) {
-      this._initialize(props, points);
+    initialize: function BrushCustom(props = {},points,point=null) {
+      //point is for initial value for translate,
+      //  or pass in props.position
+      this._initialize(props,point);
       this.brush = new BrushThin();
       this.setPoints(points);
     },
@@ -34,7 +36,7 @@ let BrushCustomPaper = paper.Item.extend(
 
     _draw: function(ctx, param, viewMatrix, strokeMatrix) {
       let s = this._points; // the point array
-      let brushColor = "green";
+      let brushColor = "red";
       let brushSize = 2; // todo get from style
       let transforms = []; // mirror
       this.brush.setContext(ctx);

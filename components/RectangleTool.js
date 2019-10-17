@@ -1,6 +1,5 @@
 import React from 'react';
-import * as ReactPaperJS from '../react-paperjs';
-
+import * as ReactPaperJS from "@psychobolt/react-paperjs"
 
 const {Tool, PaperScope} = ReactPaperJS;
 const MOUSE_LEFT_CODE = 0;
