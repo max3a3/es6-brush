@@ -7,7 +7,7 @@ import { STROKE } from "./components/BrushCanvas";
 let brushObject;
 const BRUSH_POSITION = [140, 120];
 let BRUSH = 1;
-let CIRCLE = 0//1; // to test where _draw is called
+let CIRCLE = 0; //1; // to test where _draw is called
 
 function dump(textAreaRef) {
   let value = paper.project.exportJSON({ asString: false });
@@ -45,7 +45,9 @@ function onClear() {
   paper.project.clear();
 }
 function brush2() {
-  brushObject.points = STROKE[1]
+  brushObject.points = STROKE[1];
+  brushObject.strokeWidth = 18;
+  brushObject.strokeColor = "yellow";
 }
 export function DirectPaper() {
   let canvas_ref = useRef(null);
@@ -64,7 +66,10 @@ export function DirectPaper() {
 
     if (BRUSH) {
       // STROKE is in BrushCanvas to test replaying the points
-      brushObject = new BrushCustomPaper({position:BRUSH_POSITION}, STROKE[0]); //global
+      brushObject = new BrushCustomPaper(
+        { position: BRUSH_POSITION },
+        STROKE[0]
+      ); //global
       brushObject.style = style;
       // brushObject.selected = true;
       // starObject.position = STAR_POSITION;

@@ -41,7 +41,7 @@ export class BrushBase {
       this.context.shadowColor = "transparent";
     }
 
-    this.context.lineWidth = _globalLineWidth;
+    this.context.lineWidth = _globalLineWidth * size; // wng add allowing stroke
     this.context.strokeStyle = color;
     this.context.globalCompositeOperation = "source-over";
   }
