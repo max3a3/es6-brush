@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { render } from "react-dom";
 import paper from "paper";
 import BrushCustomPaper from "./paper-object/BrushCustom";
-
+import { STROKE } from "./components/BrushCanvas";
 function dump(textAreaRef) {
   let value = paper.project.exportJSON({ asString: false });
   textAreaRef.current.value = JSON.stringify(value, undefined, 2);
@@ -40,7 +40,8 @@ function onClear() {
 }
 let starObject;
 const STAR_POSITION = [140, 120];
-
+let STAR = 0;
+let CIRCLE = 1;
 export function DirectPaper() {
   let canvas_ref = useRef(null);
   let textAreaRef = useRef(null);
@@ -56,11 +57,20 @@ export function DirectPaper() {
       strokeWidth: 1
     };
 
-    starObject = new BrushCustomPaper(); //global
-    starObject.style = style;
-    starObject.selected = true;
-    starObject.position = STAR_POSITION;
-
+    if (STAR) {
+      // STROKE is in BrushCanvas to test replaying the points
+      starObject = new BrushCustomPaper({}, STROKE[0]); //global
+      starObject.style = style;
+      starObject.selected = true;
+      starObject.position = STAR_POSITION;
+    }
+    if (CIRCLE) {
+      var shape = new paper.Shape.Ellipse({
+        point: [20, 20],
+        size: [180, 60],
+        fillColor: "black"
+      });
+    }
     // lines()
     // rectangle()
   }, []);
@@ -75,7 +85,7 @@ export function DirectPaper() {
         <br />
         <button onClick={() => dump(textAreaRef)}>dump</button>
         <br />
-        <textarea ref={textAreaRef} />
+        <textarea ref={textAreaRef} rows={40} />
       </div>
       <canvas className="tool_canvas flex_item" ref={canvas_ref} />)
     </div>

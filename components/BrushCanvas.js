@@ -5,7 +5,7 @@ import invariant from "invariant";
 import getBrush, { initBrush } from "./brush_class";
 import { _canvasWidth, _canvasHeight } from "../tconfig";
 
-let STROKE = [];
+export let STROKE = [];
 STROKE[0] = [
   [60.25227355957031, 188.42529296875],
   [73.7694320678711, 179.9921875],
