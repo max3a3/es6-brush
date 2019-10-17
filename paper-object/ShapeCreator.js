@@ -16,7 +16,8 @@ export function ShapeCreator(
     height = "80"
   }
 ) {
-  let shape;
+  let shape; // convert type in props to underneath paper creator object, props.type is extracted by the CustomRenderer, as type can not be changed after it is created
+
   if (type === "circle")
     shape = new paper.Shape.Circle({
       center: position,
