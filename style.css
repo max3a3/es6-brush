@@ -3,6 +3,13 @@
 h1, h2 {
   font-family: Caveat;
 }
+
+.container {
+    background-color: 'aqua';
+    background: 'aqua'
+
+}
+
 .flex_container {
   display: flex;
   flex-direction: row;

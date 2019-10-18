@@ -41,5 +41,5 @@ test prop change
 test modifier for different brush 
 
 >> current
-implement move ellipse, do a filter and change position
-  need to implement action and dispatch reducer
+why canvas dom overlay capture mouse ontop
+  modify brush test so there is another <canvas> copy from bottom

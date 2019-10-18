@@ -48,7 +48,6 @@ export default class BrushCanvas extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
-    this.canvasOverlayRef = React.createRef();
     this.brushColor = "blue";
     this.brushSize = 2;
     this.transformModes = [];
@@ -56,30 +55,13 @@ export default class BrushCanvas extends Component {
 
     this.brushCache = []; //todo see particle demo sketchjs how to preload array
   }
-  drawOverlay(canvas, context) {
-    // just a test
-    context.globalCompositeOperation = "source-over";
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.lineWidth = 3;
-    context.strokeStyle = "green";
-
-    context.beginPath();
-    context.moveTo(0, 50);
-    context.lineTo(100, 50);
-    context.stroke();
-  }
   componentDidMount() {
     invariant(this.canvasRef.current, "ref not inited");
     let context = this.canvasRef.current.getContext("2d");
     invariant(context, "no context");
     initBrush(context);
     this.brush = getBrush();
-
-    if (this.canvasOverlayRef.current) {
-      let overlay = this.canvasOverlayRef.current.getContext("2d");
-      this.drawOverlay(this.canvasOverlayRef.current, overlay);
-    }
   }
 
   replayStroke(i) {
@@ -98,10 +80,8 @@ export default class BrushCanvas extends Component {
     this.brush.endStroke();
   }
   clear() {
-    let canvas = this.canvasOverlayRef.current;
-    let context = this.canvasOverlayRef.current.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context = this.canvasRef.current.getContext("2d");
+    let canvas = this.canvasRef.current;
+    let context = this.canvasRef.current.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
   mouseDown = event => {
@@ -163,8 +143,11 @@ export default class BrushCanvas extends Component {
 
   render() {
     return (
-      <div
-        className="canvas_container"
+      <canvas
+        className="canvas"
+        ref={this.canvasRef}
+        height={this.props.height}
+        width={this.props.width}
         onMouseDown={this.mouseDown}
         onMouseUp={this.mouseUp}
         onMouseMove={this.mouseMove}
@@ -172,21 +155,7 @@ export default class BrushCanvas extends Component {
         onTouchMove={this.mouseMove}
         onTouchEnd={this.mouseUp}
         onTouchCancel={this.mouseUp}
-      >
-        <canvas
-          className="canvas"
-          ref={this.canvasRef}
-          height={_canvasHeight}
-          width={_canvasWidth}
-        />
-
-        <canvas
-          className="canvas_overlay"
-          ref={this.canvasOverlayRef}
-          height={_canvasHeight}
-          width={_canvasWidth}
-        />
-      </div>
+      />
     );
   }
 }
