@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import invariant from "invariant";
 import CustomRenderer from "../paper-object/CustomRenderer";
 import { ShapeComponent } from "../paper-object/ShapeCreator";
+import { BrushComponent } from "../paper-object/BrushCreator";
 import {
   Rectangle,
   PaperContainer,
@@ -19,16 +20,20 @@ function getPaths({ ids, shapes }) {
   let objects = ids.map(pathId => {
     // properties is protostage specific extraction to display , it is pathData that is from paper and passed back
 
-    const { id /*type: Path,*/, type, ...rest } = shapes[pathId];
-    if (type === "rectangle" || type === "ellipse")
-      return (
-        <ShapeComponent
-          type={type}
-          key={`path_${id}`}
-          data={{ shapeId: id }}
-          {...rest}
-        />
-      );
+    const { id /*type: Path,*/, ...rest } = shapes[pathId];
+    switch (rest.type) {
+      case "rectangle":
+      case "ellipse":
+        return (
+          <ShapeComponent key={`path_${id}`} data={{ shapeId: id }} {...rest} />
+        );
+        break;
+      case "brush_thin":
+        return (
+          <BrushComponent key={`path_${id}`} data={{ shapeId: id }} {...rest} />
+        );
+        break;
+    }
   });
   return objects;
 }

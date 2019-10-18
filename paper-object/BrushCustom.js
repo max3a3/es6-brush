@@ -14,11 +14,13 @@ let BrushCustomPaper = paper.Item.extend(
     _canScaleStroke: true,
 
     // copy of Shape
-    initialize: function BrushCustom(props = {}, points, point = null) {
+    initialize: function BrushCustom(props = {}, points = null, point = null) {
       //point is for initial value for translate,
       //  or pass in props.position
       this._initialize(props, point); //todo  point has to be set, or there is in props.position
       this.brush = new BrushThin();
+      if (!points) points = props.points;
+      if (!points) points = [];
       this.setPoints(points);
     },
 

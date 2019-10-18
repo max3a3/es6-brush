@@ -4,9 +4,9 @@ export const INITIAL_STATE = {
 };
 export function canvasReducer(state, action) {
   switch (action.type) {
-    case "ADD_SHAPE": //modify the
+    case "ADD_SHAPE": //ADD concat to  ids and shapes
       let ids = state.ids.concat(action.payload.id);
-      let shapes = { ...state.shapes, [action.payload.id]: action.payload };
+      let shapes = { ...state.shapes, [action.payload.id]: action.payload }; // flatten it
 
       return { ...state, ids, shapes };
 

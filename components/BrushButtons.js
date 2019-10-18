@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import { AddRect, AddEllipse, AddBrush } from "./actions";
+import { STROKE } from "./BrushCanvas";
 function Btn({ name, cb }) {
   return <button onClick={cb}>{name}</button>;
 }
@@ -47,7 +48,7 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
       />
       <Btn
         cb={_ => {
-          AddBrush({ points: STROKE[0] });
+          dispatch(AddBrush({ points: STROKE[0] }));
         }}
         name="brush 1"
       />

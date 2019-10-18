@@ -25,9 +25,9 @@ export function AddEllipse(props) {
   };
 }
 
-export function AddErush(props) {
+export function AddBrush(props) {
   return {
-    type: Actions.ADD_BRUSH,
+    type: Actions.ADD_SHAPE,
     payload: {
       id: new Hashids("brush").encode(new Date().getTime()),
       type: "brush_thin",
