@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { AddRect, AddEllipse } from "./actions";
+import { AddRect, AddEllipse, AddBrush } from "./actions";
 function Btn({ name, cb }) {
   return <button onClick={cb}>{name}</button>;
 }
@@ -44,6 +44,12 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
           )
         }
         name="ellipse"
+      />
+      <Btn
+        cb={_ => {
+          AddBrush({ points: STROKE[0] });
+        }}
+        name="brush 1"
       />
       <Btn
         cb={_ => {

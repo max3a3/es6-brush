@@ -19,7 +19,19 @@ export function AddEllipse(props) {
     payload: {
       id: new Hashids("path").encode(new Date().getTime()),
       type: "ellipse",
-      size:[60,30], // will be overriden by props
+      size: [60, 30], // will be overriden by props
+      ...props
+    }
+  };
+}
+
+export function AddErush(props) {
+  return {
+    type: Actions.ADD_BRUSH,
+    payload: {
+      id: new Hashids("brush").encode(new Date().getTime()),
+      type: "brush_thin",
+      position: [0, 0], // will be overriden by props
       ...props
     }
   };
