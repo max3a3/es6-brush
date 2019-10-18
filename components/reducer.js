@@ -9,7 +9,14 @@ export function canvasReducer(state, action) {
       let shapes = { ...state.shapes, [action.payload.id]: action.payload }; // flatten it
 
       return { ...state, ids, shapes };
-
+    case "SET_PROP":
+      let old_shapes = state.shapes;
+      let { id, prop } = action.payload;
+      let shapes = {
+        ...old_shapes,
+        [id]: { ...old_shapes[id], ...prop }
+      };
+      return { ...state, shapes };
     default:
       return state;
   }

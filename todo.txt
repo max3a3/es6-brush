@@ -25,3 +25,21 @@ try effect, like blur, create rounded rect,
   can't do this in canvas, but it is in svg 
 
 
+test redraw
+  move object above, test redraw
+
+test tool
+   multiple canvas demo, have a button to add the stroke, this is ta tool
+  only one stroke? no, this is our difference (artist oriented not programmer oriented)
+  
+  >> how to keep position in sync,the component has .position but the direct brush doesn't
+
+test prop change
+  search for brush object in satea and change color
+
+ 
+test modifier for different brush 
+
+>> current
+implement move ellipse, do a filter and change position
+  need to implement action and dispatch reducer

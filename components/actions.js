@@ -36,3 +36,21 @@ export function AddBrush(props) {
     }
   };
 }
+export function SetPosition(id, position) {
+  return {
+    type: Actions.SET_PROP,
+    payload: {
+      id,
+      prop: { position }
+    }
+  };
+}
+export function SetFill(id, fillColor) {
+  return {
+    type: Actions.SET_PROP,
+    payload: {
+      id,
+      prop: { fillColor }
+    }
+  };
+}

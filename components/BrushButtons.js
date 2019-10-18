@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { AddRect, AddEllipse, AddBrush } from "./actions";
+import { AddRect, AddEllipse, SetFill, AddBrush, SetPosition } from "./actions";
 import { STROKE } from "./BrushCanvas";
 function Btn({ name, cb }) {
   return <button onClick={cb}>{name}</button>;
@@ -47,6 +47,23 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
         name="ellipse"
       />
       <Btn
+        cb={_ =>
+          state.ids
+            .filter(id => state.shapes[id].type === "ellipse")
+            .map(id => dispatch(SetPosition(id, getPosition())))
+        }
+        name="move_ellipse"
+      />
+      <Btn
+        cb={_ =>
+          state.ids
+            .filter(id => state.shapes[id].type === "ellipse")
+            .map(id => dispatch(SetFill(id, getColor())))
+        }
+        name="color_ellipse"
+      />
+      <br />
+      <Btn
         cb={_ => {
           dispatch(AddBrush({ points: STROKE[0] }));
         }}
@@ -54,10 +71,8 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
       />
       <Btn
         cb={_ => {
-          let paper = paperRef.current.props.paper;
-
-          let value = paper.project.exportJSON({ asString: false });
-          let json_value = JSON.stringify(value, undefined, 2);
+          console.log(state.ids);
+          let json_value = JSON.stringify(state.shapes, undefined, 2);
           console.log(json_value);
         }}
         name="dump"
