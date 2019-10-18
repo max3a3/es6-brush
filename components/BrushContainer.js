@@ -1,8 +1,9 @@
-import React, { Component, useRef, useEffect, useReducer } from "react";
-
+import React, {Fragment, Component, useRef, useEffect, useReducer } from "react";
+ 
 import CustomRenderer from "../paper-object/CustomRenderer";
 import { ShapeComponent } from "../paper-object/ShapeCreator";
 import { BrushComponent } from "../paper-object/BrushCreator";
+impoert {BrushCanvas} from "./BrushCanvas"
 import {
   Rectangle,
   PaperContainer,
@@ -32,6 +33,8 @@ function getObjects({ ids, shapes }) {
 }
 export default function BrushContainer({ state, paperRef }) {
   return (
+    <Fragment>
+    <BrushCanvas/>
     <PaperContainer
       ref={paperRef}
       className="flex_item"
@@ -40,6 +43,7 @@ export default function BrushContainer({ state, paperRef }) {
     >
       {getObjects(state)}
     </PaperContainer>
+    </Fragment>
   );
 }
 /*temp

@@ -10,7 +10,7 @@ export default function App() {
       <button onClick={() => canvasRef.current.replayStroke(0)}>s1</button>
       <button onClick={() => canvasRef.current.replayStroke(1)}>s2</button>
 
-      <BrushCanvas ref={canvasRef} />
+      <BrushCanvas canvasRef={canvasRef} />
     </div>
   );
 }
