@@ -9,8 +9,8 @@ function drawOverlay(canvas, context) {
   context.globalCompositeOperation = "source-over";
 
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.lineWidth = 3;
-  context.strokeStyle = "green";
+  context.lineWidth = 13;
+  context.strokeStyle = "yellow";
 
   context.beginPath();
   context.moveTo(0, 50);
@@ -26,9 +26,18 @@ export default function BrushTest({ canvasRef, height, width }) {
       drawOverlay(canvasOverlayRef.current, overlay);
     }
   }, []);
-
+  //https://stackoverflow.com/questions/1009753/pass-mouse-events-through-absolutely-positioned-element
+  let overlayStyle = { pointerEvents: "none" };
   return (
     <div className="canvas_container">
+      <canvas
+        style={overlayStyle}
+        className="canvas_overlay"
+        ref={canvasOverlayRef}
+        height={_canvasHeight}
+        width={_canvasWidth}
+      />
+
       <BrushCanvas
         className="canvas"
         ref={canvasRef}

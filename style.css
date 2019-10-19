@@ -44,8 +44,10 @@ canvas {
   position:relative
 }
 
+/* pointer-events allow to pass through */
 .canvas_overlay {
   position:absolute;
+  pointer-events: "none" ; 
   top:0;
   left:0
 }
