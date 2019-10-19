@@ -34,9 +34,7 @@ h1, h2 {
 
 }
 
-canvas {
-  /* width:100%; */
-  /* height:500px; */
+.main-canvas {
   border:3px solid #870000;
 }
 
@@ -47,7 +45,7 @@ canvas {
 /* pointer-events allow to pass through */
 .canvas_overlay {
   position:absolute;
-  pointer-events: "none" ; 
+  /*pointer-events: none ;*/
   top:0;
   left:0
 }

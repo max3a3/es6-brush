@@ -1,12 +1,13 @@
-import React, {Fragment} from "react";
+import React  from "react";
 
 import CustomRenderer from "../paper-object/CustomRenderer";
 import {ShapeComponent} from "../paper-object/ShapeCreator";
 import {BrushComponent} from "../paper-object/BrushCreator";
-//import {BrushCanvas} from "./BrushCanvas"
 import {
   PaperContainer,
 } from "@psychobolt/react-paperjs";
+import BrushCanvas from "./BrushCanvas";
+import { _canvasWidth, _canvasHeight } from "../tconfig";
 
 const COMP_MAP = {
   rectangle: ShapeComponent,
@@ -25,18 +26,21 @@ const getObjects = ({ids, shapes}) => ids.map(pathId => {
   });
 });
 
-export default function BrushContainer({state, paperRef}) {
+export default function BrushContainer({state, paperRef,canvasRef}) {
+  //canvasRef to clear it later
   return (
-    <Fragment>
+    <div className="canvas_container">
+      <BrushCanvas className="canvas_overlay"         height={_canvasHeight}
+                   width={_canvasWidth}
+                   ref={canvasRef}/>
       <PaperContainer
         ref={paperRef}
-        className="flex_item"
-        canvasProps={{width: 400, height: 300, className: "tool_canvas"}}
+        canvasProps={{width: _canvasWidth, height: _canvasHeight, className: "main-canvas"}}
         renderer={CustomRenderer}
       >
         {getObjects(state)}
       </PaperContainer>
-    </Fragment>
+    </div>
   );
 }
 /*temp

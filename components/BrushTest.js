@@ -1,6 +1,5 @@
-import { Component, Fragment, useEffect, useRef } from "react";
+import {   useEffect, useRef } from "react";
 import React from "react";
-import invariant from "invariant";
 import { _canvasWidth, _canvasHeight } from "../tconfig";
 import BrushCanvas from "./BrushCanvas";
 

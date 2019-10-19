@@ -142,9 +142,10 @@ export default class BrushCanvas extends Component {
   };
 
   render() {
+    let _class = this.props.className || "main-canvas"
     return (
       <canvas
-        className="canvas"
+        className={_class}
         ref={this.canvasRef}
         height={this.props.height}
         width={this.props.width}
