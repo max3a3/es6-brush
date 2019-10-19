@@ -1,48 +1,41 @@
-import React, {Fragment, Component, useRef, useEffect, useReducer } from "react";
- 
+import React, {Fragment} from "react";
+
 import CustomRenderer from "../paper-object/CustomRenderer";
-import { ShapeComponent } from "../paper-object/ShapeCreator";
-import { BrushComponent } from "../paper-object/BrushCreator";
-impoert {BrushCanvas} from "./BrushCanvas"
+import {ShapeComponent} from "../paper-object/ShapeCreator";
+import {BrushComponent} from "../paper-object/BrushCreator";
+//import {BrushCanvas} from "./BrushCanvas"
 import {
-  Rectangle,
   PaperContainer,
-  renderWithPaperScope
 } from "@psychobolt/react-paperjs";
-import invariant from "invariant";
 
-function getObjects({ ids, shapes }) {
-  // todo remove function bracket. see paper_demo
-  let objects = ids.map(pathId => {
-    // properties is protostage specific extraction to display , it is pathData that is from paper and passed back
+const COMP_MAP = {
+  rectangle: ShapeComponent,
+  ellipse: ShapeComponent,
+  brush_thin: BrushComponent
+};
 
-    const { id, ...rest } = shapes[pathId];
-    let comp;
-    const COMP_MAP = {
-      rectangle: ShapeComponent,
-      ellipse: ShapeComponent,
-      brush_thin: BrushComponent
-    };
-    return React.createElement(COMP_MAP[rest.type], {
-      key: id,
-      data: { shapeId: id },
-      ...rest
-    });
+const getObjects = ({ids, shapes}) => ids.map(pathId => {
+  // properties is protostage specific extraction to display , it is pathData that is from paper and passed back
+  const {id, ...rest} = shapes[pathId];
+
+  return React.createElement(COMP_MAP[rest.type], {
+    key: id,
+    data: {shapeId: id}, // paperjs custom data field
+    ...rest
   });
-  return objects;
-}
-export default function BrushContainer({ state, paperRef }) {
+});
+
+export default function BrushContainer({state, paperRef}) {
   return (
     <Fragment>
-    <BrushCanvas/>
-    <PaperContainer
-      ref={paperRef}
-      className="flex_item"
-      canvasProps={{ width: 400, height: 300, className: "tool_canvas" }}
-      renderer={CustomRenderer}
-    >
-      {getObjects(state)}
-    </PaperContainer>
+      <PaperContainer
+        ref={paperRef}
+        className="flex_item"
+        canvasProps={{width: 400, height: 300, className: "tool_canvas"}}
+        renderer={CustomRenderer}
+      >
+        {getObjects(state)}
+      </PaperContainer>
     </Fragment>
   );
 }
