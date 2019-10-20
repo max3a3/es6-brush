@@ -15,14 +15,14 @@ custom shape prop, update prop ->
 
       code property is radius, size,type
 
-use button to create rect then transfre to to
+use button to create rect then transfer to
 
 try updating property by changing property of first objet in the state
 
 objet has type, and we map the type to custom react paper object
 
-try effect, like blur, create rounded rect, 
-  can't do this in canvas, but it is in svg 
+try effect, like blur, create rounded rect,
+  can't do this in canvas, but it is in svg
 
 
 test redraw
@@ -31,15 +31,13 @@ test redraw
 test tool
    multiple canvas demo, have a button to add the stroke, this is ta tool
   only one stroke? no, this is our difference (artist oriented not programmer oriented)
-  
+
   >> how to keep position in sync,the component has .position but the direct brush doesn't
 
 test prop change
-  search for brush object in satea and change color
+  search for brush object in state and change color
 
- 
-test modifier for different brush 
+
+test modifier for different brush
 
 >> current
-why canvas dom overlay capture mouse ontop
-  modify brush test so there is another <canvas> copy from bottom
