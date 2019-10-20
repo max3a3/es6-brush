@@ -36,7 +36,7 @@ Line.prototype = {
 //
 /////////////////////////////////////////////////////////////////
 
-Transform = {
+const Transform = {
   rotate: function(cx, cy, angle, x, y) {
     var s = Math.sin(angle);
     var c = Math.cos(angle);

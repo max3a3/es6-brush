@@ -1,0 +1,3 @@
+why fillcolor in rect not updating
+
+why ellipse not displaying

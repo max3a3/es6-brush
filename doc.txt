@@ -1,20 +1,81 @@
-basic_class
+intelloware basic_class
 Point
 Line
 TransformMode  Transform is used internally just as a librery
+---
+
+log
+
+tmain straight port of intelloware
+r_main simple react canvas with brush mouse
+
+BrushCanvas has 2 canvas with an overlay
+
+tr_main  telloware react canvas and mouse handler
+rp_main react paper main
 
 
+paper object creation uses object param will be able to do it in one call
+otherwise not optimal, see ShapeCreator.js
+
+--- telloware code
+
+brushbase, it has array of strokes called by derived class to 
+    draw(points) #draw from odd index to even index
+       applyTransform()    each return array concat to points
+
+brushsketchy
+
+
+----  capture the drawing
+   array of point, transform code
+
+   input: array of [array points, array of mirror: e.g:hmirror param(coord)]
+  
+
+   so after a stroke, draw on temp context, pass to the store which redraw it
+                 
 ---
 
 transform  is a array of thing to be mirrored
 
 
+simple,1 not ported
+thinbrush, 2
+brushsketchy, 3
 
-thinbrush
+brushstar, last
 
 
+size ?   1 10 20  uses the id from html
+<ul class="dropdown fixed">
+						<li class='small hoverable size loc' id='1'>Small</li>
+						<li class='medium hoverable size selected loc' id='10'>Medium</li>
+						<li class='big hoverable size loc' id='20'>Large</li>
+					</ul>
+---
+onSymmetry()
+cumulative add
+		_transformModes.push(newMode);
+
+
+---
+mirror widget is it important
+
+context access should it be 
+  a separate canvas 
+    uniform just one layer, more easy to understand like photoshop
+    can implement smudge
+  or part of paper (custom object like shape)
+     uniform operation, hiding showing, can have each stroke an object, can transform per stroke
+     can look into transforming the stroke
+     can have independet resolution
+
+     i think for now this is more interesting research 
 ---
 globals
 
 in mouse_handler.js
 _brushColor
+
+_transformModes

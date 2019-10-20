@@ -7,22 +7,24 @@ export class BrushBase {
   mouseX = null;
   mouseY = null;
 
-  context = null;
+  context = null; //  CanvasRenderingContext2D todo:how to add typehint without crapping on stackblitz?
 
   lineWidth = null;
   opacity = null;
 
   points = null;
 
-  symmetry = null;
+  symmetry = [];
 
   constructor(context) {
     this.context = context;
 
     this.points = new Array();
   }
-
-  beginStroke(color, size, symmetry, mouseX, mouseY, shadow) {
+  setContext(context) {
+    this.context = context
+  }
+  beginStroke(color, size, symmetry, mouseX, mouseY, shadow = false) {
     this.mouseX = mouseX;
     this.mouseY = mouseY;
 
@@ -39,7 +41,7 @@ export class BrushBase {
       this.context.shadowColor = "transparent";
     }
 
-    this.context.lineWidth = _globalLineWidth;
+    this.context.lineWidth = _globalLineWidth * size; // wng add allowing stroke
     this.context.strokeStyle = color;
     this.context.globalCompositeOperation = "source-over";
   }
@@ -47,7 +49,7 @@ export class BrushBase {
   doStroke(mouseX, mouseY) {}
 
   endStroke(mouseX, mouseY) {}
-
+  debug() {}
   draw(points) {
     var pointsToDraw = this.applySymmetry(points);
 
@@ -57,8 +59,8 @@ export class BrushBase {
     var to;
 
     this.context.beginPath();
-
-    for (let i = 0; i < length; i += 2) {
+    // console.log("brush length", length);
+    for (let i = 0; i < Math.trunc(length / 2) * 2; i += 2) {
       from = pointsToDraw[i];
       to = pointsToDraw[i + 1];
 

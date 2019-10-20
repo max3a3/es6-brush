@@ -84,6 +84,10 @@ export default class Canvas extends Component {
                 className="canvas"
                 ref="canvas"
                 id="canvas"
+                onTouchStart = {this.start}
+                onTouchMove = {this.draw}
+                onTouchEnd={this.end}
+                onTouchCancel = {this.end}
                 onMouseDown={this.start}
                 onMouseUp={this.end}
                 onMouseMove={this.draw}

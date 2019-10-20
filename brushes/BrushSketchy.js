@@ -1,21 +1,16 @@
 import { _globalLineWidth, BrushBase } from "./BrushBase";
-export class BrushThin extends BrushBase {
-  maxPoints = 10;
 
-  constructor(context=null) {
+export class BrushSketchy extends BrushBase {
+  constructor(context) {
     super(context);
-    this.sizeMin = 1000;
-    this.sizeMax = 20000;
+
+    this.sizeMin = 200;
+    this.sizeMax = 4000;
   }
-
   doStroke(mouseX, mouseY) {
-    if (this.points.length > this.maxPoints) {
-      this.points = this.points.slice(this.points.length - this.maxPoints);
-    }
-
     this.points.push([mouseX, mouseY]);
 
-    var points = new Array();
+    var points = new Array();  // push two as it defines a mini stroke
     points.push([mouseX, mouseY]);
     points.push([this.mouseX, this.mouseY]);
 
@@ -26,28 +21,22 @@ export class BrushThin extends BrushBase {
     var mul = 0.3;
     var intensity = this.sizeDraw;
 
-    this.context.lineWidth =
-      _globalLineWidth + 2 * (this.sizeDraw / this.sizeMax);
-
     var pointX;
     var pointY;
 
+    var i;
+
     var length = this.points.length;
 
-    for (let i = 0; i < length; i++) {
+    for (i = 0; i < length; i++) {
       pointX = this.points[i][0];
       pointY = this.points[i][1];
 
-      b = pointX - mouseX;
-      a = pointY - mouseY;
+      b = pointX - mouseX;   // b is dx
+      a = pointY - mouseY; // a is dy
 
-      g = b * b + a * a;
+      g = b * b + a * a; // distance
 
-      //console.log(g);
-
-      if (g > 1000) {
-        continue;
-      }
 
       if (Math.random() > g / intensity) {
         b *= mul;
