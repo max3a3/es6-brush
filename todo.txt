@@ -11,12 +11,7 @@ custom shape prop, update prop ->
    we have prop mapping in customcreate  radius: corner
       how about live? see the property
       can't do this it is radius, and size
-      we can map via UI but can't do it in the code (creator and props has to be kept simple)
-
-      code property is radius, size,type
-
-use button to create rect then transfer to
-
+      we can map via UI but can't do it in the code (creator and props has to be kept si
 try updating property by changing property of first objet in the state
 
 objet has type, and we map the type to custom react paper object
@@ -41,3 +36,13 @@ test prop change
 test modifier for different brush
 
 >> current
+
+group the brush
+
+port transform tool
+
+button to change to transform oR make a group
+
+      code property is radius, size,type
+
+use button to create rect then transfer to

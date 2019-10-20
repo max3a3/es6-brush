@@ -1,0 +1,10 @@
+issue 9/branch 9
+for now the code just use brushcanvas, for prototype event handling can be turned off by css [pointer-events: none ]
+     so other Tool in papercontainer can work
+
+     later may be in papercontainer tool
+
+     but it already have the replay? and can generate the point and have mouse handler
+
+     so no need to code Tool for now
+
