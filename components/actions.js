@@ -54,3 +54,12 @@ export function SetFill(id, fillColor) {
     }
   };
 }
+export function SetStroke(id, strokeColor) {
+  return {
+    type: Actions.SET_PROP,
+    payload: {
+      id,
+      prop: { strokeColor }
+    }
+  };
+}
