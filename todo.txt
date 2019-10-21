@@ -46,3 +46,8 @@ button to change to transform oR make a group
       code property is radius, size,type
 
 use button to create rect then transfer to
+
+
+> test object bound, just do the first from state,
+  tet the id, search in paper project, layer , for the object
+    get the layer from active laeyr?
