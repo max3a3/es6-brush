@@ -1,0 +1,13 @@
+Silk class is created by
+
+PointPreviewSilk is derived from Silk
+
+
+
+Silks
+  initInputEvents
+    nextInputPreviewSilk
+
+
+thread
+ Silks created in site.main:2395  :2414

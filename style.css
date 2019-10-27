@@ -38,6 +38,7 @@ h1, h2 {
   border:3px solid #870000;
 }
 
+
 .canvas_container {
   position:relative
 }
@@ -49,3 +50,13 @@ h1, h2 {
   top:0;
   left:0
 }
+
+
+/*ws*/
+#canvii-container{left:0;position:relative;}
+#silk-1,#silk-2,#sparks{position:absolute;top:0;left:0;}
+
+.silk-canvas{z-index:1;opacity:1;-webkit-transition:opacity 0.75s ease-out;-moz-transition:opacity 0.75s ease-out;-ms-transition:opacity 0.75s ease-out;-o-transition:opacity 0.75s ease-out;transition:opacity 0.75s ease-out;}.silk-canvas.onepacity{opacity:1;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none;}
+.silk-canvas.active{z-index:2;pointer-events:all;}.silk-canvas.active.zeropacity{opacity:0;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none;}
+
+#sparks{cursor:pointer;z-index:3;}
