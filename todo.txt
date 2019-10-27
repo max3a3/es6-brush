@@ -41,3 +41,17 @@ test prop change
 test modifier for different brush
 
 >> current
+port more brush weavesilk,
+ image stamping, sketchpad
+    psykopaint brushpainter with stamp
+
+
+group the brush
+
+port transform tool
+
+button to change to transform oR make a group
+
+      code property is radius, size,type
+
+use button to create rect then transfer to
