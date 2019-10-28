@@ -5,6 +5,7 @@ export default function CanvasUtil(canvas, fullscreen) {
   this.fullscreen = fullscreen != null ? fullscreen : true;
   this.resizeToWindowAndPreserveContents = __bind(this.resizeToWindowAndPreserveContents, this);
 //wng no need handle reaizefor now
+  this.updateSizeOnScreen(this.canvas.width, this.canvas.height)
 /*  if (this.fullscreen) {
     this.resizeToWindow();
     $(window).resize(_.debounce(this.resizeToWindowAndPreserveContents, 300));

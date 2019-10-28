@@ -28,6 +28,13 @@ undo handler using  Recorder,Tape
 Silks.add -> takeSnapshot
 
 ---
+data structure
+
+silk is the line  created by
+Silks.prototype.inputStarted
+   Silks.prototype.add
+
+---
 
 drawing
 
