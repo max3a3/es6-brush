@@ -4,7 +4,7 @@ import invariant from "invariant";
 
 import getBrush, { initBrush } from "./brush_class";
 import { _canvasWidth, _canvasHeight } from "../tconfig";
-
+import _ from 'lodash'
 export let STROKE = [];
 STROKE[0] = [
   [60.25227355957031, 188.42529296875],
@@ -139,6 +139,11 @@ export default class BrushCanvas extends Component {
       this.debug();
     }
     this.isDrawing = false;
+
+    if (this.props.onAddBrush) {
+      this.props.onAddBrush({points:_.clone(this.brushCache)})
+      this.clear()
+    }
   };
 
   render() {

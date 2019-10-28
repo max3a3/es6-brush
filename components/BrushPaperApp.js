@@ -34,7 +34,7 @@ export default function BrushPaperApp() {
   return (
     <div>
       <BrushButtons state={state} dispatch={dispatch} paperRef={paperRef} />
-      <BrushContainer state={state} />
+      <BrushContainer state={state} dispatch={dispatch}/>
     </div>
   );
 }
