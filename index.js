@@ -9,6 +9,8 @@ import "./style.css";
 
 // import "./tr_main"; //telloware  react demo  has BrushCanvas  compnent with two canvas ,one for brush , one for overlay
 
-import "./rp_main"; //react paper test demo with draggable point
+//import "./rp_main"; //react paper test demo with draggable point
 
 // import "./pmain"; // paperjs brush custom paper
+
+import "./ws_main";

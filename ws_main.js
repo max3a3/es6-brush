@@ -1,36 +1,72 @@
-let _canvas;
-let _context;
-import Silks from './ws_utils/Silks'
-import $ from 'jquery'
-function initCanvas() {
-  //_svg 			= new fabric.Canvas('svg');
-  //_svg.setDimensions({width: _canvasWidth, height: _canvasHeight});
+import Silks from "./ws_utils/Silks";
+import $ from "jquery";
 
-  _canvas = document.getElementById("canvas");
-  _context = _canvas.getContext("2d");
-}
+$("#description").html("<em>ws prototype demo</em>");
+$("#sketch_container").html(
+  '<div id="canvii-container" class="flex_item">\
+  <canvas id="silk-2" class="main-canvas silk-canvas active" width="400" height="300"  />\
+  <canvas id="silk-1" class="silk-canvas buffer onepacity" width="400"  height="300"   />\
+  <canvas id="sparks" width="400" height="300" />\
+  </div>'
+);
 
 function main() {
-  var b, bufferCanvas, container, drawsPerFrame, drawsPerFrameRatio, endTime, frame, frameCount, h2, hideIntroSilk, introEnd, introLength, introSilkId, introStart, isIPhone, isRightSideUp, pmouseX, pmouseY, replayUrlForId, resetShareOptions, silkCanvas, silks, sound, sparksCanvas, startTime, ui, updateOrientation, urlParams, w2, weShouldEvenHaveAnIntroSilkAtAll, _ref1, _ref2;
+  var b,
+    bufferCanvas,
+    container,
+    drawsPerFrame,
+    drawsPerFrameRatio,
+    endTime,
+    frame,
+    frameCount,
+    h2,
+    hideIntroSilk,
+    introEnd,
+    introLength,
+    introSilkId,
+    introStart,
+    isIPhone,
+    isRightSideUp,
+    pmouseX,
+    pmouseY,
+    replayUrlForId,
+    resetShareOptions,
+    silkCanvas,
+    silks,
+    sound,
+    sparksCanvas,
+    startTime,
+    ui,
+    updateOrientation,
+    urlParams,
+    w2,
+    weShouldEvenHaveAnIntroSilkAtAll,
+    _ref1,
+    _ref2;
 
-  container = document.getElementById('canvii-container');
-  silkCanvas = document.getElementById('silk-1');
-  bufferCanvas = document.getElementById('silk-2');
-  sparksCanvas = document.getElementById('sparks');
+  container = document.getElementById("canvii-container");
+  silkCanvas = document.getElementById("silk-1");
+  bufferCanvas = document.getElementById("silk-2");
+  sparksCanvas = document.getElementById("sparks");
 
-
-  window._s = silks = new Silks(container, silkCanvas, bufferCanvas, sparksCanvas);
+  window._s = silks = new Silks(
+    container,
+    silkCanvas,
+    bufferCanvas,
+    sparksCanvas
+  );
   silks.initInputEvents();
 
-  initMouseHandler(silks)
-  setupFrameHandler(silks)
+  initMouseHandler(silks);
+  setupFrameHandler(silks);
 }
 function initMouseHandler(silks) {
-  let canvas = $('#sparks')
-  let pmouseX,pmouseY  //context global
+  let canvas = $("#sparks");
+  let pmouseX, pmouseY; //context global
 
-  $('#sparks').mousedown(function(e) {
-/*wng no sound
+  $("#sparks")
+    .mousedown(function(e) {
+      /*wng no sound
     if (sound != null) {
       sound.start();
     }
@@ -39,11 +75,11 @@ function initMouseHandler(silks) {
     }
 
  */
-    pmouseX = e.pageX;
-    pmouseY = e.pageY;
-    // wng turn off
-    // b is event handler
-/*
+      pmouseX = e.pageX;
+      pmouseY = e.pageY;
+      // wng turn off
+      // b is event handler
+      /*
     b.silkActive(true);
     resetShareOptions();
     ui.tips.hide();
@@ -52,14 +88,14 @@ function initMouseHandler(silks) {
     b.showIntro(false);
      b.hideReplayThumbnail();
      */
-  }).mousemove(function(e) {
-
-    var sq, vmx, vmy;
-    vmx = pmouseX - e.pageX;
-    vmy = pmouseY - e.pageY;
-    sq = vmx * vmx + vmy * vmy;
-    // wng  no sound crap
-    /*
+    })
+    .mousemove(function(e) {
+      var sq, vmx, vmy;
+      vmx = pmouseX - e.pageX;
+      vmy = pmouseY - e.pageY;
+      sq = vmx * vmx + vmy * vmy;
+      // wng  no sound crap
+      /*
     if (sq > 0) {
       if (sound != null) {
         sound.modulateDrawSound(Math.sqrt(sq));
@@ -71,22 +107,19 @@ function initMouseHandler(silks) {
     }
 
      */
-    pmouseX = e.pageX;
-    pmouseY = e.pageY;
+      pmouseX = e.pageX;
+      pmouseY = e.pageY;
+    })
+    .mouseup(function(e) {
+      silks.drawInputPreview = true; // this is the dot and its symmetry preview
 
-  }).mouseup(function(e) {
-
-
-    silks.drawInputPreview = true; // this is the dot and its symmetry preview
-
-    /*
+      /*
     b.pristine(false);
     b.silkActive(false);
     return sound != null ? sound.stopDrawSound() : void 0;
   */
-
-  })
-    /*  wng no touch for now, should be the same as mousedown and mouseup
+    });
+  /*  wng no touch for now, should be the same as mousedown and mouseup
     .on('touchstart', function(e) {
     pmouseX = e.pageX;
     pmouseY = e.pageY;
@@ -111,7 +144,7 @@ function setupFrameHandler(silks) {
   let replayUrlForId = function(id) {
     return "http://r.weavesilk.com/?v=4&id=" + id;
   };
-  let  weShouldEvenHaveAnIntroSilkAtAll = true;
+  let weShouldEvenHaveAnIntroSilkAtAll = true;
   /*
   introSilkId = null;
   introStart = 25;
@@ -151,10 +184,10 @@ function setupFrameHandler(silks) {
     let startTime = +new Date();
     silks.frame((startTime - endTime) / 16);
     let endTime = +new Date();
-    let timeOutVal = 16 - (endTime - startTime)
-    console.log("timeOutVal",timeOutVal)
+    let timeOutVal = 16 - (endTime - startTime);
+    console.log("timeOutVal", timeOutVal);
 
-    return setTimeout(frame,timeOutVal );
+    return setTimeout(frame, timeOutVal);
   };
 
   frame();
