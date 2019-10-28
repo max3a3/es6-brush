@@ -8,6 +8,7 @@ import {
 } from "@psychobolt/react-paperjs";
 import BrushCanvas from "./BrushCanvas";
 import { _canvasWidth, _canvasHeight } from "../tconfig";
+import {AddBrush} from "./actions";
 
 const COMP_MAP = {
   rectangle: ShapeComponent,
@@ -26,12 +27,16 @@ const getObjects = ({ids, shapes}) => ids.map(pathId => {
   });
 });
 
-export default function BrushContainer({state, paperRef,canvasRef}) {
+export default function BrushContainer({state, dispatch, paperRef,canvasRef}) {
   //canvasRef to clear it later
+
+  // dispatch
+  const onAddBrush = ({points})=>dispatch(AddBrush({points}))
   return (
     <div className="canvas_container">
       <BrushCanvas className="canvas_overlay"         height={_canvasHeight}
                    width={_canvasWidth}
+                   onAddBrush={onAddBrush}
                    ref={canvasRef}/>
       <PaperContainer
         ref={paperRef}
