@@ -1,0 +1,44 @@
+code in index.html
+
+index.html have sectionbreak with comment header, ported to separate file
+/* GENERIC */ 1816
+  jquery like function
+
+
+/* MOVEMENT */  1976
+do the mouse handler and pass to F
+seeting mouse handler is 'fu'
+
+/* MATH */ 2111
+
+/* SETTINGS core */ 2170
+  co object
+    has function to draw
+// GUI 2603
+
+// TOOLS window gui_tools 2616
+
+// OPTIONS window gui_options 2616
+
+// PALLETE gui_palette 2989
+
+// EDIT COLOR gui_color 3075
+
+//EDIT_GRADIENT  gui_gradient 3245
+
+//gui_pattern 3385
+
+// gui_swatch 3478
+
+// tools
+
+// STAMP
+
+// init :6210  called by onload
+  main event handler for tool
+  init.canvas  is setting the width height
+  set the mousedrag handler in 6400
+
+todo
+react ui button with commands to the global state
+mouse handler on canvas from ws
