@@ -93,6 +93,7 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
         name="color_brush"
       />
       <br />
+      {/*test bound on brush object*/}
       <Btn
         cb={_ => {
           console.log(state.ids);
