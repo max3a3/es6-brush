@@ -1,5 +1,5 @@
-import {__bind} from "./lib_utils";
-
+import {__bind,__slice} from "./lib_utils";
+import $ from 'jquery'
 export default function Tape(target, recordOnly) {
   this.target = target;
   this.recordOnly = recordOnly != null ? recordOnly : false;

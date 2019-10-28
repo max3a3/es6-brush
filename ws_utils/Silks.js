@@ -4,7 +4,7 @@ import Recorder from "./Recorder";
 import CanvasUtil from "./CanvasUtil";
 import Silk from './Silk'
 
-let ko = require('./knockout-2.2.0.min')
+let ko = require('../ws_libs/knockout-2.2.0.min')
 import $ from 'jquery'
 import PointPreviewSilk from "./PointPreviewSilk";
 
@@ -423,6 +423,8 @@ Silks.prototype.inputFrame = function () {
       this.addPoint(this.activeSilkId, this.inputX, this.inputY, this.inputX - this.pinputX, this.inputY - this.pinputY);
     } else {
       if ((_ref1 = this.inputPreviewSilk) != null) {
+        console.log("inputPreviewSilk addpoint",this.inputX, this.inputY)
+
         _ref1.addPoint(this.inputX, this.inputY, this.inputX - this.pinputX, this.inputY - this.pinputY);
       }
     }
@@ -454,12 +456,21 @@ Silks.prototype.initInputEvents = function () {
       }, 3000);
     };
   })(this);
+
+  let sparksCanvas = $(this.sparksCanvas)
+
   $(this.sparksCanvas).mousedown((function (_this) {
+//    debugger
     return function (e) {
       if (e.button === 2) {
         return;
       }
       _this.updateInputFromEvent(e);
+
+      // wng copy from touchstart
+      var _ref1;
+      _ref1 = [_this.inputX, _this.inputY], _this.pinputX = _ref1[0], _this.pinputY = _ref1[1];
+
       _this.stopPreviewingInput();
       _this.inputStarted();
       return false;

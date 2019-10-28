@@ -1,7 +1,8 @@
-import {__bind} from "./lib_utils";
+import {__bind,__hasProp} from "./lib_utils";
 import $ from 'jquery'
-import d3  from './d3.v3.min'
+import d3  from '../ws_libs/d3.v3.min'
 import _ from 'lodash'
+import {noise} from "./noise";
 export default function Silk(ctx, scaleInfo, state) {
   this.ctx = ctx;
   this.scaleInfo = scaleInfo;
@@ -283,7 +284,7 @@ Silk.prototype.setColor = function () {
   p = this.curve[this.curve.length - 1];
   this.ctx.globalAlpha = this.startOpacity * (p.life / this.startLife);
 
-  return this.ctx.strokeStyle = this.colorScale((function () {
+     let color = this.colorScale((function () {
     switch (this.highlightMode) {
       case 'time':
         return this.timeColorScaleTime;
@@ -291,6 +292,7 @@ Silk.prototype.setColor = function () {
         return Math.sqrt(p.inputVx * p.inputVx + p.inputVy * p.inputVy);
     }
   }).call(this));
+  this.ctx.strokeStyle = color
 };
 
 Silk.prototype.setSparks = function (sparks) {

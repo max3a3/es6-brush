@@ -11,3 +11,27 @@ Silks
 
 thread
  Silks created in site.main:2395  :2414
+
+
+frame funciton :2446, every timeout (:2475)
+
+---
+b event handler in :2478
+
+mouse event is :2771  -> this seem to control other interface only
+
+also in Silks.initInputEvent
+
+---
+
+undo handler using  Recorder,Tape
+Silks.add -> takeSnapshot
+
+---
+
+drawing
+
+step() check drawThisStep
+    draw() loop drawInstruction based on symmetry
+        drawInstruction (set the point on this.curve)
+         silk.drawCurve

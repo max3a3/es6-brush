@@ -4,6 +4,7 @@ export let __bind = function (fn, me) {
   };
 }
 export let __hasProp = {}.hasOwnProperty
+
 export let __extends = function (child, parent) {
   for (var key in parent) {
     if (__hasProp.call(parent, key)) child[key] = parent[key];
@@ -18,5 +19,6 @@ export let __extends = function (child, parent) {
   child.__super__ = parent.prototype;
   return child;
 }
+
 export let __slice = [].slice;
 

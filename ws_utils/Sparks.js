@@ -1,4 +1,5 @@
 import {__bind} from "./lib_utils";
+import $ from 'jquery'
 
 export default function Sparks(canvas) {
   this.canvas = canvas;
