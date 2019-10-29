@@ -1,4 +1,4 @@
-N = {
+let N = {
   'format': function (n) {
     n = String(n);
     var x = n.split('.'),

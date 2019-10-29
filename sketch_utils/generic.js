@@ -1,3 +1,5 @@
+export let  stop = 1;
+export function set_stop(s) {stop=s}
 export  function $(v, o) {
   if (!v) return;
   return ((typeof (o) == 'object' ? o : document).getElementById(v));
@@ -22,7 +24,7 @@ function $T(v, o) {
   return ((typeof (o) == 'object' ? o : $(o)).getElementsByTagName(v));
 }
 
-function abPos(o) {
+export function abPos(o) {
   var o = (typeof (o) == 'object' ? o : $(o)),
     i = {
       X: 0,
@@ -55,7 +57,7 @@ function cookieGrab(f) {
   }
 }
 
-function getTime() {
+export function getTime() {
   return ((new Date()).getTime());
 }
 
@@ -97,7 +99,7 @@ function XYwin(v) {
   return (v ? o[v] : o);
 }
 
-function XY(e, v) {
+export function XY(e, v) {
   var o = agent('msie') ? {
     'X': event.clientX + document.body.scrollLeft,
     'Y': event.clientY + document.body.scrollTop

@@ -1,6 +1,9 @@
 import React, {PropTypes, Component} from "react";
-// import { BRUSH, ERASER, STAMP } from "../constants/Tools";
-
+import {vars,co} from '../sketch_utils/settings'
+import {noMove} from '../sketch_utils/generic'
+import {draw} from '../sketch_utils/tools'
+import {stop} from '../sketch_utils/generic'
+import {doc_mousedown, doc_mousemove} from "../sketch_utils/movement";
 let ctx;
 
 export default class SketchCanvas extends Component {
@@ -9,9 +12,9 @@ export default class SketchCanvas extends Component {
         this.isDrawing = false;
         this.isErasing = false;
         this.isStamping = false;
-        this.start = this.start.bind(this);
+        this.onmousedown = this.onmousedown.bind(this);
         this.end = this.end.bind(this);
-        this.draw = this.draw.bind(this);
+        this.onmousemove = this.onmousemove.bind(this);
     }
 
     componentDidMount() {
@@ -46,34 +49,83 @@ export default class SketchCanvas extends Component {
         }
     }
 
-    start(event) {
-        // if (this.props.tools.tool === BRUSH || this.props.tools.tool === ERASER) {
-        this.isDrawing = true;
-        ctx.beginPath();
-        ctx.moveTo(this.getX(event), this.getY(event));
-        event.preventDefault();
-        // }
+    onmousedown(e) { // :6319
+        //new
+        let local_pt = {X:this.getX(e), Y:this.getY(e)}
+        doc_mousedown(local_pt)
+
+        if (vars.type == 'crop') {
+            // co.core(e, crop.core);
+        } else if (vars.type == 'fill') {
+            // co.core(e, draw.fill);
+        } else if (vars.type == 'marquee') {
+            // co.core(e, marquee.core);
+        } else if (vars.type == 'picker') {
+        //     var a = XY(e);
+        //     a.X -= abPos(this).X;
+        //     a.Y -= abPos(this).Y;
+        //     a.X = Math.max(0, Math.min(canvas.W - 1, a.X));
+        //     a.Y = Math.max(0, Math.min(canvas.H - 1, a.Y));
+        //     picker.core(a, a, 'down', e);
+        } else if (vars.type == 'shape') {
+            // co.core(e, draw.shape);
+        } else if (vars.type == 'text') {
+            // co.core(e, draw.text);
+        } else if ({
+            'calligraphy': 1,
+            'stamp': 1
+        } [vars.type]) {
+            if (stamp.loaded) {
+                co.core(e, draw[vars.type]);
+            } else {
+                noMove();
+            }
+        } else if(vars.type == 'spirograph') {
+            co.core(e, draw.spirograph);
+        } else if ({
+            'brush': 1,
+            'pencil': 1,
+            'eraser': 1
+        } [vars.type]) {
+            co.core(e, draw[vars.type]);
+        } else {
+            // return noMove();
+        }
     }
 
-    draw(event) {
-        if (this.isDrawing) {
-            ctx.strokeStyle = this.getColor();
-            ctx.lineTo(this.getX(event), this.getY(event));
-            ctx.lineWidth = this.getStroke();
+    onmousemove(e) { // :6300
+        let local_pt = {X:this.getX(e), Y:this.getY(e)}
+        if (stop) {
+            if ({
+                'marquee': 1,
+                'text': 1,
+                'crop': 1
+            } [vars.type]) {
+                mouse.cursor(e, this); //wng notyet
+            }
 
-            ctx.lineCap = "round";
-            ctx.lineJoin = "round";
-            ctx.stroke();
+
+            if (vars.type == 'picker') {
+                var a = XY(e);
+                a.X -= abPos(this).X;
+                a.Y -= abPos(this).Y;
+                a.X = Math.max(0, Math.min(canvas.W - 1, a.X));
+                a.Y = Math.max(0, Math.min(canvas.H - 1, a.Y));
+                picker.core(a, '', 'move');
+            }
         }
+        else {// 2045
+            doc_mousemove(e,local_pt)
+
+        }
+
+
         event.preventDefault();
     }
 
     end(event) {
-        if (this.isDrawing) {
-            ctx.stroke();
-            ctx.closePath();
-            this.isDrawing = false;
-        }
+        let local_pt = {X:this.getX(e), Y:this.getY(e)}
+        doc_mouseup(event,local_pt)
         event.preventDefault();
     }
 
@@ -83,13 +135,13 @@ export default class SketchCanvas extends Component {
                 className="main-canvas"
                 ref="canvas"
                 id="canvas"
-                onTouchStart = {this.start}
-                onTouchMove = {this.draw}
+                onTouchStart = {this.onmousedown}
+                onTouchMove = {this.onmousemove}
                 onTouchEnd={this.end}
                 onTouchCancel = {this.end}
-                onMouseDown={this.start}
+                onMouseDown={this.onmousedown}
                 onMouseUp={this.end}
-                onMouseMove={this.draw}
+                onMouseMove={this.onmousemove}
                 onClick={this.stamp}
             />
         );

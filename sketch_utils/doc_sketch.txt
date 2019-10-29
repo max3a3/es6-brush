@@ -30,9 +30,27 @@ seeting mouse handler is 'fu'
 
 // gui_swatch 3478
 
-// tools
+
+gui_swatch  3478
+    // INTERFACE 3709
+
+KEYPRESS 3929
+
+    /* MARQUEE */ 4103
+
+/* PICKER */ 4341
+
+
+/* MOUSE */ 4385
+/* CROP */ 4474
+
+/* TRANSFORM */ 4840
+
+style 4930
 
 // STAMP
+tool_helper 4952  (prefixed to tools.js
+// tools  5011
 
 // init :6210  called by onload
   main event handler for tool

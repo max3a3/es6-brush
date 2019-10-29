@@ -1,4 +1,4 @@
-gui_options = {
+export let gui_options = {
   modulesObject: function () {
     gui_options.modules = {
       'marquee': {

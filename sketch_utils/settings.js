@@ -1,4 +1,5 @@
 import {$,$2D, cookieStab} from './generic'
+import {core} from './movement'
 export var co = {};
 export var vars = {};
 
@@ -23,7 +24,7 @@ vars = {
   'lineJoin': 'miter',
   'strokePT': new Image(),
   'stroke': 'solid',
-  'type': 'Brush',
+  'type': 'brush',  // wng change from Brush to brush
   'zoom': 100
 };
 
@@ -322,7 +323,7 @@ co.stamp.r = {};
 /* EXTENDED */
 
 co.core = function (e, fu) {
-  var d = win_size.LT();
+  var d = {L:0,T:0}// win_size.LT(); // d is the middle
   core.fu('cBound', e, {
       fu: core.XY,
       X1: 0,

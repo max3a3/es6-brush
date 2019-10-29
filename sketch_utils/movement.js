@@ -1,14 +1,22 @@
 import {zero} from "./math";
+import {abPos, getTime, set_stop, XY} from "./generic";
+import {$,$S} from "./generic"
+import {vars} from "./settings"
+import {gui_options} from "./gui_options"
 
-var aXY = {},
-  bXY = {},
-  oXY = {},
-  cXY = {},
-  mXY = '',
-  moXY = {},
-  mcXY = {},
-  stop = 1;
-core = {
+
+export let aXY = {}
+export let bXY = {}
+export let oXY = {}
+export const set_oXY = (o) => oXY = o  //wng add setter for settting in other file
+export let cXY = {}
+export let mXY = ''
+export let moXY = {}
+export let mcXY = {}
+
+
+let g_F  // wng expose variable set in 'fu'
+export let core = {
   'X': function (o, m, a, x) {
     a.X = Math.max(x.X1, x.X2 ? Math.min(x.X2, a.X + x.X1) : a.X + x.X1);
     return (a);
@@ -23,10 +31,12 @@ core = {
     return (a);
   },
   'fu': function (o, e, C, F) {  // set the function for mouse drag
+    g_F = F
     if (stop) {
       var oX = abPos($(o)).X,
         oY = abPos($(o)).Y,
         r = XY(e);
+
       function c(e, m) {
         r = XY(e);
         if (C) r = C.fu(o, m, {
@@ -36,15 +46,18 @@ core = {
           C);
         return (r);
       }
-      function f(e, m) {
-        c(e, m);
+
+      function f(e, m) {  // called by mousemove  m is 'move'
+        c(e, m); // coordinate  set r
         if (F) F(oXY, r, m, e);
         return (r);
       }
+
       function p(e, m) {
         r = XY(e);
         return ((m == 'down' ? 'P' : ' ') + (r.X - oX) + ' ' + (r.Y - oY) + (m == 'up' ? 'z' : ''));
       }
+
       if (isNaN(C.oX)) {
         oX = r.X - oX;
       } else {
@@ -55,7 +68,7 @@ core = {
       } else {
         oY = oY - C.oY - zero($S(o).top);
       }
-      stop = 0;
+      set_stop(  0);
       oXY = c(e);
       cXY = f(e, mXY = 'down');
       core.time = getTime();
@@ -63,25 +76,27 @@ core = {
       var i = '',
         t = [],
         v = {};
+
       if ((vars.type in gui_options.modules) && ('vars' in gui_options.modules[vars.type])) {
         v = gui_options.modules[vars.type].vars;
         for (i in v) if (i in vars) t.push(i + '(' + vars[i] + ')');
         if (t.length) tool += ' ' + t.join(' ');
       }
-      document.onmousemove = function (e) {
-        if(typeof(e) == 'undefined') var e = event;
+
+      document.onmousemoveTemp = function (e) {
+        if (typeof (e) == 'undefined') var e = event;
         if (!stop) {
           cXY = f(e, 'move');
         }
       }
       document.onmouseup = function (e) {
-        if(typeof(e) == 'undefined') var e = event;
-        stop = 1;
+        if (typeof (e) == 'undefined') var e = event;
+        set_stop(1);
         document.onmousemove = '';
         document.onmouseup = '';
         cXY = f(e, mXY = 'up');
       };
-      document.onselectstart = function () {
+      document.onselectstartTemp = function () {
         return false;
       }
     }
@@ -134,3 +149,31 @@ core = {
     } //		$S(o).overflow=s;
   }
 };
+
+//----------
+let local_mouse_down
+function local_f(e, m,local_pt) { // copy of function f(e,m)
+
+  // oXY is down, r is current
+  if (g_F) g_F(local_mouse_down, local_pt, 'move', e);
+
+}
+
+export function doc_mousedown(local_pt) {
+  local_mouse_down=local_pt
+}
+
+export function doc_mousemove(e) { // copy of document.onmousemove
+
+  if (!stop) {
+    cXY = local_f(e, 'move');  //oXY start? and r is local coordinate?
+  }
+
+}
+
+
+export function doc_mouseup (e,local_pt) { // copy of document.onmouseup
+  stop = 1;
+   local_f(e, mXY = 'up',local_pt);
+
+}
