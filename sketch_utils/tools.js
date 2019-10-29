@@ -1,10 +1,13 @@
-import {oXY, set_oXY} from './movement'
+import { get_cXY,set_oXY,canvas} from './movement'
+import {$,$2D} from './generic'
+import {vars,co} from "./settings";
+import {marquee} from "./marquee";
 
 // helper functions
 
 function createFlow(b, type, callback) {
-  var oX = b.X - cXY.X,
-    oY = b.Y - cXY.Y,
+  var oX = b.X - get_cXY().X,
+    oY = b.Y - get_cXY().Y,
     flow = Math.max(1, 100 - vars['flow_' + type]);
 
   function run(a, b, n) {
@@ -48,7 +51,7 @@ function mask_up(c) {
   var ctx_temp = document.getElementById('ctx_temp').getContext('2d');
   co.copy('ctx_temp', 'ctx_box');
   ctx_temp.clearRect(0, 0, canvas.W, canvas.H);
-  canvas.history_set();
+//  canvas.history_set();  wng no history_set
   if (marquee.ghost) {
     marquee.run();
     c.restore();
@@ -103,6 +106,8 @@ draw = {
       D2 = D * 2;
 
     function z(x, y) {
+      console.log("calling drawimage")
+
       c.drawImage(d, 0, 0, D2, D2, b.X - D - x, b.Y - D - y, D2, D2);
     };
     if (m == 'down') {

@@ -1,0 +1,13 @@
+vars['fillCO'
+
+'strokeCO'
+
+
+for 'brush' :2810 need to merge this to vars everytimg change of tools
+                    vars: {
+                            'movement_brush': 'freedraw',
+                            'diameter_brush': 25,
+                            'hardness_brush': 60,
+                            'flow_brush': 92,
+                            'opacity_brush': 70
+                    },

@@ -51,6 +51,10 @@ style 4930
 // STAMP
 tool_helper 4952  (prefixed to tools.js
 // tools  5011
+    /* GRADIENTS */ 5632
+
+    /* CURRENT */ 5868 moved to settings
+
 
 // init :6210  called by onload
   main event handler for tool

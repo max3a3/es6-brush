@@ -1,5 +1,5 @@
 import {$,$2D, cookieStab} from './generic'
-import {core} from './movement'
+
 export var co = {};
 export var vars = {};
 
@@ -25,7 +25,19 @@ vars = {
   'strokePT': new Image(),
   'stroke': 'solid',
   'type': 'brush',  // wng change from Brush to brush
-  'zoom': 100
+  'zoom': 100,
+
+  // wng add
+  'fillCO': [200,0,0,200],
+  'strokeCO':[0,0,200,200],
+
+  //wng tool default see todo
+  'movement_brush': 'freedraw',
+  'diameter_brush': 25,
+  'hardness_brush': 60,
+  'flow_brush': 92,
+  'opacity_brush': 70
+
 };
 
 vars.updateTool = function () {
@@ -295,6 +307,7 @@ co.glyph = function (v, o) {
 };
 
 co.stamp = function () {
+  let canvas = require('./movement').canvas
   if ((vars.type == 'calligraphy' || vars.type == 'stamp') && co.stamp.image.src) {
     var c = $2D('ctx_stamp'),
       i = co.stamp.image,
@@ -323,6 +336,7 @@ co.stamp.r = {};
 /* EXTENDED */
 
 co.core = function (e, fu) {
+  let core = require('./movement').core
   var d = {L:0,T:0}// win_size.LT(); // d is the middle
   core.fu('cBound', e, {
       fu: core.XY,
@@ -335,10 +349,12 @@ co.core = function (e, fu) {
 };
 
 co.copy = function (a, b) {
+  let canvas = require('./movement').canvas
   $2D(b).drawImage($(a), 0, 0, canvas.W, canvas.H);
 };
 
 co.del = function (c) {
+  let canvas = require('./movement').canvas
   if (c.length) c = $2D(c);
   c.clearRect(0, 0, canvas.W, canvas.H);
 };
@@ -420,6 +436,8 @@ co.style.gradient.relative = function (a, b, c, v, s) {
   co.gradient(cXY, b, c, vars[((s && isNaN(s)) ? s : v) + 'GD'], v, s);
 };
 co.style.gradient.absolute = function (a, b, c, v, s) {
+  let canvas = require('./movement').canvas
+
   co.gradient({
       X: 0,
       Y: 0

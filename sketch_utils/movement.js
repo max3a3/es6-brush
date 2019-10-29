@@ -1,7 +1,9 @@
 import {zero} from "./math";
-import {abPos, getTime, set_stop, XY} from "./generic";
+import {abPos, getTime, set_stop, XY,stop} from "./generic";
 import {$,$S} from "./generic"
 import {vars} from "./settings"
+import {Q} from './gradients'
+
 import {gui_options} from "./gui_options"
 
 
@@ -9,7 +11,8 @@ export let aXY = {}
 export let bXY = {}
 export let oXY = {}
 export const set_oXY = (o) => oXY = o  //wng add setter for settting in other file
-export let cXY = {}
+let cXY = {}
+export function get_cXY() {return cXY} // wng have to have a getter as cXY gets replaced
 export let mXY = ''
 export let moXY = {}
 export let mcXY = {}
@@ -69,7 +72,7 @@ export let core = {
         oY = oY - C.oY - zero($S(o).top);
       }
       set_stop(  0);
-      oXY = c(e);
+      oXY = c(e)
       cXY = f(e, mXY = 'down');
       core.time = getTime();
       var tool = 'T' + vars.type + ' rgba(' + vars['fillCO'].join(",") + ') rgba(' + vars['strokeCO'].join(",") + ')';
@@ -149,31 +152,46 @@ export let core = {
     } //		$S(o).overflow=s;
   }
 };
+//--- moved code from :866
+vars.CO=Q.CO['Oxygen']; // wng moved to settings vars init
+vars.GD=Q.GD['Web v2.0'];
+vars.PT=Q.PT['Squidfingers'];
+export let canvas = {}
+canvas = {
+  'history_n': 25,
 
+}
 //----------
+export function canvas_init(w,h) { // some code from :6211
+  canvas.W = w
+  canvas.H = h
+}
+
 let local_mouse_down
-function local_f(e, m,local_pt) { // copy of function f(e,m)
+function local_f(e, m,local_pt) { // copy of function f(e, m)
 
   // oXY is down, r is current
-  if (g_F) g_F(local_mouse_down, local_pt, 'move', e);
-
+  if (g_F) {
+    cXY = g_F(local_mouse_down, local_pt, 'move', e);
+  }
+  return local_pt
 }
 
 export function doc_mousedown(local_pt) {
   local_mouse_down=local_pt
 }
 
-export function doc_mousemove(e) { // copy of document.onmousemove
+export function doc_mousemove(e,local_pt) { // copy of document.onmousemove
 
   if (!stop) {
-    cXY = local_f(e, 'move');  //oXY start? and r is local coordinate?
+    cXY = local_f(e, 'move',local_pt);  //oXY start? and r is local coordinate?
   }
 
 }
 
 
 export function doc_mouseup (e,local_pt) { // copy of document.onmouseup
-  stop = 1;
-   local_f(e, mXY = 'up',local_pt);
+  set_stop(1);
+  cXY = local_f(e, mXY = 'up',local_pt);
 
 }

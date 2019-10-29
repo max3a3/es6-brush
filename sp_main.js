@@ -4,7 +4,6 @@ import {gui_options} from './sketch_utils/gui_options'
 
 // import PaperApp from './components/PaperApp'
 import SketchApp from "./sketch_components/SketchApp";
-
 function init_sketchpad() {
 
   if (!gui_options.modules || v == 'shape') {

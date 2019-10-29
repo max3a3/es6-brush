@@ -3,8 +3,8 @@ import {vars,co} from '../sketch_utils/settings'
 import {noMove} from '../sketch_utils/generic'
 import {draw} from '../sketch_utils/tools'
 import {stop} from '../sketch_utils/generic'
-import {doc_mousedown, doc_mousemove} from "../sketch_utils/movement";
-let ctx;
+import {canvas_init, doc_mousedown, doc_mousemove, doc_mouseup} from "../sketch_utils/movement";
+let context;
 
 export default class SketchCanvas extends Component {
     constructor(props) {
@@ -18,9 +18,22 @@ export default class SketchCanvas extends Component {
     }
 
     componentDidMount() {
-        this.refs.canvas.height = window.innerHeight-180;
-        this.refs.canvas.width = window.innerWidth-60;
-        ctx = this.refs.canvas.getContext("2d");
+        // this.refs.canvas.height = window.innerHeight-180;
+        // this.refs.canvas.width = window.innerWidth-60;
+        context = this.refs.canvas.getContext("2d");
+        canvas_init(this.refs.canvas.width,this.refs.canvas.height)
+
+        function test_draw() {
+            context.lineWidth = 13;
+            context.strokeStyle = "yellow";
+
+            context.beginPath();
+            context.moveTo(0, 50);
+            context.lineTo(100, 50);
+            context.stroke();
+
+        }
+        test_draw()
     }
 
     getStroke() {
@@ -120,21 +133,21 @@ export default class SketchCanvas extends Component {
         }
 
 
-        event.preventDefault();
+        e.preventDefault();
     }
 
-    end(event) {
+    end(e) {
         let local_pt = {X:this.getX(e), Y:this.getY(e)}
-        doc_mouseup(event,local_pt)
-        event.preventDefault();
+        doc_mouseup(e,local_pt)
+        e.preventDefault();
     }
 
     render() {
         return (
               <canvas
-                className="main-canvas"
+                className="main-canvas sp_canvas"
                 ref="canvas"
-                id="canvas"
+                id="ctx_temp"
                 onTouchStart = {this.onmousedown}
                 onTouchMove = {this.onmousemove}
                 onTouchEnd={this.end}
@@ -143,6 +156,8 @@ export default class SketchCanvas extends Component {
                 onMouseUp={this.end}
                 onMouseMove={this.onmousemove}
                 onClick={this.stamp}
+
+                style={{zIndex: 100}}
             />
         );
     }
