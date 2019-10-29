@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import { useRef } from 'react';
 import { getClientPosition } from './utils';
 import defaultStyles from './styles';
