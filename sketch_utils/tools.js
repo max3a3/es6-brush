@@ -125,7 +125,7 @@ draw = {
       D = vars.diameter_brush,
       D2 = D * 2;
 
-    function z(x, y) {
+    function z(x, y) { // draw to ctx_temp from brush
       c.drawImage(d, 0, 0, D2, D2, b.X - D - x, b.Y - D - y, D2, D2);
     };
     if (m == 'down') {

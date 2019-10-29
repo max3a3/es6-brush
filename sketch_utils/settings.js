@@ -272,7 +272,7 @@ co.brush = function () {
       c, 'fill');
   }
 };
-
+// this is updating the brush shape, port it out
 co.glyph = function (v, o) {
   co.brush();
   if (!v) {

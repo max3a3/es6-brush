@@ -16,11 +16,12 @@ export default function SketchApp() {
         {/*<canvas id="ctx_mouse" className={"sp_canvas"} style={{zIndex: 7}}></canvas>*/}
         <SketchCanvas/>
     </div>
+      <div id="offscreen">
       <canvas id="ctx_brush" width="200" height="200"></canvas>
-      <canvas id="ctx_stamp" width="200" height="200"></canvas>
+      <canvas id="ctx_stamp" width="200" height="200"></canvas> <br/>
       <canvas id="ctx_eraser" width="200" height="200"></canvas>
       <canvas id="ctx_picker" height="1" width="1"></canvas>
-
+      </div>
     </div>
   )
 }

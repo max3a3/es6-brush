@@ -4,3 +4,35 @@ on mousedown  :6353
   call co.core based on vars.type
 
 drawing?
+  uses brush_context to temp, main is in history context list,
+
+
+drawing brush
+:2383   copy from canvas brush
+
+setting brush from gui
+
+
+
+hsl stuff
+:3104 creating event handler on the color ui
+:3088  mouse handler for dragging on hsl bar
+:3177  color slider
+"{"Hue":[[0,{"H":0,"S":98.42931937172776,"V":74.90196078431373}],[0.15,{"H":300,"S":98.42931937172776,"V":74.90196078431373}],[0.3,{"H":240,"S":98.42931937172776,"V":74.90196078431373}],[0.5,{"H":180,"S":98.42931937172776,"V":74.90196078431373}],[0.65,{"H":120,"S":98.42931937172776,"V":74.90196078431373}],[0.85,{"H":60,"S":98.42931937172776,"V":74.90196078431373}],[1,{"H":0,"S":98.42931937172776,"V":74.90196078431373}]],"Saturation":[[0,{"H":290,"S":100,"V":74.90196078431373}],[1,{"H":290,"S":0,"V":74.90196078431373}]],"Value":[[0,{"H":290,"S":98.42931937172776,"V":100}],[1,{"H":290,"S":98.42931937172776,"V":0}]],"Red":[[0,{"R":255,"G":3,"B":191,"A":1}],[1,{"R":0,"G":3,"B":191,"A":1}]],"Green":[[0,{"R":160,"G":255,"B":191,"A":1}],[1,{"R":160,"G":0,"B":191,"A":1}]],"Blue":[[0,{"R":160,"G":3,"B":255,"A":1}],[1,{"R":160,"G":3,"B":0,"A":1}]],"Alpha":[[0,{"R":160,"G":3,"B":191,"A":0}],[1,{"R":160,"G":3,"B":191,"A":1}]]}"
+
+:4932 paint fill / stroke color barthe solid after color bar dragging
+
+
+brush option window
+:2929
+"<div class="slideX"><span>diameter</span><br><div onmousedown="gui.X.xRun('diameter_brush',event,this)" class="slide_div"><div id="diameter_brushCur" class="" style="left: 58px"></div></div><div id="diameter_brushCurV" class="v">52</div><br></div><div class="slideX"><span>hardness</span><br><div onmousedown="gui.X.xRun('hardness_brush',event,this)" class="slide_div"><div id="hardness_brushCur" cl…"
+
+
+  >mouseup handler :3093
+     co.glyph() in settings.js co.glyph
+       #create the brush stamp image by drawing a rect with gradient style
+
+it might be it uses observable that when the vars change it triggers tohe redreawing
+ of the brush canvas
+
+maybe some kind of update frame routine

@@ -117,7 +117,19 @@ h1, h2 {
     position: absolute;
 }
 
-/* offscreen temp canvas to copy stuff to */
-#cHistory, #ctx_stamp, #ctx_eraser, #ctx_brush, #ctx_picker, #cSRCfill, #cSRCstroke, #ctx_mouse, #cPT { display: none; }
 
+#offscreen {
+    height: 600px;
+    overflow: hidden;
+    position: absolute;
+    top: 300px;
+    left: 16px;
+    width: 800px;
+}
+
+/* offscreen temp canvas to copy stuff to */
 /*#cHistory, #ctx_stamp, #ctx_eraser, #ctx_brush, #ctx_picker, #cSRCfill, #cSRCstroke, #ctx_mouse, #cPT { display: none; }*/
+
+/* show border for debugging*/
+#cHistory, #ctx_stamp, #ctx_eraser, #ctx_brush, #ctx_picker, #cSRCfill, #cSRCstroke, #ctx_mouse, #cPT {     border: 3px solid #870000;
+; }
