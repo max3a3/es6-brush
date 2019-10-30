@@ -11,3 +11,8 @@ for 'brush' :2810 need to merge this to vars everytimg change of tools
                             'flow_brush': 92,
                             'opacity_brush': 70
                     },
+
+
+add reduer
+ add slider for diameter
+ and prop to brush canvas

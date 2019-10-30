@@ -1,2 +1,4 @@
 updating the brush data
 moved from  co.glyph to sketch_helper
+
+the glph code to the canvas
