@@ -13,4 +13,4 @@ import "./style.css";
 
 // import "./pmain"; // paperjs brush custom paper
 
-import "./ws_main";
+import "./sp_main";
