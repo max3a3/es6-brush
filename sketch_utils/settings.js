@@ -45,7 +45,23 @@ vars = {
   // 'gradient': 'absolute',
   'diameter_pencil': 10,
   'flow_pencil': 100,
-  'opacity_pencil': 80
+  'opacity_pencil': 80,
+
+
+  'movement_eraser': 'freedraw',//todo what is this for
+  'diameter_eraser': 25,
+  'flow_eraser': 90,
+  'hardness_eraser': 60,
+  'opacity_eraser': 30,
+
+
+  'movement_calligraphy': 'freedraw',
+  // 'lineJoin': 'round',
+  // 'gradient': 'absolute',  //todo merge
+  'diameter_calligraphy': 50,
+  'flow_calligraphy': 100,
+  'opacity_calligraphy': 90
+
 };
 
 vars.updateTool = function () {

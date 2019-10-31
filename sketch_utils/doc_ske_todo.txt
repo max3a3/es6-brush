@@ -22,18 +22,27 @@ for 'brush' :2810 need to merge this to vars everytimg change of tools
                         'opacity_pencil': 80
                     },
 
+'eraser' :2872
 
-
-add reduer
- add slider for diameter
- and prop to brush canvas
+fix canvas to be on top, and control in middle
+ check prop to brush canvas
 
 button to clear canvas
+
+ OK move brushcanvas top, since it is absolute the original code from simplecanvas to get local coord doesn't work
+
+
+do eraser, do tool specific slider, use the type as the code,
+  may think about changing the state to object instead of flat? but the code use flat
+    so leave it for now
+  need to change the shared vars key like vars.gradient to be tool specific
 
 test other brush sub tool pencil, calligraphy
 
 test stamp
 
+figure out ui based on type
+
 
 ---
-fix cursor drawing offset wrong
+fix image shifting after mouse up

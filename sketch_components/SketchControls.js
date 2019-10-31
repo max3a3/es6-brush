@@ -1,7 +1,7 @@
 import React, {Fragment, useState,} from "react";
 import Slider from "react-input-slider";
 import {updateKey} from "./actions";
-import {update_vars,vars} from "../sketch_utils/settings";
+import {TOOLS} from "./sketch_config";
 
 
 function TestSlider() {
@@ -16,28 +16,57 @@ function TestSlider() {
   )
 }
 
+// can't put it inside SkecthControls like SetTypeBtn for some reason
 function StateSlider({stateKey, state, dispatch}) {
   return (
     <Fragment>
       {stateKey} <Slider axis="x" x={state[stateKey]}
                          onChange={({x}) => dispatch(updateKey(stateKey, x))}
-    />&nbsp;{state[stateKey]}
+    />&nbsp;{state[stateKey]}<br/>
     </Fragment>
   )
 
 }
 
-function SetTypeBtn({name}) {
-  return <button onClick={_ => update_vars('type', name)}>{name}</button>;
+const TYPE_SLIDER = {
+  eraser: {
+    diameter_eraser: 0,
+    hardness_eraser: 0,
+    flow_eraser: 0,
+    opacity_eraser: 0
+  },
+
+  brush: {
+    diameter_brush: 0,
+    hardness_brush: 0,
+    flow_brush: 0,
+    opacity_brush: 0
+  },
+  pencil: {
+    diameter_pencil: 0,
+    opacity_pencil: 0
+  },
+  calligraphy: {
+    diameter_calligraphy: 0,
+    opacity_calligraphy: 0
+  }
+
 }
-
 export default function SketchControls({state, dispatch}) {
-  return (<div>
-    tools: {vars.type}<br/>
-    <SetTypeBtn name='pencil'/>
-    <SetTypeBtn name='brush'/>
-    <SetTypeBtn name='eraser'/><br/>
-    <StateSlider stateKey='diameter_brush' state={state} dispatch={dispatch}/>
+  const SetTypeBtn = ({name}) =>
+    <button onClick={_ => {
+      dispatch(updateKey('type', name))
+    }
+    }>{name}</button>;
 
+  let tools_specific = Object.keys(TYPE_SLIDER[state.type]).map((m, i) =>
+    <StateSlider stateKey={m} key={i} state={state} dispatch={dispatch}/>
+  )
+  let tools_button = Object.keys(TOOLS).map((m, i) => <SetTypeBtn name={m} k={i}/>
+  )
+  return (<div>
+    tools: {state.type}<br/>
+    {tools_button}<br/>
+    {tools_specific}
   </div>)
 }

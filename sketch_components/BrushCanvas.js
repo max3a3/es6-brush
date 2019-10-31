@@ -9,6 +9,7 @@ and draw  vars for now  to be same code
  */
 
 import React, {PropTypes, Component} from "react";
+import {TOOLS} from "./sketch_config";
 
 
 export default class Canvas extends Component {
@@ -24,7 +25,7 @@ export default class Canvas extends Component {
   }
 
   drawCanvas() {
-    if (this.canvasRef.current) {
+    if (this.canvasRef.current && TOOLS[this.props.state.type].brush_canvas) {
       var ctx_brush = this.canvasRef.current
       let c = this.canvasRef.current.getContext("2d");
       var D = vars['diameter_' + vars.type]
@@ -57,9 +58,6 @@ export default class Canvas extends Component {
   }
 
   render() {
-    const PROPS_KEY = ['diameter_brush']
-
-    PROPS_KEY.forEach(k => update_vars(k, this.props.state[k]))
 
     this.drawCanvas()
     // max radius is 100, so max brush is 200

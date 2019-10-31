@@ -182,7 +182,6 @@ export function doc_mousedown(local_pt) {
 }
 
 export function doc_mousemove(e,local_pt) { // copy of document.onmousemove
-console.log("local_pt",local_pt.X,local_pt.Y)
 
   if (!stop) {
     cXY = local_f(e, 'move',local_pt);  //oXY start? and r is local coordinate?

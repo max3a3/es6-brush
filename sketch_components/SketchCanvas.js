@@ -56,6 +56,8 @@ export default class SketchCanvas extends Component {
     }
 
     onmousedown(e) { // :6319
+        console.log("type",vars.type)
+
         //new
         let local_pt = {X:this.getX(e), Y:this.getY(e)}
         doc_mousedown(local_pt)
