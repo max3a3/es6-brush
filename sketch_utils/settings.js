@@ -3,7 +3,9 @@ import {$,$2D, cookieStab} from './generic'
 export var co = {};
 export var vars = {};
 
-
+export function update_vars(key,value) {
+  vars[key] = value
+}
 vars = {
   'id': 'fill',
   'draw': 'Brush',
@@ -36,8 +38,14 @@ vars = {
   'diameter_brush': 25,
   'hardness_brush': 60,
   'flow_brush': 92,
-  'opacity_brush': 70
+  'opacity_brush': 70,
 
+
+  // 'lineJoin': 'round',   //todo these are settings for pencil, need to be integrated to global vars
+  // 'gradient': 'absolute',
+  'diameter_pencil': 10,
+  'flow_pencil': 100,
+  'opacity_pencil': 80
 };
 
 vars.updateTool = function () {

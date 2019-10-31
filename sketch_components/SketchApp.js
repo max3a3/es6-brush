@@ -10,7 +10,7 @@ export default function SketchApp() {
   return (
     <div>
       sketch<br/>
-      <SketchControls/>
+      <SketchControls state={state} dispatch={dispatch}/>
       {/*todo follow index.html and need to add more canvas*/}
       <div id="cBound">
         <canvas id="ctx_box" className={"sp_canvas"} style={{zIndex: 1}}></canvas>
@@ -23,7 +23,7 @@ export default function SketchApp() {
       <div id="offscreen">
 
         {/*<canvas id="ctx_brush" width="200" height="200"></canvas>*/}
-      <BrushCanvas/>
+      <BrushCanvas state={state}/>
 
       <canvas id="ctx_stamp" width="200" height="200"></canvas> <br/>
       <canvas id="ctx_eraser" width="200" height="200"></canvas>

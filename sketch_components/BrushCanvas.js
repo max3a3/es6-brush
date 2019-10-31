@@ -1,5 +1,5 @@
 import {$, $2D} from "../sketch_utils/generic";
-import {co, vars} from "../sketch_utils/settings";
+import {co, update_vars, vars} from "../sketch_utils/settings";
 
 
 /*
@@ -42,7 +42,7 @@ export default class Canvas extends Component {
       c.globalCompositeOperation = 'source-in';
       c.rect(0, 0, D2, D2);
 
-      //todo: below is no need
+      //set the color
       co.style[vars.fill]({
           'X': 0,
           'Y': 0
@@ -52,10 +52,15 @@ export default class Canvas extends Component {
           'Y': D2
         },
         c, 'fill');
+
     }
   }
 
   render() {
+    const PROPS_KEY = ['diameter_brush']
+
+    PROPS_KEY.forEach(k => update_vars(k, this.props.state[k]))
+
     this.drawCanvas()
     // max radius is 100, so max brush is 200
     return (

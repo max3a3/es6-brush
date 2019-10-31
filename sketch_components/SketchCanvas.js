@@ -47,19 +47,12 @@ export default class SketchCanvas extends Component {
     }
 
     getX(event) {
-        if (event.pageX === undefined) {
-            return event.targetTouches[0].pageX - this.refs.canvas.offsetLeft;
-        } else {
-            return event.pageX - this.refs.canvas.offsetLeft;
-        }
+        return event.nativeEvent.offsetX
+
     }
 
     getY(event) {
-        if (event.pageY === undefined) {
-            return event.targetTouches[0].pageY - this.refs.canvas.offsetTop;
-        } else {
-            return event.pageY - this.refs.canvas.offsetTop;
-        }
+        return event.nativeEvent.offsetY
     }
 
     onmousedown(e) { // :6319

@@ -12,6 +12,17 @@ for 'brush' :2810 need to merge this to vars everytimg change of tools
                             'opacity_brush': 70
                     },
 
+'pencil' :2797
+                    vars: {
+                        'movement_pencil': 'freedraw',
+                        'lineJoin': 'round',
+                        'gradient': 'absolute',
+                        'diameter_pencil': 10,
+                        'flow_pencil': 100,
+                        'opacity_pencil': 80
+                    },
+
+
 
 add reduer
  add slider for diameter
