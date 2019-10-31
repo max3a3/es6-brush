@@ -16,3 +16,13 @@ for 'brush' :2810 need to merge this to vars everytimg change of tools
 add reduer
  add slider for diameter
  and prop to brush canvas
+
+button to clear canvas
+
+test other brush sub tool pencil, calligraphy
+
+test stamp
+
+
+---
+fix cursor drawing offset wrong

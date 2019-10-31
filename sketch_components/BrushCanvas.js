@@ -56,7 +56,6 @@ export default class Canvas extends Component {
   }
 
   render() {
-    debugger
     this.drawCanvas()
     // max radius is 100, so max brush is 200
     return (
