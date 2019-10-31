@@ -1,5 +1,7 @@
-import {$, $2D} from "../sketch_utils/generic";
-import {co, update_vars, vars} from "../sketch_utils/settings";
+import {co, vars} from "../sketch_utils/settings";
+import React, {Component} from "react";
+import {TOOLS} from "./sketch_config";
+import {update_stamp} from "../sketch_utils/stamp";
 
 
 /*
@@ -8,11 +10,8 @@ and draw  vars for now  to be same code
 
  */
 
-import React, {PropTypes, Component} from "react";
-import {TOOLS} from "./sketch_config";
 
-
-export default class Canvas extends Component {
+export default class BrushCanvas extends Component {
 
   constructor(props) {
     super(props);

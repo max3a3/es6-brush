@@ -24,6 +24,12 @@ for 'brush' :2810 need to merge this to vars everytimg change of tools
 
 'eraser' :2872
 
+
+'calligraphy' not working in demo too
+
+'stamp'
+  set url co.stamp() draw it
+
 fix canvas to be on top, and control in middle
  check prop to brush canvas
 

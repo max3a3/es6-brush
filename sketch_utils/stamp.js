@@ -1,3 +1,10 @@
+import {vars} from "./settings";
+
+export let stamp
+export function update_stamp(key,value) {
+  stamp[key] = value
+}
+
 stamp = { // Mouse Events
   current: function (o) {
     var b = stamp.fileNumber;

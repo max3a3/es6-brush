@@ -6,6 +6,8 @@ import {stop} from '../sketch_utils/generic'
 import {canvas_init, doc_mousedown, doc_mousemove, doc_mouseup} from "../sketch_utils/movement";
 let context;
 
+import {stamp} from '../sketch_utils/stamp'
+
 export default class SketchCanvas extends Component {
     constructor(props) {
         super(props);
@@ -80,7 +82,7 @@ export default class SketchCanvas extends Component {
         } else if (vars.type == 'text') {
             // co.core(e, draw.text);
         } else if ({
-            'calligraphy': 1,
+            'calligraphy': 1, //------------------->
             'stamp': 1
         } [vars.type]) {
             if (stamp.loaded) {
@@ -90,7 +92,7 @@ export default class SketchCanvas extends Component {
             }
         } else if(vars.type == 'spirograph') {
             co.core(e, draw.spirograph);
-        } else if ({
+        } else if ({                     // OK
             'brush': 1,
             'pencil': 1,
             'eraser': 1

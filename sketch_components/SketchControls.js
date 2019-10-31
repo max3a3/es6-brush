@@ -2,7 +2,7 @@ import React, {Fragment, useState,} from "react";
 import Slider from "react-input-slider";
 import {updateKey} from "./actions";
 import {TOOLS} from "./sketch_config";
-
+import _ from 'lodash'
 
 function TestSlider() {
   const [state, setState] = useState({x: 10, y: 10});
@@ -59,14 +59,19 @@ export default function SketchControls({state, dispatch}) {
     }
     }>{name}</button>;
 
+  let stamp_buttons = _.range(3).map((n) =>
+    <button key={n} onClick={x => 0}>stamp_{n}</button>
+  )
+
   let tools_specific = Object.keys(TYPE_SLIDER[state.type]).map((m, i) =>
     <StateSlider stateKey={m} key={i} state={state} dispatch={dispatch}/>
   )
-  let tools_button = Object.keys(TOOLS).map((m, i) => <SetTypeBtn name={m} k={i}/>
+  let tools_button = Object.keys(TOOLS).map((m, i) => <SetTypeBtn name={m} key={i}/>
   )
   return (<div>
     tools: {state.type}<br/>
     {tools_button}<br/>
+    {stamp_buttons}<br/>
     {tools_specific}
   </div>)
 }

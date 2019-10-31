@@ -2,7 +2,9 @@ import Actions from './action_type'
 export const INITIAL_STATE = {
   type:'brush',
   diameter_brush:30,
-  hardness_brush:5
+  hardness_brush:5,
+
+  stamp_url:''
 };
 
 export function sketchpadReducer(state, action) {

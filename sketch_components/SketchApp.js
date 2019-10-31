@@ -2,6 +2,7 @@ import React, { Component, useRef, useEffect, useReducer } from "react";
 import SketchCanvas from "./SketchCanvas";
 import SketchControls from "./SketchControls";
 import BrushCanvas from "./BrushCanvas";
+import StampCanvas from "./StampCanvas";
 import {sketchpadReducer, INITIAL_STATE} from "./sketch_reducer";
 
 export default function SketchApp() {
@@ -21,10 +22,11 @@ export default function SketchApp() {
       <SketchControls state={state} dispatch={dispatch}/>
       <div id="offscreen">
 
-        {/*<canvas id="ctx_brush" width="200" height="200"></canvas>*/}
       <BrushCanvas state={state}/>
 
-      <canvas id="ctx_stamp" width="200" height="200"></canvas> <br/>
+      {/*<canvas id="ctx_stamp" width="200" height="200"></canvas> */}
+      <StampCanvas state={state}/>
+      <br/>
       <canvas id="ctx_eraser" width="200" height="200"></canvas>
       <canvas id="ctx_picker" height="1" width="1"></canvas>
       </div>

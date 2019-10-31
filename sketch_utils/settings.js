@@ -314,7 +314,7 @@ co.glyph = function (v, o) {
     C$(o, {
       '+': 'load'
     });
-    stamp.o = o;
+    stamp.o = o; //?
   }
   co.stamp.image.onload = function () {
     var o = co.stamp.image;
