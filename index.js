@@ -12,5 +12,5 @@ import "./style.css";
 //import "./rp_main"; //react paper test demo with draggable point
 
 // import "./pmain"; // paperjs brush custom paper
-
+window.STACK_BLITZ=1
 import "./sp_main";
