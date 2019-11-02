@@ -52,3 +52,11 @@ figure out ui based on type
 
 ---
 fix image shifting after mouse up
+---
+
+pattern and gradient in style.c  cna be used for stamp?
+
+support of copying other field whend changing type,
+e.g calligraphy need the url to be calligraphy, see initial_state
+
+so this is how we do shared vars field to the draw engine when chaning tool

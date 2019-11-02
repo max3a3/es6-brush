@@ -4,7 +4,7 @@ export const INITIAL_STATE = {
   diameter_brush:30,
   hardness_brush:5,
 
-  stamp_url:''
+  co_stamp_image_src:'./brush/calligraphy-1.png'
 };
 
 export function sketchpadReducer(state, action) {

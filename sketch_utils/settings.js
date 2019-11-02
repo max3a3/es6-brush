@@ -1,11 +1,19 @@
-import {$,$2D, cookieStab} from './generic'
+import {$, $2D, cookieStab} from './generic'
 
 export var co = {};
 export var vars = {};
 
-export function update_vars(key,value) {
+export function update_setting_stamp(key, value) {
+  if (key === 'r') { // can not replace 'r' object, so replace the key of r
+    Object.keys(value).forEach(f => co.stamp.r[f] = value[f])
+  } else
+    co.stamp[key] = value
+}
+
+export function update_vars(key, value) {
   vars[key] = value
 }
+
 vars = {
   'id': 'fill',
   'draw': 'Brush',
@@ -30,8 +38,8 @@ vars = {
   'zoom': 100,
 
   // wng add
-  'fillCO': [200,0,0,200],
-  'strokeCO':[0,0,200,200],
+  'fillCO': [200, 0, 0, 200],
+  'strokeCO': [0, 0, 200, 200],
 
   //wng tool default see todo
   'movement_brush': 'freedraw',
@@ -60,7 +68,14 @@ vars = {
   // 'gradient': 'absolute',  //todo merge
   'diameter_calligraphy': 50,
   'flow_calligraphy': 100,
-  'opacity_calligraphy': 90
+  'opacity_calligraphy': 90,
+
+
+  'movement_stamp': 'freedraw',
+  'flow_stamp': 10,
+  'opacity_stamp': 100,
+  'rand_min': 70,  // determine the scaling down from 100%
+  'rand_max': 25
 
 };
 
@@ -361,7 +376,7 @@ co.stamp.r = {};
 
 co.core = function (e, fu) {
   let core = require('./movement').core
-  var d = {L:0,T:0}// win_size.LT(); // d is the middle
+  var d = {L: 0, T: 0}// win_size.LT(); // d is the middle
   core.fu('cBound', e, {
       fu: core.XY,
       X1: 0,

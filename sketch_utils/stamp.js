@@ -19,7 +19,7 @@ stamp = { // Mouse Events
   uri: function (v) {
     return 'media/glyph/' + vars.stamp + '/' + (stamp.fileNumber - 1) + '-' + v + '.png';
   },
-  preview: function (i, m) {
+  preview: function (i, m) { //wng control the preview box in the stamp popup, each preview image of the stamp is a canvas with image url
     if ($('stamp' + i) && stamp.src[i].src) {
       function O(n) {
         return (n < 34 ? (34 - n) / 2 : 0);
@@ -37,7 +37,7 @@ stamp = { // Mouse Events
           H: d.height
         };
       if (o.W >= o.H) Z(o.W);
-      else if (o.H > o.W) Z(o.H);
+      else if (o.H > o.W) Z(o.H); // zoom in to fit 34,34
       c.clearRect(0, 0, 34, 34);
       c.drawImage(d, O(o.W), O(o.H), o.W, o.H);
       if (i == stamp.fileNumber) {

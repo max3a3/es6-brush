@@ -49,6 +49,11 @@ const TYPE_SLIDER = {
   calligraphy: {
     diameter_calligraphy: 0,
     opacity_calligraphy: 0
+  },
+  stamp: {
+    // 'rand', todo this is min max
+    flow_stamp:0,
+    opacity_stamp:0
   }
 
 }
