@@ -54,9 +54,14 @@ figure out ui based on type
 fix image shifting after mouse up
 ---
 
-pattern and gradient in style.c  cna be used for stamp?
+pattern and gradient in style.c  can be used for stamp?  see style.js
 
-support of copying other field whend changing type,
-e.g calligraphy need the url to be calligraphy, see initial_state
+support of copying other field when changing type,
+e.g calligraphy need the url to be calligraphy, see initial_state   co_stamp_image_src:'./brush/calligraphy-1.png'
 
-so this is how we do shared vars field to the draw engine when chaning tool
+
+so this is how we do shared vars field to the draw engine when changing tool
+
+---stackblitz
+can't run calligraphy since it uses ./ url need to change it to github when it is deployed on stackblitx
+ we have a flag on index.js in stackblitz
