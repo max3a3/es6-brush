@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { render } from "react-dom";
-import paper from "paper";
+import paper,{Point,Segment} from "paper";
 import BrushCustomPaper from "./paper-object/BrushCustom";
 import { STROKE } from "./components/BrushCanvas";
 
@@ -13,7 +13,36 @@ function dump(textAreaRef) {
   let value = paper.project.exportJSON({ asString: false });
   textAreaRef.current.value = JSON.stringify(value, undefined, 2);
 }
+function curve() {
+  paper.project.clear();
 
+  let style = {
+    // strokeColor: 'black',
+    strokeColor: new paper.Color(0, 0.9, 0.5),
+    strokeWidth: 1
+  };
+
+  let p0 = {x: 10, y: 10}, //use whatever points you want obviously
+    p1 = {x: 50, y: 100},
+    p2 = {x: 150, y: 200},
+    p3 = {x: 200, y: 75}
+  var myPath = new paper.Path();
+
+  myPath.strokeColor = 'black';
+  let p1_out = new Point(p1).subtract(new Point(p0))
+  myPath.add(new Segment(new paper.Point(p0),null,p1_out));
+  let p2_in = new Point(p2).subtract(new Point(p3))
+  myPath.add(new Segment(new paper.Point(p3),p2_in,null));
+  myPath.fullySelected=true
+
+  myPath.style = style;
+
+
+  // manualDraw(p0,p1,p2,p3)
+}
+function manualDraw(points) {
+
+}
 function lines() {
   paper.project.clear();
 
@@ -64,7 +93,7 @@ export function DirectPaper() {
       strokeWidth: 1
     };
 
-    if (BRUSH) {
+    if (BRUSH) { // will get deleted if you click other buttons that draw another object
       // STROKE is in BrushCanvas to test replaying the points
       brushObject = new BrushCustomPaper(
         { position: BRUSH_POSITION },
@@ -93,6 +122,9 @@ export function DirectPaper() {
 
         <button onClick={lines}>lines</button>
         <br />
+        <button onClick={curve}>curve</button>
+        <br />
+
         <button onClick={brush2}>brush 2</button>
         <br />
         <button onClick={() => dump(textAreaRef)}>dump</button>

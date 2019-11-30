@@ -7,6 +7,9 @@ export function BrushCreator(paper, props) {
   if (!props.strokeColor) props.strokeColor = "black"; // set default
   if (!props.strokeWidth) props.strokeWidth = 3; // set default
   props.project = paper.project; // init as this is created
+
+
+  //BrushCustomPaper  is a paperjs object instance
   var brush = new BrushCustomPaper(props); //todo  becomes {...default,...props}
   return brush;
 }
