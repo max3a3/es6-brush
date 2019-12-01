@@ -1,18 +1,38 @@
-import React, { useRef, useEffect } from "react";
-import { render } from "react-dom";
-import paper,{Point,Segment} from "paper";
+import React, {useRef, useEffect} from "react";
+import {render} from "react-dom";
+import paper, {Point, Segment} from "paper";
 import BrushCustomPaper from "./paper-object/BrushCustom";
-import { STROKE } from "./components/BrushCanvas";
+import {STROKE} from "./components/BrushCanvas";
+import BezierDraw from "./bezier_draw";
+import Bezier from "./bezier-js-src/bezier";
 
 let brushObject;
 const BRUSH_POSITION = [140, 120];
-let BRUSH = 1;
+let BRUSH = 0;
 let CIRCLE = 0; //1; // to test where _draw is called
+let CURVE_SMOOTH = 1
+let CURVE = 0
 
 function dump(textAreaRef) {
-  let value = paper.project.exportJSON({ asString: false });
+  let value = paper.project.exportJSON({asString: false});
   textAreaRef.current.value = JSON.stringify(value, undefined, 2);
 }
+
+
+function getPathSegments(p) {
+  let ret = []
+  let segments = p.segments
+
+  segments.forEach((s, i) => {
+    // no need last point
+    if (i !== segments.length - 1) {
+      let s1 = segments[i + 1]
+      ret.push([s.point, s.point.add(s.handleOut), s1.point.add(s1.handleIn), s1.point])
+    }
+  })
+  return ret
+}
+
 function curve() {
   paper.project.clear();
 
@@ -30,19 +50,69 @@ function curve() {
 
   myPath.strokeColor = 'black';
   let p1_out = new Point(p1).subtract(new Point(p0))
-  myPath.add(new Segment(new paper.Point(p0),null,p1_out));
+  myPath.add(new Segment(new paper.Point(p0), null, p1_out));
   let p2_in = new Point(p2).subtract(new Point(p3))
-  myPath.add(new Segment(new paper.Point(p3),p2_in,null));
-  myPath.fullySelected=true
+  myPath.add(new Segment(new paper.Point(p3), p2_in, null));
+  myPath.fullySelected = true
 
   myPath.style = style;
 
+  let segments = getPathSegments(myPath)
+  console.log("segments", segments)
 
-  // manualDraw(p0,p1,p2,p3)
+  bezierTest(segments)
 }
-function manualDraw(points) {
+
+function bezierTest(segments) {
+
+  let canvas = document.getElementById('silk-2');
+  let draw = new BezierDraw(canvas)
+
+  let drawOffset = {x: 0, y: 50}
+
+  segments.forEach(s => {
+    var curve = new Bezier(s[0], s[1], s[2], s[3]);
+   // draw handle using 2d context
+    // draw.drawSkeleton(curve);
+
+    // draw curve using 2d context
+    // draw.drawCurve(curve,drawOffset);
+
+    var LUT = curve.getLUT(16);
+    LUT.forEach(p=>  draw.drawCircle(p,2,drawOffset));
+  })
 
 }
+
+function curveSmooth() {
+  paper.project.clear();
+
+  let style = {
+    // strokeColor: 'black',
+    strokeColor: new paper.Color(0, 0.9, 0.5),
+    strokeWidth: 1
+  };
+
+  let points = [[10, 10], [20, 15], [35, 40], [50, 50], [60, 40], [55, 30], [70, 10], [75, 30], [85, 50]]
+  var myPath = new paper.Path();
+
+  myPath.strokeColor = 'black';
+  points.forEach(p =>
+    myPath.add(p))
+
+  myPath.simplify(10)
+  myPath.fullySelected = true
+
+
+  let segments = getPathSegments(myPath)
+  console.log("segments", segments)
+
+  bezierTest(segments)
+
+
+}
+
+
 function lines() {
   paper.project.clear();
 
@@ -70,14 +140,17 @@ function lines() {
   drawLine([10, 5], style);
   drawLine([70, 5], style);
 }
+
 function onClear() {
   paper.project.clear();
 }
+
 function brush2() {
   brushObject.points = STROKE[1];
   brushObject.strokeWidth = 18;
   brushObject.strokeColor = "yellow";
 }
+
 export function DirectPaper() {
   let canvas_ref = useRef(null);
   let textAreaRef = useRef(null);
@@ -96,7 +169,7 @@ export function DirectPaper() {
     if (BRUSH) { // will get deleted if you click other buttons that draw another object
       // STROKE is in BrushCanvas to test replaying the points
       brushObject = new BrushCustomPaper(
-        { position: BRUSH_POSITION },
+        {position: BRUSH_POSITION},
         STROKE[0]
       ); //global
       brushObject.style = style;
@@ -110,29 +183,45 @@ export function DirectPaper() {
         fillColor: "black"
       });
     }
+    if (CURVE) {
+      curve()
+    }
+
+    if (CURVE_SMOOTH) {
+      curveSmooth()
+    }
     // lines()
     // rectangle()
   }, []);
 
   return (
     <div className="flex_container">
+      <div id="canvii-container" className="flex_item" style={{width: 850}}>
+        <canvas className="tool_canvas main-canvas silk-canvas active" id="silk-2" width={800} height={400}/>
+        <canvas className="tool_canvas main-canvas" id="silk-1" ref={canvas_ref} width={800} height={400}/>
+      </div>
+
       <div className="flex_item">
         <button onClick={onClear}>clear</button>
-        <br />
+        <br/>
 
         <button onClick={lines}>lines</button>
-        <br />
+        <br/>
         <button onClick={curve}>curve</button>
-        <br />
+        <br/>
+        <button onClick={curveSmooth}>curveSmooth</button>
+        <br/>
 
         <button onClick={brush2}>brush 2</button>
-        <br />
+        <br/>
         <button onClick={() => dump(textAreaRef)}>dump</button>
-        <br />
-        <textarea ref={textAreaRef} rows={40} />
+        <br/>
+        <textarea ref={textAreaRef} rows={40}/>
       </div>
-      <canvas className="tool_canvas flex_item" ref={canvas_ref} />)
+
+      )
     </div>
   );
 }
-render(<DirectPaper />, document.getElementById("root"));
+
+render(<DirectPaper/>, document.getElementById("root"));
