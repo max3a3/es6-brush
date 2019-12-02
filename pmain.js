@@ -1,10 +1,11 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import {render} from "react-dom";
 import paper, {Point, Segment} from "paper";
 import BrushCustomPaper from "./paper-object/BrushCustom";
 import {STROKE} from "./components/BrushCanvas";
 import BezierDraw from "./bezier_draw";
 import Bezier from "./bezier-js-src/bezier";
+import TipSource from "./components/TipSource";
 
 let brushObject;
 const BRUSH_POSITION = [140, 120];
@@ -150,10 +151,29 @@ function brush2() {
   brushObject.strokeWidth = 18;
   brushObject.strokeColor = "yellow";
 }
-
+const TIP_SRC_TEST = './brush/calligraphy-1.png'
 export function DirectPaper() {
   let canvas_ref = useRef(null);
   let textAreaRef = useRef(null);
+
+
+  const TIP_SOURCE_INITIAL_STATE= {loaded:false,width:0, height:0}
+
+  const [tipSourceState, setTipSource] = useState(
+    TIP_SOURCE_INITIAL_STATE
+  );
+
+  // fill stroke can be solid, gradient or pattern
+  //   use fill|stroke CO,  (gradient) fill|stroke GD, (pattern) fill|strokePT ...  see style function
+
+  //    slot for stroke   , fillCO  or strokeCO
+
+  const TOOL_STYLE_INITIAL_STATE = {fill:'solid',stroke:'solid',strokeCO:[0,255,0],fillCO:[255,0,0]}
+
+  const [toolStyleState, setToolStyle] = useState(
+    TOOL_STYLE_INITIAL_STATE
+  );
+
 
   useEffect(() => {
     paper.setup(canvas_ref.current);
@@ -196,11 +216,14 @@ export function DirectPaper() {
 
   return (
     <div className="flex_container">
-      <div id="canvii-container" className="flex_item" style={{width: 850}}>
+<div>
+      <div id="canvii-container" className="flex_item" style={{width: 850,height:450}}>
         <canvas className="tool_canvas main-canvas silk-canvas active" id="silk-2" width={800} height={400}/>
         <canvas className="tool_canvas main-canvas" id="silk-1" ref={canvas_ref} width={800} height={400}/>
       </div>
-
+  xoxo
+  <TipSource image_src={TIP_SRC_TEST} tipSourceState={tipSourceState} setTipSource={setTipSource} toolStyleState ={toolStyleState}/>
+</div>
       <div className="flex_item">
         <button onClick={onClear}>clear</button>
         <br/>

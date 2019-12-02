@@ -141,8 +141,8 @@ draw = {
       r = co.stamp.r,
       D = vars.diameter_calligraphy / 100,
       D2 = D * 2;
-
-    function z(x, y) {
+//    drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, srcX: number, srcY: number, srcW: number, srcH: number, dstX: number, dstY: number, dstW: number, dstH: number): void;
+    function z(x, y) { //b is coordinate at destination
       c.drawImage(d, 0, 0, r.W, r.H, b.X - ((r.W * D) / 2) - x, b.Y - ((r.H * D) / 2) - y, r.W * D, r.H * D);
     };
     if (m == 'down') {
