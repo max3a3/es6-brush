@@ -232,7 +232,7 @@
     length: function() {
       return utils.length(this.derivative.bind(this));
     },
-    _lut: [],
+      _lut: [],
     getLUT: function(steps) {
       steps = steps || 100;
       if (this._lut.length === steps) {
@@ -243,7 +243,9 @@
       // we decrement and then use <= rather than <:
       steps--;
       for (var t = 0; t <= steps; t++) {
-        this._lut.push(this.compute(t / steps));
+        let pt = this.compute(t / steps)
+        pt.nv = this.normal(t/steps)
+        this._lut.push(pt);
       }
       return this._lut;
     },

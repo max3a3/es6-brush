@@ -1,5 +1,5 @@
 
-
+// from D:\work\drawing-samples\bezierjs\js\draw.js
 export default class BezierDraw {
   constructor(cvs) {
  this.ctx = cvs.getContext("2d");
@@ -10,6 +10,11 @@ getCtx() {
   ctx.fillStyle = "none";
   return ctx
 }
+  setColor(c) {
+    let ctx = this.ctx // class conversion
+    ctx.strokeStyle = c;
+  }
+
    drawCurve (curve, offset) {
      let ctx = this.getCtx() // class conversion
 
@@ -114,4 +119,13 @@ getCtx() {
     ctx.stroke();
   }
 
+
+  drawRotated(image,x,y ,angle) {
+    let context = this.getCtx() // class conversion
+    context.save();
+    context.translate(x, y);
+    context.rotate(angle); // radian
+    context.drawImage(image, -image.width / 2, -image.height / 2);
+    context.restore();
+  }
 }

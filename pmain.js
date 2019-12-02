@@ -64,7 +64,7 @@ function curve() {
   bezierTest(segments)
 }
 
-function bezierTest(segments) {
+function bezierTest(segments,spacing=16) {
 
   let canvas = document.getElementById('silk-2');
   let draw = new BezierDraw(canvas)
@@ -79,9 +79,27 @@ function bezierTest(segments) {
     // draw curve using 2d context
     // draw.drawCurve(curve,drawOffset);
 
-    var LUT = curve.getLUT(16);
-    LUT.forEach(p=>  draw.drawCircle(p,2,drawOffset));
+    var LUT = curve.getLUT(spacing);
+    var d=8; // normal line distance
+    LUT.forEach(pt=> {
+        draw.drawCircle(pt, 2, drawOffset)
+        let nv = pt.nv
+        draw.drawLine(pt, {x: pt.x + d * nv.x, y: pt.y + d * nv.y}, drawOffset);
+      }
+    )
+    //
+    // draw.setColor("red");
+    // var pt, nv, d=5;
+    //
+    // for(var t=0; t<=1; t+=1/spacing) { // t is the distance
+    //   var pt = curve.get(t);
+    //   var nv = curve.normal(t);
+    //   draw.drawLine(pt, { x: pt.x + d*nv.x, y: pt.y + d*nv.y} ,drawOffset);
+    // }
+
   })
+
+
 
 }
 
@@ -108,7 +126,7 @@ function curveSmooth() {
   let segments = getPathSegments(myPath)
   console.log("segments", segments)
 
-  bezierTest(segments)
+  bezierTest(segments,5)
 
 
 }
@@ -151,13 +169,14 @@ function brush2() {
   brushObject.strokeWidth = 18;
   brushObject.strokeColor = "yellow";
 }
-const TIP_SRC_TEST = './brush/calligraphy-1.png'
+// const TIP_SRC_TEST = './brush/calligraphy-1.png'
+const TIP_SRC_TEST = './brush/people.png'
 export function DirectPaper() {
   let canvas_ref = useRef(null);
   let textAreaRef = useRef(null);
 
 
-  const TIP_SOURCE_INITIAL_STATE= {loaded:false,width:0, height:0}
+  const TIP_SOURCE_INITIAL_STATE= {loaded:false,width:0, height:0,context:null}
 
   const [tipSourceState, setTipSource] = useState(
     TIP_SOURCE_INITIAL_STATE
