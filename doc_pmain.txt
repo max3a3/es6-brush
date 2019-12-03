@@ -1,0 +1,18 @@
+test bezier library
+
+test copyimage with rotation using TipSource  as an analog of StampCanvas used in sketchapp demo
+
+todo
+just copy the code that update the state
+
+and then we should store the data in the state
+
+use the state as the source of truth to get the context
+
+
+add another state that is read only in tipsource
+  for the fill stroke data
+
+  this is for style function in tipsource
+
+each tool has its own fill stroke pattern attribute

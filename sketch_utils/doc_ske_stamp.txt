@@ -1,0 +1,19 @@
+
+the stamp popout isin :708
+
+
+vars used
+
+stamp.fileNumber
+
+there is a way to use different stamps but not enabled
+in stamp.reset
+
+
+co.stamp.image.src is the key
+  -> state.co_stamp_image_src
+
+
+stamp.r  is the folder range [butterfly,doodles,footprint]
+
+co.stamp.r  is the rect

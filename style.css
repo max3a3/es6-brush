@@ -1,7 +1,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 h1, h2 {
-  font-family: Caveat;
+    font-family: Caveat;
 }
 
 .container {
@@ -11,52 +11,125 @@ h1, h2 {
 }
 
 .flex_container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: stretch;
-  align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
 }
 
 .flex_item:nth-child(1) {
-  width:22%;
-  order: 0;
-  flex: 0 1 auto;
-  align-self: auto;
+    width: 22%;
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
 }
 
 .flex_item:nth-child(2) {
-  order: 0;
-  flex: 1 1 auto;
-  align-self: auto;
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
 
 
 }
 
 .main-canvas {
-  border:3px solid #870000;
+    border: 3px solid #870000;
 }
 
 
 .canvas_container {
-  position:relative
+    position: relative
 }
 
 /* pointer-events allow to pass through */
 .canvas_overlay {
-  position:absolute;
-  /*pointer-events: none ;*/
-  top:0;
-  left:0
+    position: absolute;
+    /*pointer-events: none ;*/
+    top: 0;
+    left: 0
 }
 
 
 /*ws*/
-#canvii-container{left:0;position:relative;}
-#silk-1,#silk-2,#sparks{position:absolute;top:0;left:0;}
+#canvii-container {
+    left: 0;
+    position: relative;
+}
 
-.silk-canvas{z-index:1;opacity:1;-webkit-transition:opacity 0.75s ease-out;-moz-transition:opacity 0.75s ease-out;-ms-transition:opacity 0.75s ease-out;-o-transition:opacity 0.75s ease-out;transition:opacity 0.75s ease-out;}.silk-canvas.onepacity{opacity:1;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none;}
-.silk-canvas.active{z-index:2;pointer-events:all;}.silk-canvas.active.zeropacity{opacity:0;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none;}
+#silk-1, #silk-2, #sparks {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
-#sparks{cursor:pointer;z-index:3;}
+.silk-canvas {
+    z-index: 1;
+    opacity: 1;
+    -webkit-transition: opacity 0.75s ease-out;
+    -moz-transition: opacity 0.75s ease-out;
+    -ms-transition: opacity 0.75s ease-out;
+    -o-transition: opacity 0.75s ease-out;
+    transition: opacity 0.75s ease-out;
+}
+
+.silk-canvas.onepacity {
+    opacity: 1;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.silk-canvas.active {
+    z-index: 2;
+    pointer-events: all;
+}
+
+.silk-canvas.active.zeropacity {
+    opacity: 0;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+#sparks {
+    cursor: pointer;
+    z-index: 3;
+}
+
+
+/*sketchpad*/
+#cBound {
+    height: 160px;
+    overflow: hidden;
+    /*position: absolute;*/
+    top: 9px;
+    left: 16px;
+    width: 800px;
+}
+
+.sp_canvas {
+    position: absolute;
+}
+
+
+#offscreen {
+    /*height: 600px;*/
+    /*overflow: hidden;*/
+    /*position: absolute;*/
+    /*top: 300px;*/
+    /*left: 16px;*/
+    /*width: 800px;*/
+}
+
+/* offscreen temp canvas to copy stuff to */
+/*#cHistory, #ctx_stamp, #ctx_eraser, #ctx_brush, #ctx_picker, #cSRCfill, #cSRCstroke, #ctx_mouse, #cPT { display: none; }*/
+
+/* show border for debugging*/
+#cHistory, #ctx_stamp, #ctx_eraser, #ctx_brush, #ctx_picker, #cSRCfill, #cSRCstroke, #ctx_mouse, #cPT {     border: 3px solid #870000;
+; }

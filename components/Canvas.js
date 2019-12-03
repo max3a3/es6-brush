@@ -15,8 +15,8 @@ export default class Canvas extends Component {
     }
 
     componentDidMount() {
-        this.refs.canvas.height = window.innerHeight;
-        this.refs.canvas.width = window.innerWidth;
+        this.refs.canvas.height = window.innerHeight-80;
+        this.refs.canvas.width = window.innerWidth-60;
         ctx = this.refs.canvas.getContext("2d");
     }
 
@@ -81,7 +81,7 @@ export default class Canvas extends Component {
         return (
             <div> simple brush
               <canvas
-                className="canvas"
+                className="main-canvas"
                 ref="canvas"
                 id="canvas"
                 onTouchStart = {this.start}

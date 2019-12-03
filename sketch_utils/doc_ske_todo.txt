@@ -1,0 +1,72 @@
+vars['fillCO'
+
+'strokeCO'
+
+
+for 'brush' :2810 need to merge this to vars everytimg change of tools
+                    vars: {
+                            'movement_brush': 'freedraw',
+                            'diameter_brush': 25,
+                            'hardness_brush': 60,
+                            'flow_brush': 92,
+                            'opacity_brush': 70
+                    },
+
+'pencil' :2797
+                    vars: {
+                        'movement_pencil': 'freedraw',
+                        'lineJoin': 'round',
+                        'gradient': 'absolute',
+                        'diameter_pencil': 10,
+                        'flow_pencil': 100,
+                        'opacity_pencil': 80
+                    },
+
+'eraser' :2872
+
+
+'calligraphy' not working in demo too
+
+'stamp'
+  set url co.stamp() draw it
+
+fix canvas to be on top, and control in middle
+ check prop to brush canvas
+
+button to clear canvas
+
+ OK move brushcanvas top, since it is absolute the original code from simplecanvas to get local coord doesn't work
+
+
+do eraser, do tool specific slider, use the type as the code,
+  may think about changing the state to object instead of flat? but the code use flat
+    so leave it for now
+  need to change the shared vars key like vars.gradient to be tool specific
+
+test other brush sub tool pencil, calligraphy
+
+test stamp
+
+figure out ui based on type
+
+
+---
+fix image shifting after mouse up
+---
+
+pattern and gradient in style.c  can be used for stamp?  see style.js
+
+support of copying other field when changing type,
+e.g calligraphy need the url to be calligraphy, see initial_state   co_stamp_image_src:'./brush/calligraphy-1.png'
+
+
+so this is how we do shared vars field to the draw engine when changing tool
+
+---stackblitz
+can't run calligraphy since it uses ./ url need to change it to github when it is deployed on stackblitx
+ we have a flag on index.js in stackblitz
+
+ ---
+
+ group brush
+
