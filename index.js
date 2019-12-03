@@ -1,5 +1,6 @@
 // Import stylesheets
 import "./style.css";
+window.STACK_BLITZ = 1;
 
 // import './fmain'; // font demo
 
@@ -9,8 +10,7 @@ import "./style.css";
 
 // import "./tr_main"; //telloware  react demo  has BrushCanvas  compnent with two canvas ,one for brush , one for overlay
 
-//import "./rp_main"; //react paper test demo with draggable point
+import "./rp_main"; //react paper test demo with draggable point
 
 // import "./pmain"; // paperjs brush custom paper
-
-import "./sp_main";
+// import "./sp_main";  // sketchpad demo

@@ -1,0 +1,32 @@
+brush tool
+  just imple curve
+  later try the bezier interpolation to match the curve
+
+collecting curve in a group so can set prop/modifier on it
+
+other brush tool
+   port current brush to a tool
+modifier stack on the curve
+
+  try stamp shape, pyskopaint brush interna
+
+  clean up sketchpad brush internal port to react as much 
+    like pattern drawing? for context, doc other thing you want to port
+  
+other library from papergraph, text on curve, own layer to draw widget for rotatuon
+   otger transform opersation
+so instead of canvas like sketchpad we can use layer
+--
+zen
+
+eye getting drunk,,
+
+mind also getting drunk
+
+how subtle this cloud , this force, how close (identity)
+  need to have a clear background to sense this, 6th jhana
+--
+hs, need jepetto and druid quest, malygos, and floop with 10 armor guy
+king pharois with petal, druid quest zeno, kazaku
+
+vesuba evolve sganmab with hare evoilve and the spriit fo rfrog 
