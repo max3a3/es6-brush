@@ -34,7 +34,7 @@ function getPathSegments(p) {
   return ret
 }
 
-function curve() {
+function curve(tipstate) {
   paper.project.clear();
 
   let style = {
@@ -61,10 +61,10 @@ function curve() {
   let segments = getPathSegments(myPath)
   console.log("segments", segments)
 
-  bezierTest(segments)
+  bezierTest(tipstate,segments)
 }
 
-function bezierTest(segments,spacing=16) {
+function bezierTest(tipstate,segments,spacing=16) {
 
   let canvas = document.getElementById('silk-2');
   let draw = new BezierDraw(canvas)
@@ -84,7 +84,16 @@ function bezierTest(segments,spacing=16) {
     LUT.forEach(pt=> {
         draw.drawCircle(pt, 2, drawOffset)
         let nv = pt.nv
-        draw.drawLine(pt, {x: pt.x + d * nv.x, y: pt.y + d * nv.y}, drawOffset);
+
+      // normal vector drawing
+        // draw.drawLine(pt, {x: pt.x + d * nv.x, y: pt.y + d * nv.y}, drawOffset);
+
+
+        let angle = Math.atan2(nv.y, nv.x) //radian
+        draw.drawRotated(tipstate.canvas,pt.x,pt.y,tipstate.width,tipstate.height,
+          angle,
+          0.2)
+
       }
     )
     //
@@ -103,7 +112,7 @@ function bezierTest(segments,spacing=16) {
 
 }
 
-function curveSmooth() {
+function curveSmooth(tipstate) {
   paper.project.clear();
 
   let style = {
@@ -126,7 +135,7 @@ function curveSmooth() {
   let segments = getPathSegments(myPath)
   console.log("segments", segments)
 
-  bezierTest(segments,5)
+  bezierTest(tipstate,segments,5)
 
 
 }
@@ -159,7 +168,15 @@ function lines() {
   drawLine([10, 5], style);
   drawLine([70, 5], style);
 }
-
+let degree = 20
+function teststamp(tipstate) {
+  let canvas = document.getElementById('silk-2');
+  let draw = new BezierDraw(canvas)
+   degree += 33
+  draw.drawRotated(tipstate.canvas,100,50,tipstate.width,tipstate.height,
+    degree * Math.PI/180,
+  0.2)
+}
 function onClear() {
   paper.project.clear();
 }
@@ -176,7 +193,7 @@ export function DirectPaper() {
   let textAreaRef = useRef(null);
 
 
-  const TIP_SOURCE_INITIAL_STATE= {loaded:false,width:0, height:0,context:null}
+  const TIP_SOURCE_INITIAL_STATE= {loaded:false,width:0, height:0,canvas:null}
 
   const [tipSourceState, setTipSource] = useState(
     TIP_SOURCE_INITIAL_STATE
@@ -205,33 +222,35 @@ export function DirectPaper() {
       strokeWidth: 1
     };
 
-    if (BRUSH) { // will get deleted if you click other buttons that draw another object
-      // STROKE is in BrushCanvas to test replaying the points
-      brushObject = new BrushCustomPaper(
-        {position: BRUSH_POSITION},
-        STROKE[0]
-      ); //global
-      brushObject.style = style;
-      // brushObject.selected = true;
-      // starObject.position = STAR_POSITION;
-    }
-    if (CIRCLE) {
-      var shape = new paper.Shape.Ellipse({
-        point: [20, 20],
-        size: [180, 60],
-        fillColor: "black"
-      });
-    }
-    if (CURVE) {
-      curve()
-    }
+    if (tipSourceState.canvas) {
+      if (BRUSH) { // will get deleted if you click other buttons that draw another object
+        // STROKE is in BrushCanvas to test replaying the points
+        brushObject = new BrushCustomPaper(
+          {position: BRUSH_POSITION},
+          STROKE[0]
+        ); //global
+        brushObject.style = style;
+        // brushObject.selected = true;
+        // starObject.position = STAR_POSITION;
+      }
+      if (CIRCLE) {
+        var shape = new paper.Shape.Ellipse({
+          point: [20, 20],
+          size: [180, 60],
+          fillColor: "black"
+        });
+      }
+      if (CURVE) {
+        curve(tipSourceState)
+      }
 
-    if (CURVE_SMOOTH) {
-      curveSmooth()
+      if (CURVE_SMOOTH) {
+        curveSmooth(tipSourceState)
+      }
+      // lines()
+      // rectangle()
     }
-    // lines()
-    // rectangle()
-  }, []);
+  }, [tipSourceState]);
 
   return (
     <div className="flex_container">
@@ -250,6 +269,8 @@ export function DirectPaper() {
         <button onClick={lines}>lines</button>
         <br/>
         <button onClick={curve}>curve</button>
+        <br/>
+        <button onClick={teststamp.bind(this,tipSourceState)}>teststamp</button>
         <br/>
         <button onClick={curveSmooth}>curveSmooth</button>
         <br/>

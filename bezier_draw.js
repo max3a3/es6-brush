@@ -120,12 +120,19 @@ getCtx() {
   }
 
 
-  drawRotated(image,x,y ,angle) {
+  drawRotated(image,x,y ,width,height,angle,s=1) {
     let context = this.getCtx() // class conversion
     context.save();
     context.translate(x, y);
     context.rotate(angle); // radian
-    context.drawImage(image, -image.width / 2, -image.height / 2);
+
+    let scaleWidth = width*s,scaleHeight=height*s
+
+    // context.drawImage(image, -width / 2, -height / 2); // no scaling
+
+     context.drawImage(image, 0,0,width,height,
+       -scaleWidth / 2, -scaleHeight / 2,
+       scaleWidth,scaleHeight);
     context.restore();
   }
 }

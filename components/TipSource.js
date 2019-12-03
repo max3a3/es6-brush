@@ -90,7 +90,8 @@ export default class TipSource extends Component {
 
         //c.restore(); // context ?
 
-        setTipSource({...tipSourceState,loaded:true,width:ctx_stamp.width,height:ctx_stamp.height});
+        setTipSource({...tipSourceState,loaded:true,width:ctx_stamp.width,height:ctx_stamp.height,
+          canvas:ctx_stamp});
       }
     }
 
