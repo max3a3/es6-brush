@@ -4,7 +4,8 @@ import paper, {Point, Segment} from "paper";
 import BrushCustomPaper from "./paper-object/BrushCustom";
 import {STROKE} from "./components/BrushCanvas";
 import BezierDraw from "./bezier_draw";
-import Bezier from "./bezier-js-src/bezier";
+// import Bezier from "./bezier-js-src/bezier";
+import Bezier from 'bezier-js'
 import TipSource from "./components/TipSource";
 import _ from 'lodash'
 import invariant from 'invariant'
