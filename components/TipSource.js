@@ -98,7 +98,8 @@ export default class TipSource extends Component {
   }
 
   render() {
-    this.loadStampImage(this.props.image_src)
+    if (this.canvasRef.current)
+      this.loadStampImage(this.props.image_src)
     // max radius is 100, so max brush is 200
     return (
       <canvas

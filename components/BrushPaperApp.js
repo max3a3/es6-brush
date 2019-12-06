@@ -28,28 +28,32 @@ function getPaths({ ids, shapes }) {
   });
   return objects;
 }
-const TIP_SOURCE_INITIAL_STATE = {loaded: false, width: 0, height: 0, canvas: null}
+const TIP_SOURCE_INITIAL_STATE = {loaded: false, width: 0, height: 0, canvas: null,
+  src:null //addition for hook setting after componentdidmount
+}
 const TIP_SOURCE_TEST = './brush/people.png'
 
 export default function BrushPaperApp() {
-  let paperRef = useRef(null);
   const [state, dispatch] = useReducer(canvasReducer, INITIAL_STATE);
   const [tipSourceState, setTipSource] = useState(
       TIP_SOURCE_INITIAL_STATE
   );
-  // type is brush-0 -1  for intello,  or stroke-0 -1 for psyc TODO
+  // type is brush-0 -1  for intello,  or stroke-0 -1 for psyc TODO add stroke
   const TOOL_STYLE_INITIAL_STATE = {type:'brush-0',fill: 'solid', stroke: 'solid', strokeCO: [0, 255, 0], fillCO: [255, 0, 0]}
 
   const [toolStyleState, setToolStyle] = useState(
       TOOL_STYLE_INITIAL_STATE
   );
-
+  let tipImageSrc = null
+  useEffect(() => {
+    setTipSource({...tipSourceState, src:TIP_SOURCE_TEST});
+    }, []);
 
   return (
     <div>
-      <BrushButtons state={state} dispatch={dispatch} paperRef={paperRef} />
-      <BrushContainer state={state} dispatch={dispatch}/>
-      <TipSource image_src={TIP_SOURCE_TEST} tipSourceState={tipSourceState} setTipSource={setTipSource}
+      <BrushButtons state={state} dispatch={dispatch} />
+      <BrushContainer state={state} dispatch={dispatch} toolStyleState={toolStyleState} />
+      <TipSource image_src={tipSourceState.src} tipSourceState={tipSourceState} setTipSource={setTipSource}
                  toolStyleState={toolStyleState}/>
 
     </div>

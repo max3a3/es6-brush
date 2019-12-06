@@ -26,7 +26,7 @@ function getColor() {
   // return COLORS[colorIndex];
   return _.sample(COLORS);
 }
-export default function TestPaperButtons({ state, dispatch, paperRef }) {
+export default function TestPaperButtons({ state, dispatch }) {
   return (
     //todo add size param
     <div>

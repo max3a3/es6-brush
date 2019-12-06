@@ -27,7 +27,7 @@ const getObjects = ({ids, shapes}) => ids.map(pathId => {
   });
 });
 
-export default function BrushContainer({state, dispatch, paperRef,canvasRef}) {
+export default function BrushContainer({state, dispatch}) {
   //canvasRef to clear it later
 
   // dispatch
@@ -37,9 +37,8 @@ export default function BrushContainer({state, dispatch, paperRef,canvasRef}) {
       <BrushCanvas className="canvas_overlay"         height={_canvasHeight}
                    width={_canvasWidth}
                    onAddBrush={onAddBrush}
-                   ref={canvasRef}/>
+                   />
       <PaperContainer
-        ref={paperRef}
         canvasProps={{width: _canvasWidth, height: _canvasHeight, className: "main-canvas"}}
         renderer={CustomRenderer}
       >
