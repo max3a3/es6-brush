@@ -27,16 +27,22 @@ const getObjects = ({ids, shapes}) => ids.map(pathId => {
   });
 });
 
-export default function BrushContainer({state, dispatch}) {
+export default function BrushContainer({state, dispatch,toolStyleState}) {
   //canvasRef to clear it later
 
   // dispatch
   const onAddBrush = ({points})=>dispatch(AddBrush({points}))
+
+   //not yet
+  const onAddStroke= ({points})=>{debugger;//dispatch(AddBrush({points})
+     }
   return (
     <div className="canvas_container">
       <BrushCanvas className="canvas_overlay"         height={_canvasHeight}
                    width={_canvasWidth}
                    onAddBrush={onAddBrush}
+                   brushType={toolStyleState.brushType}
+                   onAddStroke={onAddStroke}
                    />
       <PaperContainer
         canvasProps={{width: _canvasWidth, height: _canvasHeight, className: "main-canvas"}}

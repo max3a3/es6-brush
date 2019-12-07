@@ -1,4 +1,6 @@
 export const _globalLineWidth = 0.2;
+
+//todo separate this as another subclass as this is only for intelo brushes
 export class BrushBase {
   sizeMin = 0;
   sizeMax = 0;

@@ -26,7 +26,7 @@ function getColor() {
   // return COLORS[colorIndex];
   return _.sample(COLORS);
 }
-export default function TestPaperButtons({ state, dispatch }) {
+export default function TestPaperButtons({ state, dispatch,toolStyleState, setToolStyle }) {
   return (
     //todo add size param
     <div>
@@ -75,13 +75,13 @@ export default function TestPaperButtons({ state, dispatch }) {
         cb={_ => {
           dispatch(AddBrush({ points: STROKE[0] }));
         }}
-        name="brush 1"
+        name="add brush 1"
       />
       <Btn
         cb={_ => {
           dispatch(AddBrush({ points: STROKE[1] }));
         }}
-        name="brush 2"
+        name="add brush 2"
       />
       <Btn
         cb={n0 => {
@@ -92,6 +92,20 @@ export default function TestPaperButtons({ state, dispatch }) {
         }}
         name="color_brush"
       />
+      <br />
+      <Btn
+        cb={_ => {
+          setToolStyle({...toolStyleState, brushType:'brush:BrushThin'});
+        }}
+        name="tool->brush"
+      />
+      <Btn
+        cb={_ => {
+          setToolStyle({...toolStyleState, brushType:'stroke:StrokeStamp'});
+        }}
+        name="tool->stroke"
+      />
+      tool:{toolStyleState.brushType}
       <br />
       {/*test bound on brush object*/}
       <Btn

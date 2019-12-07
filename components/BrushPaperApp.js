@@ -38,8 +38,8 @@ export default function BrushPaperApp() {
   const [tipSourceState, setTipSource] = useState(
       TIP_SOURCE_INITIAL_STATE
   );
-  // type is brush-0 -1  for intello,  or stroke-0 -1 for psyc TODO add stroke
-  const TOOL_STYLE_INITIAL_STATE = {type:'brush-0',fill: 'solid', stroke: 'solid', strokeCO: [0, 255, 0], fillCO: [255, 0, 0]}
+  // type is brush:BrushThin  for intello,  or stroke:StrokeStamp for psyc TODO add stroke
+  const TOOL_STYLE_INITIAL_STATE = {brushType:'stroke:StrokeStamp',fill: 'solid', stroke: 'solid', strokeCO: [0, 255, 0], fillCO: [255, 0, 0]}
 
   const [toolStyleState, setToolStyle] = useState(
       TOOL_STYLE_INITIAL_STATE
@@ -51,7 +51,8 @@ export default function BrushPaperApp() {
 
   return (
     <div>
-      <BrushButtons state={state} dispatch={dispatch} />
+      <BrushButtons state={state} dispatch={dispatch}
+                    toolStyleState={toolStyleState} setToolStyle={setToolStyle}/>
       <BrushContainer state={state} dispatch={dispatch} toolStyleState={toolStyleState} />
       <TipSource image_src={tipSourceState.src} tipSourceState={tipSourceState} setTipSource={setTipSource}
                  toolStyleState={toolStyleState}/>

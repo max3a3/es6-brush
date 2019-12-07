@@ -1,10 +1,12 @@
-import { Component, Fragment } from "react";
+import {Component, Fragment} from "react";
 import React from "react";
 import invariant from "invariant";
 
-import getBrush, { initBrush } from "./brush_class";
-import { _canvasWidth, _canvasHeight } from "../tconfig";
+import getBrush, {initBrush} from "./brush_class";
+import {_canvasWidth, _canvasHeight} from "../tconfig";
 import _ from 'lodash'
+import paper from "paper";
+
 export let STROKE = [];
 STROKE[0] = [
   [60.25227355957031, 188.42529296875],
@@ -60,10 +62,23 @@ export default class BrushCanvas extends Component {
     invariant(this.canvasRef.current, "ref not inited");
     let context = this.canvasRef.current.getContext("2d");
     invariant(context, "no context");
-    initBrush(context);
-    this.brush = getBrush();
+
+    this.paperRef = new paper.PaperScope()
+    this.paperRef.setup(this.canvasRef.current);
+
+    initBrush(context, this.paperRef);
+
+    this.brush = getBrush(this.props.brushType);
+
   }
 
+
+  componentDidUpdate(prevProps) {
+    // handles when the app change the active brush
+    if (this.props.brushType !== prevProps.brushType) {
+      this.brush = getBrush(this.props.brushType);
+    }
+  }
   replayStroke(i) {
     let s = STROKE[i];
     invariant(s.length, "index invalid");
@@ -79,15 +94,17 @@ export default class BrushCanvas extends Component {
     }
     this.brush.endStroke();
   }
+
   clear() {
     let canvas = this.canvasRef.current;
     let context = this.canvasRef.current.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
+
   mouseDown = event => {
     console.log("mousedown");
     let [x, y] = this.getLocalXY(event);
-    getBrush().beginStroke(
+    this.brush.beginStroke(
       this.brushColor,
       this.brushSize,
       this.transformModes,
@@ -133,6 +150,7 @@ export default class BrushCanvas extends Component {
     let json_value = JSON.stringify(this.brushCache, undefined, 2);
     console.log(json_value);
   }
+
   mouseUp = event => {
     if (this.isDrawing) {
       this.brush.endStroke();
@@ -141,7 +159,7 @@ export default class BrushCanvas extends Component {
     this.isDrawing = false;
 
     if (this.props.onAddBrush) {
-      this.props.onAddBrush({points:_.clone(this.brushCache)})
+      this.props.onAddBrush({points: _.clone(this.brushCache)})
       this.clear()
     }
   };
@@ -165,3 +183,11 @@ export default class BrushCanvas extends Component {
     );
   }
 }
+
+/*
+
+todo need to create direct paper with that canvas
+don't use papercontainer which is for react
+
+so we have two paper scope!
+ */
