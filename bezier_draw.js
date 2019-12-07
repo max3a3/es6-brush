@@ -2,8 +2,14 @@
 // from D:\work\drawing-samples\bezierjs\js\draw.js
 export default class BezierDraw {
   constructor(cvs) {
+    this.canvas = cvs
  this.ctx = cvs.getContext("2d");
+    this.clear()
 }
+clear() {
+
+  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
 getCtx() {
   let ctx = this.ctx // class conversion
   ctx.strokeStyle = "black";
