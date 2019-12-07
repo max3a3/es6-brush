@@ -1,14 +1,16 @@
 import React, {useRef, useEffect, useState} from "react";
 import {render} from "react-dom";
-import paper, {Point, Segment} from "paper";
+import paper from "paper";
 import BrushCustomPaper from "./paper-object/BrushCustom";
 import {STROKE} from "./components/BrushCanvas";
 import BezierDraw from "./bezier_draw";
-// import Bezier from "./bezier-js-src/bezier";
-import Bezier from 'bezier-js'
 import TipSource from "./components/TipSource";
 import _ from 'lodash'
 import invariant from 'invariant'
+import getBrush, {initBrush} from "./components/brush_class";
+import Bezier from 'bezier-js'
+
+// import Bezier from "./bezier-js-src/bezier";  to debug the source
 
 let brushObject;
 const BRUSH_POSITION = [140, 120];
@@ -16,7 +18,7 @@ let BRUSH = 0;
 let CIRCLE = 0; //1; // to test where _draw is called
 let CURVE_SMOOTH = 1
 let CURVE = 0
-
+let g_bezier_draw = null
 function dump(textAreaRef) {
   let value = paper.project.exportJSON({asString: false});
   textAreaRef.current.value = JSON.stringify(value, undefined, 2);
@@ -54,10 +56,10 @@ function curve(tipstate) {
   var myPath = new paper.Path();
 
   myPath.strokeColor = 'black';
-  let p1_out = new Point(p1).subtract(new Point(p0))
-  myPath.add(new Segment(new paper.Point(p0), null, p1_out));
-  let p2_in = new Point(p2).subtract(new Point(p3))
-  myPath.add(new Segment(new paper.Point(p3), p2_in, null));
+  let p1_out = new paper.Point(p1).subtract(new paper.Point(p0))
+  myPath.add(new paper.Segment(new paper.Point(p0), null, p1_out));
+  let p2_in = new paper.Point(p2).subtract(new paper.Point(p3))
+  myPath.add(new paper.Segment(new paper.Point(p3), p2_in, null));
   myPath.fullySelected = true
 
   myPath.style = style;
@@ -68,10 +70,38 @@ function curve(tipstate) {
   bezierTest(tipstate, segments)
 }
 
-function bezierTest(tipstate, segments, spacing = 16) {
+function strokeStampTest(points, simplify, spacing = 8) {
+  let brush = getBrush('stroke:StrokeStamp')
+
+  let options = {
+    color: 'red', //css value
+    size: 2,
+    mode: [], // transformMode
+    shadow: false,// brush specific
+    simplify: simplify, // brush specific
+    spacing: spacing // brush specificstamp spacing
+  }
+  brush.beginStroke(
+    options.color,  // these 3 are old param to be replaced in options
+    options.size,
+    options.mode,
+    points[0][0], points[0][1], options) // this should be prop instead of each param
+
+  points.forEach((p,i) => {
+    if (i>0) // skip first point as already added in beginStroke
+    brush.doStroke(p[0], p[1])
+  })
+
+  brush.endStroke()
+}
+
+
+function bezierTest(tipstate, segments, spacing = 16)
+//old direct version, should use strokeStampTest to encapsulate and share the code with react-paper
+{
 
   let canvas = document.getElementById('silk-2');
-  let draw = new BezierDraw(canvas)
+  let draw = g_bezier_draw.clear()
 
   let drawOffset = {x: 0, y: 50}
 
@@ -119,7 +149,8 @@ function bezierTest(tipstate, segments, spacing = 16) {
 
 }
 
-function curveSmooth(tipstate) {
+function curveSmooth(tipstate,STROKE_TEST=0) {
+
   invariant(tipstate.canvas, "can't find canvas")
   paper.project.clear();
 
@@ -130,21 +161,26 @@ function curveSmooth(tipstate) {
   };
 
   let points = [[10, 10], [20, 15], [35, 40], [50, 50], [60, 40], [55, 30], [70, 10], [75, 30], [85, 50]]
-  var myPath = new paper.Path();
 
-  myPath.strokeColor = 'black';
-  points.forEach(p =>
-    myPath.add(p))
+  let simplify = 10
+  if (STROKE_TEST)
+    strokeStampTest(points, simplify)
+  else {
+    var myPath = new paper.Path();
 
-  myPath.simplify(10)
-  myPath.fullySelected = true
+    myPath.strokeColor = 'black';
+    points.forEach(p =>
+      myPath.add(p))
+
+    myPath.simplify(simplify)
+    myPath.fullySelected = true
 
 
-  let segments = getPathSegments(myPath)
-  console.log("segments", segments)
+    let segments = getPathSegments(myPath)
+    console.log("segments", segments)
 
-  bezierTest(tipstate, segments, 5)
-
+    bezierTest(tipstate, segments, 5)
+  }
 
 }
 
@@ -181,15 +217,15 @@ let degree = 20
 
 function teststamp(tipstate) {
   let canvas = document.getElementById('silk-2');
-  let draw = new BezierDraw(canvas)
   degree += 33
-  draw.drawRotated(tipstate.canvas, 100, 50, tipstate.width, tipstate.height,
+  bezier_draw.drawRotated(tipstate.canvas, 100, 50, tipstate.width, tipstate.height,
     degree * Math.PI / 180,
     0.2)
 }
 
 function onClear() {
   paper.project.clear();
+  g_bezier_draw.clear()
 }
 
 function brush2() {
@@ -203,6 +239,7 @@ const TIP_SRC_TEST = './brush/people.png'
 
 export function DirectPaper() {
   let canvas_ref = useRef(null);
+  let overlay_ref = useRef(null)
   let textAreaRef = useRef(null);
 
 
@@ -234,42 +271,48 @@ export function DirectPaper() {
       strokeColor: new paper.Color(0, 0.9, 0.5),
       strokeWidth: 1
     };
+    g_bezier_draw = new BezierDraw(overlay_ref.current)
+    let context = overlay_ref.current.getContext("2d")
+    initBrush(context, paper)
 
-    if (tipSourceState.canvas) {
-      if (BRUSH) { // will get deleted if you click other buttons that draw another object
-        // STROKE is in BrushCanvas to test replaying the points
-        brushObject = new BrushCustomPaper(
-          {position: BRUSH_POSITION},
-          STROKE[0]
-        ); //global
-        brushObject.style = style;
-        // brushObject.selected = true;
-        // starObject.position = STAR_POSITION;
-      }
-      if (CIRCLE) {
-        var shape = new paper.Shape.Ellipse({
-          point: [20, 20],
-          size: [180, 60],
-          fillColor: "black"
-        });
-      }
-      if (CURVE) {
-        curve(tipSourceState)
-      }
 
-      if (CURVE_SMOOTH) {
-        curveSmooth(tipSourceState)
+  }, []);
+  useEffect(() => {
+      if (tipSourceState.canvas) {
+        if (BRUSH) { // will get deleted if you click other buttons that draw another object
+          // STROKE is in BrushCanvas to test replaying the points
+          brushObject = new BrushCustomPaper(
+            {position: BRUSH_POSITION},
+            STROKE[0]
+          ); //global
+          brushObject.style = style;
+          // brushObject.selected = true;
+          // starObject.position = STAR_POSITION;
+        }
+        if (CIRCLE) {
+          var shape = new paper.Shape.Ellipse({
+            point: [20, 20],
+            size: [180, 60],
+            fillColor: "black"
+          });
+        }
+        if (CURVE) {
+          curve(tipSourceState)
+        }
+
+        if (CURVE_SMOOTH) {
+          curveSmooth(tipSourceState)
+        }
+        // lines()
+        // rectangle()
       }
-      // lines()
-      // rectangle()
     }
-  }, [tipSourceState]);
-
+    , [tipSourceState.canvas])
   return (
     <div className="flex_container">
       <div>
         <div id="canvii-container" className="flex_item" style={{width: 850, height: 450}}>
-          <canvas className="tool_canvas main-canvas silk-canvas active" id="silk-2" width={800} height={400}/>
+          <canvas className="tool_canvas main-canvas silk-canvas active" id="silk-2" ref={overlay_ref}  width={800} height={400}/>
           <canvas className="tool_canvas main-canvas" id="silk-1" ref={canvas_ref} width={800} height={400}/>
         </div>
         xoxo
@@ -286,7 +329,8 @@ export function DirectPaper() {
         <br/>
         <button onClick={teststamp.bind(this, tipSourceState)}>teststamp</button>
         <br/>
-        <button onClick={curveSmooth.bind(this, tipSourceState)}>curveSmooth</button>
+        <button onClick={curveSmooth.bind(this, tipSourceState,0)}>curveSmooth0</button>
+        <button onClick={curveSmooth.bind(this, tipSourceState,1)}>curveSmooth1</button>
         <br/>
 
         <button onClick={brush2}>brush 2</button>
