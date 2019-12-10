@@ -26,11 +26,19 @@ export function AddEllipse(props) {
 }
 
 export function AddBrush(props) {
+  let brushType = props.brushType ||'brush:BrushThin'
+
+  if( brushType==='stroke:StrokeSimple')
+  {
+    debugger
+    props.smoothFactor = 10 // hardcode for now see app/brushes/StrokeSimple.js :24
+  }
+
   return {
     type: Actions.ADD_SHAPE,
     payload: {
       id: new Hashids("brush").encode(new Date().getTime()),
-      type: "brush_thin",
+      type: brushType,
       position: [0, 0], // will be overriden by props
       ...props
     }

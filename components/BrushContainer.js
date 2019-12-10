@@ -9,11 +9,13 @@ import {
 import BrushCanvas from "./BrushCanvas";
 import { _canvasWidth, _canvasHeight } from "../tconfig";
 import {AddBrush} from "./actions";
+import {SimpleStrokeComponent} from "../paper-object/SimpleStrokeCreator";
 
 const COMP_MAP = {
   rectangle: ShapeComponent,
   ellipse: ShapeComponent,
-  brush_thin: BrushComponent
+  'brush:BrushThin': BrushComponent,
+  'stroke:StrokeSimple': SimpleStrokeComponent
 };
 
 const getObjects = ({ids, shapes}) => ids.map(pathId => {
@@ -31,18 +33,15 @@ export default function BrushContainer({state, dispatch,toolStyleState}) {
   //canvasRef to clear it later
 
   // dispatch
-  const onAddBrush = ({points})=>dispatch(AddBrush({points}))
+  const onAddBrush = ({points})=>dispatch(AddBrush({brushType:toolStyleState.brushType,
+    points}))
 
-   //not yet
-  const onAddStroke= ({points})=>{debugger;//dispatch(AddBrush({points})
-     }
   return (
     <div className="canvas_container">
       <BrushCanvas className="canvas_overlay"         height={_canvasHeight}
                    width={_canvasWidth}
                    onAddBrush={onAddBrush}
                    brushType={toolStyleState.brushType}
-                   onAddStroke={onAddStroke}
                    />
       <PaperContainer
         canvasProps={{width: _canvasWidth, height: _canvasHeight, className: "main-canvas"}}

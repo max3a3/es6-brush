@@ -86,7 +86,7 @@ export default function TestPaperButtons({ state, dispatch,toolStyleState, setTo
       <Btn
         cb={n0 => {
           let object_ids = state.ids.filter(
-            id => state.shapes[id].type === "brush_thin"
+            id => state.shapes[id].type === "brush:BrushThin"
           );
           dispatch(SetStroke(_.sample(object_ids), getColor()));
         }}
@@ -101,9 +101,15 @@ export default function TestPaperButtons({ state, dispatch,toolStyleState, setTo
       />
       <Btn
         cb={_ => {
+          setToolStyle({...toolStyleState, brushType:'stroke:StrokeSimple'});
+        }}
+        name="tool->strokeSimple"
+      />
+      <Btn
+        cb={_ => {
           setToolStyle({...toolStyleState, brushType:'stroke:StrokeStamp'});
         }}
-        name="tool->stroke"
+        name="tool->strokeStamp"
       />
       tool:{toolStyleState.brushType}
       <br />
@@ -122,7 +128,14 @@ export default function TestPaperButtons({ state, dispatch,toolStyleState, setTo
           let json_value = JSON.stringify(state.shapes, undefined, 2);
           console.log(json_value);
         }}
-        name="dump"
+        name="dumpData"
+      />
+      <Btn
+        cb={_ => {
+          let json_value = JSON.stringify(toolStyleState, undefined, 2);
+          console.log(json_value);
+        }}
+        name="dumpUI"
       />
     </div>
   );

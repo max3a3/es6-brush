@@ -8,26 +8,7 @@ import BrushContainer from "./BrushContainer";
 import { INITIAL_STATE, canvasReducer } from "./reducer";
 import TipSource from "./TipSource";
 
-function getPaths({ ids, shapes }) {
-  // todo remove function bracket. see paper_demo
-  let objects = ids.map(pathId => {
-    // properties is protostage specific extraction to display , it is pathData that is from paper and passed back
 
-    const { id, ...rest } = shapes[pathId];
-    let comp;
-    const COMP_MAP = {
-      rectangle: ShapeComponent,
-      ellipse: ShapeComponent,
-      brush_thin: BrushComponent
-    };
-    return React.createElement(COMP_MAP[rest.type], {
-      key: id,
-      data: { shapeId: id },
-      ...rest
-    });
-  });
-  return objects;
-}
 const TIP_SOURCE_INITIAL_STATE = {loaded: false, width: 0, height: 0, canvas: null,
   src:null //addition for hook setting after componentdidmount
 }
@@ -38,8 +19,8 @@ export default function BrushPaperApp() {
   const [tipSourceState, setTipSource] = useState(
       TIP_SOURCE_INITIAL_STATE
   );
-  // type is brush:BrushThin  for intello,  or stroke:StrokeStamp for psyc TODO add stroke
-  const TOOL_STYLE_INITIAL_STATE = {brushType:'stroke:StrokeStamp',fill: 'solid', stroke: 'solid', strokeCO: [0, 255, 0], fillCO: [255, 0, 0]}
+  // type is brush:BrushThin  for intello,  or stroke:StrokeStamp  stroke:StrokeSimple for psyc TODO add stroke
+  const TOOL_STYLE_INITIAL_STATE = {brushType:'stroke:StrokeSimple',fill: 'solid', stroke: 'solid', strokeCO: [0, 255, 0], fillCO: [255, 0, 0]}
 
   const [toolStyleState, setToolStyle] = useState(
       TOOL_STYLE_INITIAL_STATE

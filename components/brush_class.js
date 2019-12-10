@@ -2,10 +2,11 @@ import { BrushThin } from "../brushes/BrushThin";
 import { BrushStar } from "../brushes/BrushStar";
 import { BrushSketchy } from "../brushes/BrushSketchy";
 import {StrokeStamp} from "../brushes/StrokeStamp";
+import {StrokeSimple} from "../brushes/StrokeSimple";
 import invariant from 'invariant'
 let _brushThin;
 
-let _strokeStamp;
+let _strokeStamp,_strokeSimple;
 
 //todo move this function out
 export function initBrush(context,paper_ref) {
@@ -14,6 +15,7 @@ export function initBrush(context,paper_ref) {
   // _brush = new BrushSketchy(context);
 
   _strokeStamp = new StrokeStamp(context,paper_ref)
+  _strokeSimple = new StrokeSimple(context,paper_ref)
 }
 
 export default function getBrush(brush_type) {
@@ -22,6 +24,8 @@ export default function getBrush(brush_type) {
     return _brushThin;
   if (brush_type==='stroke:StrokeStamp')
     return _strokeStamp;
+  if (brush_type==='stroke:StrokeSimple')
+    return _strokeSimple;
 
   invariant(0,`wrong value ${brush_type}`)
 }
