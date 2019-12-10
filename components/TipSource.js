@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import invariant from 'invariant'
+import getBrush from "./brush_class";
 
 //todo remove set the canvas style a, b is the start and end
 function style(c, style, type, a, b,toolStyleState) {
@@ -49,7 +51,7 @@ export default class TipSource extends Component {
       setTipSource({...tipSourceState, loaded:false});
       this.src = v
 
-      debugger //rename co_stamp_image
+      // debugger //rename co_stamp_image
       let co_stamp_image = new Image();
       co_stamp_image.src = v;
       co_stamp_image.onload = _=>{
@@ -61,7 +63,7 @@ export default class TipSource extends Component {
         //todo what is n for  we are scaling it down for stamp, and not for calligraphy
         let n = this.scale / 100
 
-        debugger//  rename i
+        // debugger//  rename i
         let i = co_stamp_image
 
         let o = {
@@ -96,9 +98,19 @@ export default class TipSource extends Component {
     }
 
   }
+  componentDidMount() {
+    invariant (this.canvasRef.current,'cant find canvas')
+      this.loadStampImage(this.props.image_src)
+
+  }
+  componentDidUpdate(prevProps) {
+    // handles when the app change the active brush
+    if (this.props.image_src !== prevProps.image_src) {
+      this.loadStampImage(this.props.image_src)
+    }
+  }
 
   render() {
-    this.loadStampImage(this.props.image_src)
     // max radius is 100, so max brush is 200
     return (
       <canvas

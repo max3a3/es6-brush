@@ -1,3 +1,5 @@
+import Actions from "./action_type";
+
 export const INITIAL_STATE = {
   ids: [],
   shapes: {}
@@ -6,12 +8,12 @@ export const INITIAL_STATE = {
 export function canvasReducer(state, action) {
   let shapes
   switch (action.type) {
-    case "ADD_SHAPE": //ADD concat to  ids and shapes
+    case Actions.ADD_SHAPE: //ADD concat to  ids and shapes
       let ids = state.ids.concat(action.payload.id);
       shapes = {...state.shapes, [action.payload.id]: action.payload}; // flatten it
 
       return {...state, ids, shapes};
-    case "SET_PROP":
+    case Actions.SET_PROP:
       let old_shapes = state.shapes;
       let {id, prop} = action.payload;
       shapes = {

@@ -1,0 +1,148 @@
+
+what is passed from react, become custom property
+
+point
+
+simplify
+   can do this at react level? no, as need to create the path
+
+   the canvas manipulation of the tip can be done there
+
+   just pass settings like spacing, randomness,  as options parameter with default value if missing the parameter
+
+
+
+BrushPaperApp  state is the data state
+
+add
+
+toolState ?
+
+different tree for tool and data
+
+
+is toolstate
+
+tipsourcestate
+
+
+how is the prop gui used in sketchpad
+
+---
+
+we were using brush canvas before as a template
+
+because we only create on the data
+
+so for grouped curve, it is idfferent
+
+
+try to have another canvas for stroke so can refactro brushcanvas into strokecanvas
+
+
+the idea is a preview canvas that gets hook to different brush engine
+
+as you draw pass to the drawer , the drawer obhejct doesn't create data but access the context
+ afgterward the drawer return the last stroke
+
+ the last stroke is passed to paper, via action!
+
+ and the drawer is also used by the react paper
+    there is other program that use preview and paint canvas like weavesilk or sketchpad
+
+because we have to pass the point to react-paper
+  and we don't want to polutte the paint canvas?
+
+  so use a preview canvas still paperjs to create the path.simplify and draw it, should also be faster if
+    paint canvas has lots of object so we don't keep causing a redraw on that
+
+
+TODO
+
+add option on BrushCanvas so it is paper ready
+
+use another state for toools
+
+on this prototype we use different useState for different state isntead of one tree like redux
+
+
+TODO brushcanvas rewrite
+
+ it has brush in there
+
+ what is brush interface
+
+ setContext(context,paper)  // add paper as context is used in demo, while paper is used for other brush
+
+ beginStroke
+ doStroke  // called from mousemove  with current x,y  class is responsible for keeping record of last x,y
+ endStroke
+ draw
+
+
+--
+
+passing the prop, always one tip canvas?
+  prop:
+    smooth
+    tipcanvas  [obejct with tip dimension?
+
+    spacing
+
+goal is to have the preview drawing in
+
+  it is on the brush object
+
+  how to reuse this in the paper object or in the react object
+    same param in prop?
+
+ current prop, future?
+  tip
+  scale opacity  fill
+
+  stroke
+  spacing,  random? need to see psyk
+
+  need to enclose it in the brush subclass first before going to react
+    LOTS of unknown
+
+
+>>
+need to write another paper.path object so simplify only for drawing not destroying its point
+
+need original point to add to simplify, or can optimize it later
+
+    but for memory thrasing concern just do simple point caching on the paper object level
+
+Path
+  setsegments
+
+  have _segments
+
+  need to add method for simplify() as this one return the segments
+    and we draw on original scemgne
+
+    used PathFitter
+       initialize()  cache the points save it in this.points
+
+
+  also extract out pathfitter for just the fit() that return new segments
+    pathfitter should work on original segments, can just munge the field
+
+    so we keep _origSegment  _drawSegment and swithc the _segments appropriately
+
+
+  simplifyDraw
+     function(tolerance) {
+
+             var segments = new PathFitter(this).fit(tolerance || 2.5);
+             if (segments)
+                 this.setSegments(segments);
+             return !!segments;
+         },
+
+--
+from
+
+brush_thin to
+brush:BrushThin

@@ -1,13 +1,13 @@
 import paper from "paper";
 import _ from "lodash";
-import { BrushThin } from "../brushes/BrushThin";
+import {BrushThin} from "../brushes/BrushThin";
 import Change from "./ChangeFlag"; // from paperjs
 
 // props are array of array for now
 //  points
 
 let BrushCustomPaper = paper.Item.extend(
-  /** @lends Shape# */ {
+  {
     _class: "BrushCustom",
     _applyMatrix: false,
     _canApplyMatrix: false,
@@ -17,26 +17,24 @@ let BrushCustomPaper = paper.Item.extend(
     initialize: function BrushCustom(props = {}, points = null, point = null) {
       //point is for initial value for translate,
       //  or pass in props.position
+      if (!props.points) props.points = []; // make sure there is points array
       this._initialize(props, point); //todo  point has to be set, or there is in props.position
       this.brush = new BrushThin();
-      if (!points) points = props.points;
-      if (!points) points = [];
-      this.setPoints(points);
     },
 
-    setPoints: function(opt) {
+    setPoints: function (points) {// this is fake prop
       //<---   prop change
-      // pass down option object
-      this._points = opt; // cache for getOptions call
+      // pass down points object
+      this._points = points; // cache for getOptions call
 
       this._changed(/*#=*/ Change.GEOMETRY);
     },
-    getPoints: function() {
+    getPoints: function () {
       //<---   prop getter
       return this._points;
     },
 
-    _draw: function(ctx, param, viewMatrix, strokeMatrix) {
+    _draw: function (ctx, param, viewMatrix, strokeMatrix) {
       let s = this._points; // the point array
       let brushColor = this.strokeColor;
       let brushSize = this.strokeWidth; //get from style

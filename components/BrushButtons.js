@@ -26,7 +26,7 @@ function getColor() {
   // return COLORS[colorIndex];
   return _.sample(COLORS);
 }
-export default function TestPaperButtons({ state, dispatch, paperRef }) {
+export default function TestPaperButtons({ state, dispatch,toolStyleState, setToolStyle }) {
   return (
     //todo add size param
     <div>
@@ -75,23 +75,43 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
         cb={_ => {
           dispatch(AddBrush({ points: STROKE[0] }));
         }}
-        name="brush 1"
+        name="add brush 1"
       />
       <Btn
         cb={_ => {
           dispatch(AddBrush({ points: STROKE[1] }));
         }}
-        name="brush 2"
+        name="add brush 2"
       />
       <Btn
         cb={n0 => {
           let object_ids = state.ids.filter(
-            id => state.shapes[id].type === "brush_thin"
+            id => state.shapes[id].type === "brush:BrushThin"
           );
           dispatch(SetStroke(_.sample(object_ids), getColor()));
         }}
         name="color_brush"
       />
+      <br />
+      <Btn
+        cb={_ => {
+          setToolStyle({...toolStyleState, brushType:'brush:BrushThin'});
+        }}
+        name="tool->brush"
+      />
+      <Btn
+        cb={_ => {
+          setToolStyle({...toolStyleState, brushType:'stroke:StrokeSimple'});
+        }}
+        name="tool->strokeSimple"
+      />
+      <Btn
+        cb={_ => {
+          setToolStyle({...toolStyleState, brushType:'stroke:StrokeStamp'});
+        }}
+        name="tool->strokeStamp"
+      />
+      tool:{toolStyleState.brushType}
       <br />
       {/*test bound on brush object*/}
       <Btn
@@ -108,7 +128,14 @@ export default function TestPaperButtons({ state, dispatch, paperRef }) {
           let json_value = JSON.stringify(state.shapes, undefined, 2);
           console.log(json_value);
         }}
-        name="dump"
+        name="dumpData"
+      />
+      <Btn
+        cb={_ => {
+          let json_value = JSON.stringify(toolStyleState, undefined, 2);
+          console.log(json_value);
+        }}
+        name="dumpUI"
       />
     </div>
   );
