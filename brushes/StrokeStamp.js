@@ -5,7 +5,7 @@ import {_globalLineWidth, BrushBase} from "./BrushBase";
 import invariant from 'invariant'
 export class StrokeStamp extends BrushBase {
 
-  constructor(context, paper_ref) {
+  constructor(context, paper_ref) {  // *** not working yet, see pmain about stamping on top of a curve, for working see StrokeSimple
     super(context, paper_ref);
     this.path = null
 
@@ -23,10 +23,11 @@ export class StrokeStamp extends BrushBase {
     points.forEach(p => this.path.add(new this.paper.Point(p)))
   }
 
-  beginStroke(color, size, symmetry, mouseX, mouseY, shadow = false) {
+  beginStroke(color, size, symmetry, mouseX, mouseY, shadow = false,options) {
+    this.options = {color:'black',...options}  // assign default in the first parts
     this.path = new this.paper.Path();
-    this.path.strokeColor = 'black';  //todo set style properly from app state
-
+    this.path.strokeColor = this.options.color;
+    this.path.add(new this.paper.Point(mouseX, mouseY))
   }
 
   doStroke(mouseX, mouseY) {
