@@ -3,6 +3,7 @@ import Slider from "react-input-slider";
 import {updateKey} from "./actions";
 import {TOOLS} from "./sketch_config";
 import _ from 'lodash'
+import {vars} from "../sketch_utils/settings";
 
 function TestSlider() {
   const [state, setState] = useState({x: 10, y: 10});
@@ -57,6 +58,14 @@ const TYPE_SLIDER = {
   }
 
 }
+function dumpStore(state) {
+  let json_value = JSON.stringify(state, undefined, 2)
+  console.log(json_value)
+}
+function dumpVars() {
+  let json_value = JSON.stringify(vars, undefined, 2)
+  console.log(json_value)
+}
 export default function SketchControls({state, dispatch}) {
   const SetTypeBtn = ({name}) =>
     <button onClick={_ => {
@@ -64,10 +73,16 @@ export default function SketchControls({state, dispatch}) {
     }
     }>{name}</button>;
 
+  // supposed to change the stamp index from selected stamp folder?
   let stamp_buttons = _.range(3).map((n) =>
-    <button key={n} onClick={x => 0}>stamp_{n}</button>
+    <button key={n} onClick={x => 0}>notyet stamp_{n}</button>
   )
 
+
+  let dump_buttons = <Fragment>
+    <button onClick={dumpStore.bind(this,state)}>dumpState</button>
+    <button onClick={dumpVars}>dumpVars</button>
+  </Fragment>
   let tools_specific = Object.keys(TYPE_SLIDER[state.type]).map((m, i) =>
     <StateSlider stateKey={m} key={i} state={state} dispatch={dispatch}/>
   )
@@ -76,6 +91,7 @@ export default function SketchControls({state, dispatch}) {
   return (<div>
     tools: {state.type}<br/>
     {tools_button}<br/>
+    {dump_buttons}<br/>
     {stamp_buttons}<br/>
     {tools_specific}
   </div>)
