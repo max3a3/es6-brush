@@ -80,4 +80,69 @@ TODO brushcanvas rewrite
  draw
 
 
+--
 
+passing the prop, always one tip canvas?
+  prop:
+    smooth
+    tipcanvas  [obejct with tip dimension?
+
+    spacing
+
+goal is to have the preview drawing in
+
+  it is on the brush object
+
+  how to reuse this in the paper object or in the react object
+    same param in prop?
+
+ current prop, future?
+  tip
+  scale opacity  fill
+
+  stroke
+  spacing,  random? need to see psyk
+
+  need to enclose it in the brush subclass first before going to react
+    LOTS of unknown
+
+
+>>
+need to write another paper.path object so simplify only for drawing not destroying its point
+
+need original point to add to simplify, or can optimize it later
+
+    but for memory thrasing concern just do simple point caching on the paper object level
+
+Path
+  setsegments
+
+  have _segments
+
+  need to add method for simplify() as this one return the segments
+    and we draw on original scemgne
+
+    used PathFitter
+       initialize()  cache the points save it in this.points
+
+
+  also extract out pathfitter for just the fit() that return new segments
+    pathfitter should work on original segments, can just munge the field
+
+    so we keep _origSegment  _drawSegment and swithc the _segments appropriately
+
+
+  simplifyDraw
+     function(tolerance) {
+
+             var segments = new PathFitter(this).fit(tolerance || 2.5);
+             if (segments)
+                 this.setSegments(segments);
+             return !!segments;
+         },
+
+--
+from
+
+brush_thin to
+brush:BrushThin

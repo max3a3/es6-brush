@@ -70,6 +70,8 @@ function curve(tipstate) {
   bezierTest(tipstate, segments)
 }
 
+// test brushes/StrokeStamp.js  this is obsolete as we are not using intello api to preview brush stroke but moving to
+// react paper Tool api
 function strokeStampTest(points, simplify, spacing = 8) {
   let brush = getBrush('stroke:StrokeStamp')
 

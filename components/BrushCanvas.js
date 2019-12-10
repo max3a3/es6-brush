@@ -114,7 +114,7 @@ export default class BrushCanvas extends Component {
     );
     this.isDrawing = true;
 
-    this.brushCache.length = 0;
+    this.brushCache.length = 0; // cache the mouse points when drawing to pass to react data
     this.brushCache.push([x, y]);
   };
 
