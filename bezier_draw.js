@@ -9,6 +9,7 @@ export default class BezierDraw {
 clear() {
 
   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  return this
   }
 getCtx() {
   let ctx = this.ctx // class conversion

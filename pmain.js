@@ -96,14 +96,15 @@ function strokeStampTest(points, simplify, spacing = 8) {
 }
 
 
-function bezierTest(tipstate, segments, spacing = 16)
+function bezierTest(tipstate, segments, spacing = 16,drawCurve=false)
 //old direct version, should use strokeStampTest to encapsulate and share the code with react-paper
 {
 
   let canvas = document.getElementById('silk-2');
   let draw = g_bezier_draw.clear()
 
-  let drawOffset = {x: 0, y: 50}
+  let drawOffset = {x: 0, y: 70}
+  let stamp_offset_y = 30
 
   segments.forEach((s, i) => {
     var curve = new Bezier(s[0], s[1], s[2], s[3]);
@@ -111,7 +112,8 @@ function bezierTest(tipstate, segments, spacing = 16)
     // draw.drawSkeleton(curve);
 
     // draw curve using 2d context
-    // draw.drawCurve(curve,drawOffset);
+    if (drawCurve)
+      draw.drawCurve(curve,{x:drawOffset.x,y:drawOffset.y+20});
     var d = 8; // normal line distance
 
     // We want a range from 0 to 1 inclusive, so
@@ -127,7 +129,7 @@ function bezierTest(tipstate, segments, spacing = 16)
 
       draw.drawCircle(pt, 2, drawOffset)
       let angle = Math.atan2(nv.y, nv.x) //radian
-      draw.drawRotated(tipstate.canvas, pt.x, pt.y, tipstate.width, tipstate.height,
+      draw.drawRotated(tipstate.canvas, pt.x, pt.y+stamp_offset_y, tipstate.width, tipstate.height,
         angle,
         0.2)
 
@@ -179,7 +181,7 @@ function curveSmooth(tipstate,STROKE_TEST=0) {
     let segments = getPathSegments(myPath)
     console.log("segments", segments)
 
-    bezierTest(tipstate, segments, 5)
+    bezierTest(tipstate, segments, 5,true)
   }
 
 }
