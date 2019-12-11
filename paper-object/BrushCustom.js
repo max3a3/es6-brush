@@ -18,7 +18,7 @@ let BrushCustomPaper = paper.Item.extend(
       //point is for initial value for translate,
       //  or pass in props.position
       if (!props.points) props.points = []; // make sure there is points array
-      this._initialize(props, point); //todo  point has to be set, or there is in props.position
+      this._initialize(props); //todo  point has to be set, or there is in props.position
       this.brush = new BrushThin();
     },
 

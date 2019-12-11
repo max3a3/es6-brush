@@ -20,7 +20,7 @@ export default function BrushPaperApp() {
       TIP_SOURCE_INITIAL_STATE
   );
   // type is brush:BrushThin  for intello,  or stroke:StrokeStamp  stroke:StrokeSimple for psyc TODO add stroke
-  const TOOL_STYLE_INITIAL_STATE = {brushType:'stroke:StrokeSimple',fill: 'solid', stroke: 'solid', strokeCO: [0, 255, 0], fillCO: [255, 0, 0]}
+  const TOOL_STYLE_INITIAL_STATE = {brushType:'brush:BrushThin',fill: 'solid', stroke: 'solid', strokeCO: [0, 255, 0], fillCO: [255, 0, 0]}
 
   const [toolStyleState, setToolStyle] = useState(
       TOOL_STYLE_INITIAL_STATE

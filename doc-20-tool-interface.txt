@@ -1,0 +1,42 @@
+tied to tool type
+
+have different tool, and its prop controlled by ui
+
+    the ui tree state should be here?
+
+just pass all prop of created object and type to action?
+
+
+tool has the refs
+
+activate the ref
+
+it has the local pt pass it on to brush
+
+it has the mouse events
+
+BrushCanvas
+
+ see papereditor
+
+todo:
+  test brushthin tool working
+
+ > hardcode install brushthintool in brushcanvas.render()
+
+
+
+bug: (only wanring for now in react)
+ Warning: Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+because we have two papercontainer
+  but they share the same tree (same context?)
+     what is the root context? it is the function BrushContainer
+
+   we need the same context for state to be passed tho
+
+  look into not using papercontainer? just direct paper
+   with manual tool support
+
+   we use papercontainer on the tool preview canvas because of
+     automatic prop propagation
+

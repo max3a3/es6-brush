@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 
 import CustomRenderer from "../paper-object/CustomRenderer";
 import {ShapeComponent} from "../paper-object/ShapeCreator";
@@ -7,7 +7,7 @@ import {
   PaperContainer,
 } from "@psychobolt/react-paperjs";
 import BrushCanvas from "./BrushCanvas";
-import { _canvasWidth, _canvasHeight } from "../tconfig";
+import {_canvasWidth, _canvasHeight} from "../tconfig";
 import {AddBrush} from "./actions";
 import {SimpleStrokeComponent} from "../paper-object/SimpleStrokeCreator";
 
@@ -29,20 +29,25 @@ const getObjects = ({ids, shapes}) => ids.map(pathId => {
   });
 });
 
-export default function BrushContainer({state, dispatch,toolStyleState}) {
+export default function BrushContainer({state, dispatch, toolStyleState}) {
   //canvasRef to clear it later
 
   // dispatch
-  const onAddBrush = ({points})=>dispatch(AddBrush({brushType:toolStyleState.brushType,
-    points}))
+  const onAddBrush = ({points}) => dispatch(AddBrush({
+    brushType: toolStyleState.brushType,
+    points
+  }))
 
   return (
     <div className="canvas_container">
-      <BrushCanvas className="canvas_overlay"         height={_canvasHeight}
+      <BrushCanvas className="canvas_overlay" height={_canvasHeight}
                    width={_canvasWidth}
+                   // todo onAddbursh is obsolete, tool access dispatch direclty
                    onAddBrush={onAddBrush}
                    brushType={toolStyleState.brushType}
-                   />
+                   state={state}
+                   dispatch={dispatch}
+      />
       <PaperContainer
         canvasProps={{width: _canvasWidth, height: _canvasHeight, className: "main-canvas"}}
         renderer={CustomRenderer}

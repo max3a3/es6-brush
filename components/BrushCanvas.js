@@ -1,4 +1,4 @@
-import {Component, Fragment} from "react";
+import {Component, Fragment, useRef,createRef} from "react";
 import React from "react";
 import invariant from "invariant";
 
@@ -6,6 +6,12 @@ import getBrush, {initBrush} from "./brush_class";
 import {_canvasWidth, _canvasHeight} from "../tconfig";
 import _ from 'lodash'
 import paper from "paper";
+import {TOOLS} from '../config'
+
+import {
+  PaperContainer,
+} from "@psychobolt/react-paperjs";
+import {getTool} from "./getTool";
 
 export let STROKE = [];
 STROKE[0] = [
@@ -56,9 +62,25 @@ export default class BrushCanvas extends Component {
     this.shadow = false;
 
     this.brushCache = []; //todo see particle demo sketchjs how to preload array
+    this.paperJsRef = createRef()
+
+    let {state,dispatch} = this.props
+    debugger// check vars state,dispatch
+    this.toolsRef = {}
+    TOOLS.forEach(t=>this.toolsRef[t]=createRef())
+    let toolProp = this.getToolProp()
+    this.tool_components = TOOLS.map((tool, i)=>
+       getTool(tool, i, this.toolsRef[tool],toolProp)
+    )
+  }
+  getToolProp()
+  {
+    let {state,dispatch,brushType} = this.props
+
+    return {state,dispatch,brushType}
   }
 
-  componentDidMount() {
+  componentDidMountX() {// old one uses canvas
     invariant(this.canvasRef.current, "ref not inited");
     let context = this.canvasRef.current.getContext("2d");
     invariant(context, "no context");
@@ -70,15 +92,37 @@ export default class BrushCanvas extends Component {
 
     this.brush = getBrush(this.props.brushType);
 
+
+
+  }
+  componentDidMount() { // new one uses paper contaioner
+    invariant(this.paperJsRef.current, "ref not inited");
+    debugger//find context
+    let context = this.paperJsRef.current.canvas.current.getContext('2d')
+    initBrush(context, this.paperJsRef.current);
+
+    let toolProp = this.getToolProp() //todo this is a duplicated in componentDidMount
+/*    TOOLS.map(t=>{
+      let ttt = this.toolsRef[t].current
+      debugger
+      this.toolsRef[t].current.setup(toolProp)
+    })
+*/
   }
 
-
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) { //todo: obsolete with Tool api
     // handles when the app change the active brush
     if (this.props.brushType !== prevProps.brushType) {
       this.brush = getBrush(this.props.brushType);
+/*
+      //todo mimic componentDidUpdate flow for Tool component too
+      debugger
+      let toolProp = this.getToolProp()
+      TOOLS.map(t=>this.toolsRef[t].current.setup(toolProp))
+  */
     }
   }
+
   replayStroke(i) {
     let s = STROKE[i];
     invariant(s.length, "index invalid");
@@ -164,7 +208,7 @@ export default class BrushCanvas extends Component {
     }
   };
 
-  render() {
+  renderx() {
     let _class = this.props.className || "main-canvas"
     return (
       <canvas
@@ -181,6 +225,18 @@ export default class BrushCanvas extends Component {
         onTouchCancel={this.mouseUp}
       />
     );
+  }
+
+  // use paper container or manual has paper
+  render() {
+    let _class = this.props.className || "main-canvas"
+    return <PaperContainer
+      ref={this.paperJsRef}
+      canvasProps={{className: _class, width: 800, height: 600}}
+    >
+      {this.tool_components}
+    </PaperContainer>
+
   }
 }
 

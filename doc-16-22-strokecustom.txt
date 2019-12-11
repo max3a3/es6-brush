@@ -146,3 +146,6 @@ from
 
 brush_thin to
 brush:BrushThin
+---
+
+continue on  22 fnish stroke stamp paper object like brushthin
