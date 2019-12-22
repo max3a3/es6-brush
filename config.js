@@ -1,7 +1,7 @@
 import keyMirror from "./key-mirror";
 export const TOOL_TYPE = keyMirror({
-    BRUSH_THIN: null,
     STROKE_SIMPLE: null,
+    BRUSH_THIN: null,
     // CIRCLE: null,
     // RECTANGLE:null,
     // TRANSFORM:null,

@@ -1,12 +1,11 @@
 // @flow
 import React from 'react';
-import * as ReactPaperJS from '@psychobolt/react-paperjs';
+import {Tool, PaperScope} from '@psychobolt/react-paperjs';
 import paper from "paper";
 import getBrush, {initBrush} from "../brushes/brush_class";
 import {AddBrush} from "../components/actions";
 import _ from 'lodash'
 import invariant from "invariant";
-const {Tool, PaperScope} = ReactPaperJS;
 const MOUSE_LEFT_CODE = 0;
 
 const no_op = () => {
