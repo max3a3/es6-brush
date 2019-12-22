@@ -40,7 +40,8 @@ do *proper prop passing down* to Tool as pathProp,
           just simple rectangle tool is ok
 
 do rectangle tool , sketchjs has it
-
+  move it out from old place and new ways, -> tool call dispatch directly 
+  
 do another brush, we reuse the brushthin just use inner different brush
 
 

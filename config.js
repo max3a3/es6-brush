@@ -1,11 +1,10 @@
 import keyMirror from "./key-mirror";
 export const TOOL_TYPE = keyMirror({
-    STROKE_SIMPLE: null,
-    BRUSH_THIN: null,
-    // CIRCLE: null,
-    // RECTANGLE:null,
-    // TRANSFORM:null,
-    // SELECT:null,
-
-})
-export const TOOLS = Object.keys(TOOL_TYPE)
+  STROKE_SIMPLE: null,
+  // BRUSH_THIN: null
+  // CIRCLE: null,
+  // RECTANGLE:null,
+  // TRANSFORM:null,
+  // SELECT:null,
+});
+export const TOOLS = Object.keys(TOOL_TYPE);
