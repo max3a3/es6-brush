@@ -20,15 +20,37 @@ BrushCanvas
  see papereditor
 
 todo:
-  test brushthin tool working
 
- > hardcode install brushthintool in brushcanvas.render()
+  hardcode install brushthintool in brushcanvas.render() OK have getTool
+ test brushthin tool working OK
+
+  switch tool depending on buttoin click there is toolType?
+    brushtool in sketchjjks
+
+add simplestroke tool, use like other path brush tool
+
+do a console to see that we are not redrawing the data   simplestroke when adding new stroke
+     console spit out the id of the object simplestroke redraw
+
+do *proper prop passing down* to Tool as pathProp,
+        currently we have a getToolProp function
+
+   >> swithc to paper-demo and cliean that up, also protoype
+      sketchjs already have paperjs code in it to test ? with multiple paper container
+          just simple rectangle tool is ok
+
+do rectangle tool , sketchjs has it
+
+do another brush, we reuse the brushthin just use inner different brush
 
 
 
 bug: (only wanring for now in react)
  Warning: Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
 because we have two papercontainer
+    [fixed with same renderer object when creating papercontainer patch of reactpaper
+      D:\work\drawing-samples\sketchjs-local\app\react-paperjs\Paper.provider.js]
+
   but they share the same tree (same context?)
      what is the root context? it is the function BrushContainer
 
@@ -39,4 +61,5 @@ because we have two papercontainer
 
    we use papercontainer on the tool preview canvas because of
      automatic prop propagation
+
 

@@ -7,7 +7,7 @@ import BezierDraw from "./bezier_draw";
 import TipSource from "./components/TipSource";
 import _ from 'lodash'
 import invariant from 'invariant'
-import getBrush, {initBrush} from "./components/brush_class";
+import getBrush, {initBrush} from "./brushes/brush_class";
 import Bezier from 'bezier-js'
 
 // import Bezier from "./bezier-js-src/bezier";  to debug the source

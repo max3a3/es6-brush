@@ -2,7 +2,7 @@ import {Component, Fragment, useRef,createRef} from "react";
 import React from "react";
 import invariant from "invariant";
 
-import getBrush, {initBrush} from "./brush_class";
+import getBrush, {initBrush} from "../brushes/brush_class";
 import {_canvasWidth, _canvasHeight} from "../tconfig";
 import _ from 'lodash'
 import paper from "paper";

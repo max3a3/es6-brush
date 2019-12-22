@@ -2,7 +2,6 @@ import { Component } from "react";
 import React from "react";
 import invariant from "invariant";
 
-import getBrush, { initBrush } from "./brush_class";
 import { _canvasWidth, _canvasHeight } from "../tconfig";
 
 export default class WidgetCanvas extends Component {

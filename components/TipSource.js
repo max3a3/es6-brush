@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import invariant from 'invariant'
-import getBrush from "./brush_class";
 
 //todo remove set the canvas style a, b is the start and end
 function style(c, style, type, a, b,toolStyleState) {

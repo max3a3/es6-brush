@@ -1,4 +1,4 @@
-import getBrush from "./brush_class";
+import getBrush from "../brushes/brush_class";
 let _mouseLBDown = false;
 let _brushColor = "red";
 let _brushSize = 2;

@@ -1,6 +1,6 @@
 import $ from "jquery";
 import { onCanvasMouseDown } from "./components/mouse_handler";
-import { initBrush } from "./components/brush_class";
+import { initBrush } from "./brushes/brush_class";
 import { initTransformModes } from "./symmetry";
 import { _canvasWidth, _canvasHeight } from "./tconfig";
 
